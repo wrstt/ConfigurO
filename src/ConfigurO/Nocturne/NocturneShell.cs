@@ -1,6 +1,9 @@
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Reflection;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ConfigurO
@@ -88,9 +91,39 @@ namespace ConfigurO
             BackColor = NocturneTheme.Bg;
             MinimumSize = NocturneScale.S(NocturneTheme.WindowMinimumSize);
             KeyPreview = true;
+            Icon = AppIcon();
 
             NocturneTheme.Changed += OnThemeChanged;
             NocturneWheelRouter.Install();
+        }
+
+        /// <summary>
+        /// The application icon, for the taskbar button, Alt-Tab and the window
+        /// menu.
+        ///
+        /// ApplicationIcon in the project file only sets the icon Explorer
+        /// shows on the .exe; a Form still shows the generic WinForms icon
+        /// unless it is given one. The shell was never given one, so the app
+        /// looked unbranded everywhere Windows represents a running window --
+        /// which is most of the places a user sees it.
+        /// </summary>
+        static Icon AppIcon()
+        {
+            try
+            {
+                Assembly asm = Assembly.GetExecutingAssembly();
+                string name = asm.GetManifestResourceNames()
+                                 .FirstOrDefault(n => n.EndsWith(".ico", StringComparison.OrdinalIgnoreCase));
+                if (name != null)
+                    using (Stream s = asm.GetManifestResourceStream(name))
+                        if (s != null) return new Icon(s);
+            }
+            catch (Exception ex) { Logger.LogError("NocturneShell.AppIcon", ex.Message, ex.StackTrace); }
+
+            // Falls back to the icon on the running executable, which is the
+            // same artwork by another route.
+            try { return Icon.ExtractAssociatedIcon(Application.ExecutablePath); }
+            catch { return null; }
         }
 
         protected void InstallTitleBar(NTitleBar bar)

@@ -237,7 +237,13 @@ namespace ConfigurO
         void OnClosing(object sender, FormClosingEventArgs e)
         {
             OptionsHelper.SaveSettings();
-            if (_tray != null) _tray.Visible = false;
+
+            // Disposed, not just hidden. A NotifyIcon that is only made
+            // invisible can leave its slot in the notification area behind
+            // until something makes Windows repaint it -- the icon is gone but
+            // the gap it occupied answers the mouse. Disposing removes it now.
+            if (_tray != null) { _tray.Visible = false; _tray.Dispose(); _tray = null; }
+            if (_trayMenu != null) { _trayMenu.Dispose(); _trayMenu = null; }
         }
 
         protected override void OnLayout(LayoutEventArgs e)

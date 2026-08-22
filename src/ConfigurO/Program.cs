@@ -94,12 +94,22 @@ namespace ConfigurO
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // Anything thrown on the UI thread reaches Fatal rather than
+            // WinForms' own dialog. Left to itself WinForms catches the
+            // exception, shows a dialog and *keeps the message loop running* --
+            // so a failure during startup left a process alive with no window,
+            // still holding the single-instance mutex. Every later launch then
+            // reported the app was already running, and nothing would open
+            // again until the stale process was killed by hand.
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.ThreadException += (s, e) => Fatal("Application.ThreadException", e.Exception);
+
             // single-instance mechanism
             MUTEX = new Mutex(true, MUTEX_GUID, out _notRunning);
 
             if (!_notRunning)
             {
-                MessageBox.Show(_alreadyRunningMsg, "ConfigurO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (AlreadyRunning()) return;
                 Environment.Exit(0);
                 return;
             }
@@ -110,7 +120,20 @@ namespace ConfigurO
                 ProcessStartInfo p = new ProcessStartInfo(file);
                 p.Verb = "runas";
                 p.Arguments = string.Join(" ", switches);
-                Process.Start(p);
+
+                // Hand the mutex back before the elevated copy starts, not
+                // after. This process acquired it a moment ago and is about to
+                // exit; the elevated child races it for the same name, and if
+                // it wins that race it sees the mutex held by its own parent
+                // and reports the app is already running. Nothing then opens.
+                ReleaseMutex();
+
+                try { Process.Start(p); }
+                catch (System.ComponentModel.Win32Exception)
+                {
+                    // The user dismissed the elevation prompt. That is a
+                    // decision, not a fault: leave without a stack trace.
+                }
                 Environment.Exit(0);
                 return;
             }
@@ -297,8 +320,82 @@ namespace ConfigurO
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Exception error = (Exception)e.ExceptionObject;
-            Logger.LogError("Program.Main-UnhandledException", error.Message, error.StackTrace);
+            Fatal("Program.Main-UnhandledException", e.ExceptionObject as Exception);
+        }
+
+        /// <summary>
+        /// Reports a startup or runtime failure and ends the process.
+        ///
+        /// The logging used to be the whole of it: the handler wrote a line and
+        /// returned, which left the process running with no window and the
+        /// single-instance mutex still held, so the app could not be started
+        /// again. Failing has to be visible and it has to release the mutex.
+        /// </summary>
+        internal static void Fatal(string where, Exception ex)
+        {
+            try { Logger.LogError(where, ex == null ? "(none)" : ex.Message,
+                                  ex == null ? string.Empty : ex.StackTrace); }
+            catch { }
+
+            try
+            {
+                MessageBox.Show(
+                    "ConfigurO could not start.\n\n" +
+                    (ex == null ? "Unknown error." : ex.Message) +
+                    "\n\nDetails were written to:\n" + CoreHelper.CoreFolder + "ConfigurO.log",
+                    "ConfigurO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch { }
+
+            ReleaseMutex();
+            Environment.Exit(1);
+        }
+
+        /// <summary>Gives up the single-instance mutex, if this process holds it.</summary>
+        internal static void ReleaseMutex()
+        {
+            try { if (MUTEX != null && _notRunning) MUTEX.ReleaseMutex(); }
+            catch { }
+            try { if (MUTEX != null) MUTEX.Close(); }
+            catch { }
+            _notRunning = false;
+        }
+
+        /// <summary>
+        /// The other instance may not be a working one. A crash during startup
+        /// can leave a process alive with no window, and before this the only
+        /// way out was Task Manager: the dialog said the app was already
+        /// running and there was nothing to do about it. Offering to restart
+        /// makes that recoverable from the app itself.
+        /// </summary>
+        /// <returns>true when a fresh copy was started.</returns>
+        private static bool AlreadyRunning()
+        {
+            DialogResult answer = MessageBox.Show(
+                _alreadyRunningMsg + "\n\n" +
+                "If ConfigurO is not responding, or no window appeared, choose Restart to close it and start again.",
+                "ConfigurO", MessageBoxButtons.YesNo, MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button2);
+
+            if (answer != DialogResult.Yes) return false;
+
+            Process me = Process.GetCurrentProcess();
+            foreach (Process other in Process.GetProcessesByName(me.ProcessName))
+            {
+                if (other.Id == me.Id) continue;
+                try { other.Kill(); other.WaitForExit(5000); }
+                catch (Exception ex) { Logger.LogError("Program.AlreadyRunning-Kill", ex.Message, ex.StackTrace); }
+                finally { other.Dispose(); }
+            }
+
+            // This process never owned the mutex -- it failed to acquire it --
+            // so there is nothing to release here. The name frees as the stale
+            // process dies, and the fresh copy takes it normally.
+            try { Process.Start(new ProcessStartInfo(Application.ExecutablePath)); }
+            catch (Exception ex) { Logger.LogError("Program.AlreadyRunning-Restart", ex.Message, ex.StackTrace); }
+
+            Environment.Exit(0);
+            return true;
         }
 
         private static void LoadSettings()
@@ -340,8 +437,13 @@ namespace ConfigurO
             }
             catch (Exception ex)
             {
-                Logger.LogError("Program.Main-LoadSettings", ex.Message, ex.StackTrace);
-                Environment.Exit(0);
+                // Was: log it and Environment.Exit(0). Exiting zero, with
+                // nothing shown, is indistinguishable from the app declining to
+                // start for no reason -- double-click, nothing happens, no
+                // window, no message, and the only trace a line in a log file
+                // nobody knows to look in. Anything that stops the app getting
+                // as far as its first window has to say so.
+                Fatal("Program.Main-LoadSettings", ex);
             }
         }
 
@@ -428,6 +530,10 @@ namespace ConfigurO
                 () => Application.Run(_SplashForm)));
 
             splashThread.SetApartmentState(ApartmentState.STA);
+            // Background, so it cannot hold the process open by itself. As a
+            // foreground thread it kept a failed launch alive -- and with it
+            // the mutex -- long after the main window had given up.
+            splashThread.IsBackground = true;
             splashThread.Start();
         }
 

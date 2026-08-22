@@ -4,6 +4,55 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [1.1]
+
+`ConfigurO-1.0.exe` was built seven commits before the 1.0 notes below were
+finished, so a number of things those notes describe were never in a released
+build. This is the first one that carries them, together with two faults found
+on the first run on a scaled Windows display.
+
+### Fixes
+- Text was measured on a scratch `Bitmap`, which is 96 DPI, and then painted on
+  a screen surface at the monitor's DPI. GDI+ converts a point size through the
+  Graphics DPI, so at 125% every measurement came back around 20% short.
+  `NButton.AutoFit` sized itself from that, which is why "Reinforce policies"
+  drew as "Reinforce polic...", and anything laid out beside a measured element
+  reserved too little room and collided with it. Measurement now happens at the
+  DPI the caller will draw at.
+- 23 tweak descriptions stopped mid-sentence with no ellipsis. Those strings
+  carry hard newlines from the legacy dialogs, and GDI+ honours a break even
+  under `NoWrap`, so a single-line row painted as far as the first one and
+  dropped the rest. Single-line draws now flatten breaks to spaces, and the
+  width is measured from the same flattened string so the ellipsis agrees.
+- The custom title bar could stay blank until the pointer first crossed it --
+  the hover handler invalidated a region that had never had its first paint. It
+  now paints on show and on activate.
+
+### Shipped for the first time
+Described under 1.0, but not present in the build 1.0 was cut from.
+- The first-run language chooser, rebuilt as one table of language, flag and
+  native name -- and with it the three faults the old wiring had drifted into:
+  clicking the Korea flag selected Chinese, the Ukraine and Bulgaria flags were
+  connected to nothing, and Taiwan's flag was never shown because China's was
+  used for both entries.
+- The interface set in **Inter** instead of IBM Plex Sans, which read thin and
+  wide at 12-14px. IBM Plex Mono stays for paths, IPs and console output.
+- The nine languages written in scripts neither face covers -- Arabic, Persian,
+  Urdu, Kurdish, Nepali, Chinese, Taiwanese, Japanese and Korean -- now draw in
+  the system UI font Windows ships for the script rather than as rows of
+  .notdef boxes. GDI+ will not font-link a privately registered face, so this
+  has to be resolved per language.
+- The picker's 28 flags reshipped at 160x95, so the form's DPI scaling
+  downscales them instead of magnifying a 32x19 bitmap into a smear.
+- Icons for the 34 app-catalogue tiles that drew without artwork.
+- Tweak rows at 54px with 19px between a label and its tip, replacing 46px and
+  16px, which read as one crowded block.
+
+### Repository
+- `docs/FEED.md` and `docs/DEVELOPING.md` now record that the upstream Optimizer
+  feed was archived on 20 January 2026 and is read-only. It still serves, and
+  nothing in the app reads the one field taken from it.
+
 ## [1.0]
 
 First release under the ConfigurO name, rebuilt around the **Nocturne** design.

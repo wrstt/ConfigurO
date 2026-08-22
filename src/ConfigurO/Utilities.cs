@@ -234,7 +234,8 @@ namespace ConfigurO
         internal static void Reboot()
         {
             OptionsHelper.SaveSettings();
-            Process.Start("shutdown.exe", "/r /t 0");
+            try { Process.Start("shutdown.exe", "/r /t 0"); }
+            catch (Exception ex) { Logger.LogError("Utilities.Reboot", ex.Message, ex.StackTrace); }
         }
 
         internal static void DisableHibernation()
@@ -375,7 +376,9 @@ namespace ConfigurO
 
         internal static void FindFile(string fileName)
         {
-            if (File.Exists(fileName)) Process.Start("explorer.exe", $"/select, \"{fileName}\"");
+            if (!File.Exists(fileName)) return;
+            try { Process.Start("explorer.exe", $"/select, \"{fileName}\""); }
+            catch (Exception ex) { Logger.LogError("Utilities.FindFile", ex.Message, ex.StackTrace); }
         }
 
         internal static void FindFolder(string folder)
@@ -422,7 +425,38 @@ namespace ConfigurO
             }
 
             Thread.Sleep(TimeSpan.FromSeconds(1));
-            Process.Start(explorer);
+
+            // Explorer has just been killed, so this call is the only thing
+            // between the user and a session with no desktop, no taskbar and no
+            // Start menu. Unguarded it was one throw away from exactly that,
+            // and the app would have carried on as though nothing had happened.
+            for (int attempt = 1; attempt <= 3; attempt++)
+            {
+                try
+                {
+                    Process.Start(File.Exists(explorerPath) ? explorerPath : explorer);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError("Utilities.RestartExplorer-Start",
+                                    "attempt " + attempt + ": " + ex.Message, ex.StackTrace);
+                    Thread.Sleep(TimeSpan.FromSeconds(1));
+                }
+            }
+
+            // Out of attempts: say so, because the desktop is not coming back on
+            // its own and the recovery is not something to have to work out.
+            try
+            {
+                MessageBox.Show(
+                    I18n.Get("explorerRestartFailed",
+                             "Windows Explorer could not be restarted.\n\n" +
+                             "Press Ctrl+Shift+Esc to open Task Manager, then choose " +
+                             "File > Run new task and enter: explorer.exe"),
+                    "ConfigurO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch { }
         }
 
         internal static void FindKeyInRegistry(string key)

@@ -101,7 +101,7 @@ namespace ConfigurO
 
         private void Translate()
         {
-            Dictionary<string, string> translationList = OptionsHelper.TranslationList.ToObject<Dictionary<string, string>>();
+            Dictionary<string, string> translationList = I18n.Map();
 
             Control element;
 

@@ -27,7 +27,7 @@ namespace ConfigurO
             catch (Exception ex)
             {
                 Logger.LogError("HostsHelper.RestoreDefaultHosts", ex.Message, ex.StackTrace);
-                MessageBox.Show(OptionsHelper.TranslationList("dnsCacheM").ToString(), "ConfigurO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(I18n.Get("dnsCacheM", "The DNS cache is in use; try again in a moment."), "ConfigurO", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -93,7 +93,7 @@ namespace ConfigurO
             catch (Exception ex)
             {
                 Logger.LogError("HostsHelper.SaveHosts", ex.Message, ex.StackTrace);
-                MessageBox.Show(OptionsHelper.TranslationList("dnsCacheM").ToString(), "ConfigurO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(I18n.Get("dnsCacheM", "The DNS cache is in use; try again in a moment."), "ConfigurO", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -124,7 +124,7 @@ namespace ConfigurO
             catch (Exception ex)
             {
                 Logger.LogError("HostsHelper.AddEntry", ex.Message, ex.StackTrace);
-                MessageBox.Show(OptionsHelper.TranslationList("dnsCacheM").ToString(), "DNS Cache is running", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(I18n.Get("dnsCacheM", "The DNS cache is in use; try again in a moment."), "DNS Cache is running", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -137,7 +137,7 @@ namespace ConfigurO
             catch (Exception ex)
             {
                 Logger.LogError("HostsHelper.RemoveEntry", ex.Message, ex.StackTrace);
-                MessageBox.Show(OptionsHelper.TranslationList("dnsCacheM").ToString(), "DNS Cache is running", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(I18n.Get("dnsCacheM", "The DNS cache is in use; try again in a moment."), "DNS Cache is running", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -165,7 +165,7 @@ namespace ConfigurO
             catch (Exception ex)
             {
                 Logger.LogError("HostsHelper.RemoveAllEntries", ex.Message, ex.StackTrace);
-                MessageBox.Show(OptionsHelper.TranslationList("dnsCacheM").ToString(), "DNS Cache is running", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(I18n.Get("dnsCacheM", "The DNS cache is in use; try again in a moment."), "DNS Cache is running", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

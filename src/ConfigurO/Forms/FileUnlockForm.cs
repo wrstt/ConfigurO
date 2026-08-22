@@ -18,8 +18,8 @@ namespace ConfigurO
             CheckForIllegalCrossThreadCalls = false;
             OptionsHelper.ApplyTheme(this);
 
-            radioFile.Text = OptionsHelper.TranslationList["radioFile"].ToString();
-            btnKill.Text = OptionsHelper.TranslationList["btnKill"].ToString();
+            radioFile.Text = I18n.Get("radioFile", "File");
+            btnKill.Text = I18n.Get("btnKill", "Kill");
         }
 
         private void FileUnlockForm_Load(object sender, EventArgs e)

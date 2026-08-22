@@ -37,8 +37,8 @@ namespace ConfigurO
 
         private void Translate()
         {
-            this.Text = OptionsHelper.TranslationList["HostsEditorForm"];
-            Dictionary<string, string> translationList = OptionsHelper.TranslationList.ToObject<Dictionary<string, string>>();
+            this.Text = I18n.Get("HostsEditorForm", "Hosts Editor");
+            Dictionary<string, string> translationList = I18n.Map();
 
             Control element;
 

@@ -37,9 +37,9 @@ namespace ConfigurO
 
         private void Translate()
         {
-            this.Text = OptionsHelper.TranslationList["StartupPreviewForm"];
+            this.Text = I18n.Get("StartupPreviewForm", "Startup Items Preview");
 
-            Dictionary<string, string> translationList = OptionsHelper.TranslationList.ToObject<Dictionary<string, string>>();
+            Dictionary<string, string> translationList = I18n.Map();
 
             Control element;
 

@@ -43,9 +43,9 @@ namespace ConfigurO
 
         private void Translate()
         {
-            this.Text = OptionsHelper.TranslationList["StartupRestoreForm"];
+            this.Text = I18n.Get("StartupRestoreForm", "Restore Startup Items");
 
-            Dictionary<string, string> translationList = OptionsHelper.TranslationList.ToObject<Dictionary<string, string>>();
+            Dictionary<string, string> translationList = I18n.Map();
 
             Control element;
 

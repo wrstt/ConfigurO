@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
 namespace ConfigurO
@@ -42,6 +43,32 @@ namespace ConfigurO
         internal static string Get(string key)
         {
             return Get(key, key);
+        }
+
+        /// <summary>
+        /// Every translated string as a plain dictionary, empty when nothing is
+        /// loaded.
+        ///
+        /// Callers used to reach TranslationList.ToObject&lt;...&gt;() directly,
+        /// which throws when the translations failed to load -- and those calls
+        /// sit in dialogs opened to report a problem, so the failure surfaced as
+        /// a crash instead of the message it was trying to show. An empty map
+        /// leaves the designer's English in place, which is the right outcome.
+        /// </summary>
+        internal static Dictionary<string, string> Map()
+        {
+            try
+            {
+                JObject list = OptionsHelper.TranslationList as JObject;
+                if (list == null) return new Dictionary<string, string>();
+                return list.ToObject<Dictionary<string, string>>()
+                       ?? new Dictionary<string, string>();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("I18n.Map", ex.Message, ex.StackTrace);
+                return new Dictionary<string, string>();
+            }
         }
     }
 }

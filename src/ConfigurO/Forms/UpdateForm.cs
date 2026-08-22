@@ -17,10 +17,10 @@ namespace ConfigurO
             if (newUpdate)
             {
                 this.Size = new Size(600, 545);
-                btnOK.Text = OptionsHelper.TranslationList["btnYes"].ToString();
-                btnNo.Text = OptionsHelper.TranslationList["btnNo"].ToString();
+                btnOK.Text = I18n.Get("btnYes", "Yes");
+                btnNo.Text = I18n.Get("btnNo", "No");
                 btnNo.Visible = true;
-                txtChanges.Text = OptionsHelper.TranslationList["btnChangelog"].ToString();
+                txtChanges.Text = I18n.Get("btnChangelog", "View changes");
                 txtVersions.Text = $"{Program.GetCurrentVersionTostring()} → {latestVersion}";
                 txtVersions.Visible = true;
 
@@ -34,7 +34,7 @@ namespace ConfigurO
             else
             {
                 this.Size = new Size(600, 188);
-                btnOK.Text = OptionsHelper.TranslationList["btnAbout"].ToString();
+                btnOK.Text = I18n.Get("btnAbout", "OK");
                 btnNo.Visible = false;
                 txtVersions.Visible = false;
 

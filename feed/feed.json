@@ -1,0 +1,1178 @@
+[
+  {
+    "Title": "Chrome",
+    "Group": "Web Browsers",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/chrome.png",
+    "Link": "https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B96806E3D-7496-9303-FEC0-8299CB4E05AF%7D%26lang%3Den%26browser%3D3%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dstable-arch_x86-statsdef_1%26installdataindex%3Dempty/chrome/install/ChromeStandaloneSetup.exe",
+    "Link64": "https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B96806E3D-7496-9303-FEC0-8299CB4E05AF%7D%26lang%3Den%26browser%3D3%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26installdataindex%3Dempty/chrome/install/ChromeStandaloneSetup64.exe",
+    "Tag": "cChrome"
+  },
+  {
+    "Title": "Opera",
+    "Group": "Web Browsers",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/opera.png",
+    "Link": "https://download3.operacdn.com/pub/opera/desktop/81.0.4196.54/win/Opera_81.0.4196.54_Setup.exe",
+    "Link64": "https://download3.operacdn.com/pub/opera/desktop/81.0.4196.54/win/Opera_81.0.4196.54_Setup_x64.exe",
+    "Tag": "cOpera"
+  },
+  {
+    "Title": "Firefox",
+    "Group": "Web Browsers",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/firefox.png",
+    "Link": "http://download.mozilla.org/?product=firefox-latest&os=Win&lang=en-US",
+    "Link64": "http://download.mozilla.org/?product=firefox-latest&os=Win64&lang=en-US",
+    "Tag": "cFirefox"
+  },
+  {
+    "Title": "Edge",
+    "Group": "Web Browsers",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/edge.png",
+    "Link": "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/8d1fd468-c6d9-4ade-8870-d4e0dac4f0fb/MicrosoftEdgeEnterpriseX86.msi",
+    "Link64": "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/dc298968-ce66-4bf0-ac5b-c274bf03ee7e/MicrosoftEdgeEnterpriseX64.msi",
+    "Tag": "cEdge"
+  },
+  {
+    "Title": "Brave",
+    "Group": "Web Browsers",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/brave.png",
+    "Link": "https://referrals.brave.com/latest/BraveBrowserSetup32.exe",
+    "Link64": "https://referrals.brave.com/latest/BraveBrowserSetup.exe",
+    "Tag": "cBrave"
+  },
+  {
+    "Title": "Vivaldi",
+    "Group": "Web Browsers",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/vivaldi.png",
+    "Link": "https://downloads.vivaldi.com/stable/Vivaldi.4.3.2439.65.exe",
+    "Link64": "https://downloads.vivaldi.com/stable/Vivaldi.4.3.2439.65.x64.exe",
+    "Tag": "cVivaldi"
+  },
+  {
+    "Title": "Zoom",
+    "Group": "Messaging",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/zoom.png",
+    "Link": "https://zoom.us/client/latest/ZoomInstaller.exe",
+    "Link64": "https://zoom.us/client/latest/ZoomInstaller.exe",
+    "Tag": "cZoom"
+  },
+  {
+    "Title": "Discord",
+    "Group": "Messaging",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/discord.png",
+    "Link": "https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/DiscordSetup.exe",
+    "Link64": "https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/DiscordSetup.exe",
+    "Tag": "cDiscord"
+  },
+  {
+    "Title": "Teams",
+    "Group": "Messaging",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/teams.png",
+    "Link": "https://statics.teams.cdn.office.net/production-windows/1.3.00.32283/Teams_windows.exe",
+    "Link64": "https://statics.teams.cdn.office.net/production-windows-x64/1.3.00.32283/Teams_windows_x64.exe",
+    "Tag": "cMSTeams"
+  },
+  {
+    "Title": "Telegram",
+    "Group": "Messaging",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/telegram.png",
+    "Link": "https://telegram.org/dl/desktop/win",
+    "Link64": "https://telegram.org/dl/desktop/win64",
+    "Tag": "cTelegram"
+  },
+  {
+    "Title": "Pidgin",
+    "Group": "Messaging",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Thunderbird",
+    "Group": "Messaging",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/thunderbird.png",
+    "Link": "http://download.mozilla.org/?product=thunderbird-latest&os=Win&lang=en-US",
+    "Link64": "http://download.mozilla.org/?product=thunderbird-latest&os=Win64&lang=en-US",
+    "Tag": "cThunderbird"
+  },
+  {
+    "Title": "Trillian",
+    "Group": "Messaging",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "iTunes",
+    "Group": "Media",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/itunes.png",
+    "Link": "https://secure-appldnld.apple.com/itunes12/001-50021-20201019-A1CAB6C2-1239-11EB-AE89-F95946985FC9/iTunesSetup.exe",
+    "Link64": "https://secure-appldnld.apple.com/itunes12/001-50023-20201019-A1CA6082-1239-11EB-990E-FA5946985FC9/iTunes64Setup.exe",
+    "Tag": "ciTunes"
+  },
+  {
+    "Title": "VLC",
+    "Group": "Media",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/vlc.png",
+    "Link": "https://get.videolan.org/vlc/3.0.16/win32/vlc-3.0.16-win32.exe",
+    "Link64": "https://get.videolan.org/vlc/3.0.16/win64/vlc-3.0.16-win64.exe",
+    "Tag": "cVLC"
+  },
+  {
+    "Title": "AIMP",
+    "Group": "Media",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "foobar2000",
+    "Group": "Media",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/foobar.png",
+    "Link": "https://www.foobar2000.org/getfile/foobar2000_v1.6.10.exe",
+    "Link64": "https://www.foobar2000.org/getfile/foobar2000_v1.6.10.exe",
+    "Tag": "cFoobar"
+  },
+  {
+    "Title": "Winamp",
+    "Group": "Media",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/winamp.png",
+    "Link": "https://download.nullsoft.com/winamp/misc/winamp58_3660_beta_full_en-us.exe",
+    "Link64": "https://download.nullsoft.com/winamp/misc/winamp58_3660_beta_full_en-us.exe",
+    "Tag": "cWinamp"
+  },
+  {
+    "Title": "MusicBee",
+    "Group": "Media",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Audacity",
+    "Group": "Media",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/audacity.png",
+    "Link": "https://github.com/audacity/audacity/releases/download/Audacity-3.1.3/audacity-win-3.1.3-32bit.exe",
+    "Link64": "https://github.com/audacity/audacity/releases/download/Audacity-3.1.3/audacity-win-3.1.3-64bit.exe",
+    "Tag": "cAudacity"
+  },
+  {
+    "Title": "K-Lite Codecs",
+    "Group": "Media",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/klite.png",
+    "Link": "https://files2.codecguide.com/K-Lite_Codec_Pack_1653_Mega.exe",
+    "Link64": "https://files2.codecguide.com/K-Lite_Codec_Pack_1653_Mega.exe",
+    "Tag": "cCodecs"
+  },
+  {
+    "Title": "GOM",
+    "Group": "Media",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Spotify",
+    "Group": "Media",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/spotify.png",
+    "Link": "https://download.scdn.co/SpotifySetup.exe",
+    "Link64": "https://download.scdn.co/SpotifySetup.exe",
+    "Tag": "cSpotify"
+  },
+  {
+    "Title": "CCCP",
+    "Group": "Media",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "MediaMonkey",
+    "Group": "Media",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "HandBrake",
+    "Group": "Media",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "OBS Studio",
+    "Group": "Media",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/obs.png",
+    "Link": "https://github.com/obsproject/obs-studio/releases/download/27.1.3/OBS-Studio-27.1.3-Full-Installer-x86.exe",
+    "Link64": "https://github.com/obsproject/obs-studio/releases/download/27.1.3/OBS-Studio-27.1.3-Full-Installer-x64.exe",
+    "Tag": "cOBS"
+  },
+  {
+    "Title": ".NET 4.8.1",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://go.microsoft.com/fwlink/?linkid=2203304",
+    "Link64": "https://go.microsoft.com/fwlink/?linkid=2203304",
+    "Tag": ""
+  },
+  {
+    "Title": ".NET Desktop Runtime x64 8",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x64.exe",
+    "Link64": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": ".NET Desktop Runtime arm64 8",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-arm64.exe",
+    "Link64": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": ".NET Desktop Runtime 8",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x86.exe",
+    "Link64": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": ".NET Desktop Runtime x64 9",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x64.exe",
+    "Link64": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": ".NET Desktop Runtime arm64 9",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-arm64.exe",
+    "Link64": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": ".NET Desktop Runtime 9",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x86.exe",
+    "Link64": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": ".NET Desktop Runtime x64 10",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe",
+    "Link64": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": ".NET Desktop Runtime arm64 10",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-arm64.exe",
+    "Link64": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": ".NET Desktop Runtime 10",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x86.exe",
+    "Link64": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "ASP.NET Core Runtime x64 8",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x64.exe",
+    "Link64": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "ASP.NET Core Runtime arm64 8",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-arm64.exe",
+    "Link64": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "ASP.NET Core Runtime 8",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x86.exe",
+    "Link64": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "ASP.NET Core Runtime x64 9",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x64.exe",
+    "Link64": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "ASP.NET Core Runtime arm64 9",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-arm64.exe",
+    "Link64": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "ASP.NET Core Runtime 9",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x86.exe",
+    "Link64": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "ASP.NET Core Runtime x64 10",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x64.exe",
+    "Link64": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "ASP.NET Core Runtime arm64 10",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-arm64.exe",
+    "Link64": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "ASP.NET Core Runtime 10",
+    "Group": ".NET",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
+    "Link": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x86.exe",
+    "Link64": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "Java (AdoptOpenJDK) x64 8",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jre/hotspot/normal/eclipse",
+    "Link64": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jre/hotspot/normal/eclipse",
+    "Tag": ""
+  },
+  {
+    "Title": "Java (AdoptOpenJDK) 8",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x86/jre/hotspot/normal/eclipse",
+    "Link64": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jre/hotspot/normal/eclipse",
+    "Tag": ""
+  },
+  {
+    "Title": "Java (AdoptOpenJDK) x64 11",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://api.adoptium.net/v3/installer/latest/11/ga/windows/x64/jre/hotspot/normal/eclipse",
+    "Link64": "https://api.adoptium.net/v3/installer/latest/11/ga/windows/x64/jre/hotspot/normal/eclipse",
+    "Tag": ""
+  },
+  {
+    "Title": "Java (AdoptOpenJDK) x64 17",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://api.adoptium.net/v3/installer/latest/17/ga/windows/x64/jre/hotspot/normal/eclipse",
+    "Link64": "https://api.adoptium.net/v3/installer/latest/17/ga/windows/x64/jre/hotspot/normal/eclipse",
+    "Tag": ""
+  },
+  {
+    "Title": "Java (AdoptOpenJDK) x64 21",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://api.adoptium.net/v3/installer/latest/21/ga/windows/x64/jre/hotspot/normal/eclipse",
+    "Link64": "https://api.adoptium.net/v3/installer/latest/21/ga/windows/x64/jre/hotspot/normal/eclipse",
+    "Tag": ""
+  },
+  {
+    "Title": "Java (AdoptOpenJDK) x64 25",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://api.adoptium.net/v3/installer/latest/25/ga/windows/x64/jre/hotspot/normal/eclipse",
+    "Link64": "https://api.adoptium.net/v3/installer/latest/25/ga/windows/x64/jre/hotspot/normal/eclipse",
+    "Tag": ""
+  },
+  {
+    "Title": "JDK (AdoptOpenJDK) x64 8",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jdk/hotspot/normal/eclipse",
+    "Link64": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jdk/hotspot/normal/eclipse",
+    "Tag": ""
+  },
+  {
+    "Title": "JDK (AdoptOpenJDK) 8",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x86/jdk/hotspot/normal/eclipse",
+    "Link64": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jdk/hotspot/normal/eclipse",
+    "Tag": ""
+  },
+  {
+    "Title": "JDK (AdoptOpenJDK) x64 11",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://api.adoptium.net/v3/installer/latest/11/ga/windows/x64/jdk/hotspot/normal/eclipse",
+    "Link64": "https://api.adoptium.net/v3/installer/latest/11/ga/windows/x64/jdk/hotspot/normal/eclipse",
+    "Tag": ""
+  },
+  {
+    "Title": "JDK (AdoptOpenJDK) x64 17",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://api.adoptium.net/v3/installer/latest/17/ga/windows/x64/jdk/hotspot/normal/eclipse",
+    "Link64": "https://api.adoptium.net/v3/installer/latest/17/ga/windows/x64/jdk/hotspot/normal/eclipse",
+    "Tag": ""
+  },
+  {
+    "Title": "JDK (AdoptOpenJDK) x64 21",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://api.adoptium.net/v3/installer/latest/21/ga/windows/x64/jdk/hotspot/normal/eclipse",
+    "Link64": "https://api.adoptium.net/v3/installer/latest/21/ga/windows/x64/jdk/hotspot/normal/eclipse",
+    "Tag": ""
+  },
+  {
+    "Title": "JDK (AdoptOpenJDK) x64 25",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://api.adoptium.net/v3/installer/latest/25/ga/windows/x64/jdk/hotspot/normal/eclipse",
+    "Link64": "https://api.adoptium.net/v3/installer/latest/25/ga/windows/x64/jdk/hotspot/normal/eclipse",
+    "Tag": ""
+  },
+  {
+    "Title": "JDK (Amazon Corretto) x64 8",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jdk.msi",
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jdk.msi",
+    "Tag": ""
+  },
+  {
+    "Title": "JDK (Amazon Corretto) 8",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://corretto.aws/downloads/latest/amazon-corretto-8-x86-windows-jdk.msi",
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jdk.msi",
+    "Tag": ""
+  },
+  {
+    "Title": "JDK (Amazon Corretto) x64 11",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-windows-jdk.msi",
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-windows-jdk.msi",
+    "Tag": ""
+  },
+  {
+    "Title": "JDK (Amazon Corretto) x64 17",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://corretto.aws/downloads/latest/amazon-corretto-17-x64-windows-jdk.msi",
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-17-x64-windows-jdk.msi",
+    "Tag": ""
+  },
+  {
+    "Title": "JDK (Amazon Corretto) x64 21",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://corretto.aws/downloads/latest/amazon-corretto-21-x64-windows-jdk.msi",
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-21-x64-windows-jdk.msi",
+    "Tag": ""
+  },
+  {
+    "Title": "JDK (Amazon Corretto) x64 25",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://corretto.aws/downloads/latest/amazon-corretto-25-x64-windows-jdk.msi",
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-25-x64-windows-jdk.msi",
+    "Tag": ""
+  },
+  {
+    "Title": "JRE (Amazon Corretto) x64 8",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jre.msi",
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jre.msi",
+    "Tag": ""
+  },
+  {
+    "Title": "JRE (Amazon Corretto) 8",
+    "Group": "Java",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
+    "Link": "https://corretto.aws/downloads/latest/amazon-corretto-8-x86-windows-jre.msi",
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jre.msi",
+    "Tag": ""
+  },
+  {
+    "Title": "Krita",
+    "Group": "Imaging",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Blender",
+    "Group": "Imaging",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/blender.png",
+    "Link": "",
+    "Link64": "https://mirror.clarkson.edu/blender/release/Blender2.93/blender-2.93.6-windows-x64.msi",
+    "Tag": "cBlender"
+  },
+  {
+    "Title": "Paint.NET",
+    "Group": "Imaging",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "GIMP",
+    "Group": "Imaging",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/gimp.png",
+    "Link": "https://gemmei.ftp.acc.umu.se/pub/gimp/gimp/v2.10/windows/gimp-2.10.28-setup.exe",
+    "Link64": "https://gemmei.ftp.acc.umu.se/pub/gimp/gimp/v2.10/windows/gimp-2.10.28-setup.exe",
+    "Tag": "cGIMP"
+  },
+  {
+    "Title": "IrfanView",
+    "Group": "Imaging",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/irfanview.png",
+    "Link": "http://www.storage.programosy.pl/iview458_setup.exe",
+    "Link64": "http://www.storage.programosy.pl/iview458_setup.exe",
+    "Tag": "cIrfan"
+  },
+  {
+    "Title": "XnView",
+    "Group": "Imaging",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Inkscape",
+    "Group": "Imaging",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "FastStone",
+    "Group": "Imaging",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Greenshot",
+    "Group": "Imaging",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "ShareX",
+    "Group": "Imaging",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/sharex.png",
+    "Link": "https://github.com/ShareX/ShareX/releases/download/v13.7.0/ShareX-13.7.0-setup.exe",
+    "Link64": "https://github.com/ShareX/ShareX/releases/download/v13.7.0/ShareX-13.7.0-setup.exe",
+    "Tag": "cShareX"
+  },
+  {
+    "Title": "Foxit Reader",
+    "Group": "Documents",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/foxit.png",
+    "Link": "https://cdn01.foxitsoftware.com/pub/foxit/reader/desktop/win/11.x/11.1/en_us/FoxitPDFReader111_Setup.exe",
+    "Link64": "https://cdn01.foxitsoftware.com/pub/foxit/reader/desktop/win/11.x/11.1/en_us/FoxitPDFReader111_Setup.exe",
+    "Tag": "cFoxit"
+  },
+  {
+    "Title": "LibreOffice",
+    "Group": "Documents",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/libreoffice.png",
+    "Link": "https://optimizer-downloader.azurewebsites.net/libre86.msi",
+    "Link64": "https://optimizer-downloader.azurewebsites.net/libre64.msi",
+    "Tag": "cLibreOffice"
+  },
+  {
+    "Title": "SumatraPDF",
+    "Group": "Documents",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/sumatrapdf.png",
+    "Link": "https://kjkpubsf.sfo2.digitaloceanspaces.com/software/sumatrapdf/rel/SumatraPDF-3.3.3-install.exe",
+    "Link64": "https://kjkpubsf.sfo2.digitaloceanspaces.com/software/sumatrapdf/rel/SumatraPDF-3.3.3-64-install.exe",
+    "Tag": "cSumatra"
+  },
+  {
+    "Title": "CutePDF",
+    "Group": "Documents",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "OpenOffice",
+    "Group": "Documents",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Malwarebytes",
+    "Group": "Security",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/malwarebytes.png",
+    "Link": "https://data-cdn.mbamupdates.com/web/mb4-setup-consumer/MBSetup.exe",
+    "Link64": "https://data-cdn.mbamupdates.com/web/mb4-setup-consumer/MBSetup.exe",
+    "Tag": "cMalwarebytes"
+  },
+  {
+    "Title": "Avast",
+    "Group": "Security",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "AVG",
+    "Group": "Security",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Spybot 2",
+    "Group": "Security",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Avira",
+    "Group": "Security",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "SUPERAntiSpyware",
+    "Group": "Security",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "7-Zip",
+    "Group": "Compression",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/7zip.png",
+    "Link": "https://www.7-zip.org/a/7z2107.exe",
+    "Link64": "https://www.7-zip.org/a/7z2107-x64.exe",
+    "Tag": "c7zip"
+  },
+  {
+    "Title": "PeaZip",
+    "Group": "Compression",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/peazip.png",
+    "Link": "https://github.com/peazip/PeaZip/releases/download/8.3.0/peazip-8.3.0.WINDOWS.exe",
+    "Link64": "https://github.com/peazip/PeaZip/releases/download/8.3.0/peazip-8.3.0.WIN64.exe",
+    "Tag": "cPeaZip"
+  },
+  {
+    "Title": "WinRAR",
+    "Group": "Compression",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/winrar.png",
+    "Link": "https://www.rarlab.com/rar/wrar602.exe",
+    "Link64": "https://www.rarlab.com/rar/winrar-x64-602.exe",
+    "Tag": "cWinRar"
+  },
+  {
+    "Title": "qBittorrent",
+    "Group": "File Sharing",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/qbittorrent.png",
+    "Link": "https://jztkft.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-4.4.2/qbittorrent_4.4.2_setup.exe",
+    "Link64": "https://deac-ams.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-4.4.2/qbittorrent_4.4.2_x64_setup.exe",
+    "Tag": "cQB"
+  },
+  {
+    "Title": "Evernote",
+    "Group": "Other",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/evernote.png",
+    "Link": "https://cdn1.evernote.com/boron/win/builds/Evernote-10.25.6-win-ddl-ga-3073-setup.exe",
+    "Link64": "https://cdn1.evernote.com/boron/win/builds/Evernote-10.25.6-win-ddl-ga-3073-setup.exe",
+    "Tag": "cEvernote"
+  },
+  {
+    "Title": "Google Earth",
+    "Group": "Other",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Steam",
+    "Group": "Other",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/steam.png",
+    "Link": "https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe",
+    "Link64": "https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe",
+    "Tag": "cSteam"
+  },
+  {
+    "Title": "Epic Games Launcher",
+    "Group": "Other",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/epic.png",
+    "Link": "https://epicgames-download1.akamaized.net/Builds/UnrealEngineLauncher/Installers/Win32/EpicInstaller-10.19.2.msi?launcherfilename=EpicInstaller-10.19.2.msi",
+    "Link64": "https://epicgames-download1.akamaized.net/Builds/UnrealEngineLauncher/Installers/Win32/EpicInstaller-10.19.2.msi?launcherfilename=EpicInstaller-10.19.2.msi",
+    "Tag": "cEpicStore"
+  },
+  {
+    "Title": "KeePass 2",
+    "Group": "Other",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Everything",
+    "Group": "Other",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/everything.png",
+    "Link": "https://www.voidtools.com/Everything-1.4.1.1023.x86-Setup.exe",
+    "Link64": "https://www.voidtools.com/Everything-1.4.1.1023.x64-Setup.exe",
+    "Tag": "cEverything"
+  },
+  {
+    "Title": "NV Access",
+    "Group": "Other",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Dropbox",
+    "Group": "Online Storage",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/dropbox.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Google Drive for Desktop",
+    "Group": "Online Storage",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "OneDrive",
+    "Group": "Online Storage",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/onedrive.png",
+    "Link": "https://oneclient.sfx.ms/Win/Prod/21.002.0104.0005/OneDriveSetup.exe",
+    "Link64": "https://oneclient.sfx.ms/Win/Prod/21.002.0104.0005/OneDriveSetup.exe",
+    "Tag": "cOneDrive"
+  },
+  {
+    "Title": "SugarSync",
+    "Group": "Online Storage",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist x64 2015+",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "https://aka.ms/vs/17/release/vc_redist.x64.exe",
+    "Link64": "https://aka.ms/vs/17/release/vc_redist.x64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist x86 2015+",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "https://aka.ms/vs/17/release/vc_redist.x86.exe",
+    "Link64": "https://aka.ms/vs/17/release/vc_redist.x86.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist arm64 2015+",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "https://aka.ms/vs/17/release/vc_redist.arm64.exe",
+    "Link64": "https://aka.ms/vs/17/release/vc_redist.arm64.exe",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist x64 2013",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist x86 2013",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist x64 2012",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist x86 2012",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist x64 2010",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist x86 2010",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist x64 2008",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist x86 2008",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist x64 2005",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "VC Redist x86 2005",
+    "Group": "VC++ Redistributables",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Python x64 3",
+    "Group": "Developer Tools",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/python.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Python arm64 3",
+    "Group": "Developer Tools",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/python.png",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Python 3",
+    "Group": "Developer Tools",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/python.png",
+    "Link": "https://www.python.org/ftp/python/3.10.0/python-3.10.0.exe",
+    "Link64": "https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe",
+    "Tag": "cPython3"
+  },
+  {
+    "Title": "Git",
+    "Group": "Developer Tools",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "FileZilla",
+    "Group": "Developer Tools",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/filezilla.png",
+    "Link": "https://download.filezilla-project.org/client/FileZilla_3.59.0_win32-setup.exe",
+    "Link64": "https://download.filezilla-project.org/client/FileZilla_3.59.0_win64-setup.exe",
+    "Tag": "cFileZilla"
+  },
+  {
+    "Title": "Notepad++",
+    "Group": "Developer Tools",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/notepadpp.png",
+    "Link": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.4/npp.8.4.Installer.exe",
+    "Link64": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.4/npp.8.4.Installer.x64.exe",
+    "Tag": "cNPP"
+  },
+  {
+    "Title": "WinSCP",
+    "Group": "Developer Tools",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/winscp.png",
+    "Link": "https://optimizer-downloader.azurewebsites.net/winscp",
+    "Link64": "https://optimizer-downloader.azurewebsites.net/winscp",
+    "Tag": "cWinScp"
+  },
+  {
+    "Title": "PuTTY",
+    "Group": "Developer Tools",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/putty.png",
+    "Link": "https://the.earth.li/~sgtatham/putty/latest/w32/putty-0.76-installer.msi",
+    "Link64": "https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.76-installer.msi",
+    "Tag": "cPutty"
+  },
+  {
+    "Title": "WinMerge",
+    "Group": "Developer Tools",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Eclipse",
+    "Group": "Developer Tools",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/eclipse.png",
+    "Link": "",
+    "Link64": "https://ftp.snt.utwente.nl/pub/software/eclipse/oomph/epp/2021-09/R/eclipse-inst-jre-win64.exe",
+    "Tag": "cEclipse"
+  },
+  {
+    "Title": "Visual Studio Code",
+    "Group": "Developer Tools",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/vscode.png",
+    "Link": "https://code.visualstudio.com/sha/download?build=stable&os=win32-user",
+    "Link64": "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user",
+    "Tag": "cVSCode"
+  },
+  {
+    "Title": "Cursor",
+    "Group": "Developer Tools",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "GitHub Desktop",
+    "Group": "Developer Tools",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/github.png",
+    "Link": "",
+    "Link64": "https://desktop.githubusercontent.com/github-desktop/releases/2.9.4-24101633/GitHubDesktopSetup-x64.exe",
+    "Tag": "cGitHub"
+  },
+  {
+    "Title": "Node.js",
+    "Group": "Developer Tools",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/nodejs.png",
+    "Link": "https://nodejs.org/dist/v16.13.0/node-v16.13.0-x86.msi",
+    "Link64": "https://nodejs.org/dist/v16.13.0/node-v16.13.0-x64.msi",
+    "Tag": "cNode"
+  },
+  {
+    "Title": "Sublime Text",
+    "Group": "Developer Tools",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/sublimetext.png",
+    "Link": "https://download.sublimetext.com/Sublime%20Text%20Build%203211%20Setup.exe",
+    "Link64": "https://download.sublimetext.com/Sublime%20Text%20Build%203211%20x64%20Setup.exe",
+    "Tag": "cSublimeText"
+  },
+  {
+    "Title": "AnyDesk",
+    "Group": "Utilities",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/anydesk.png",
+    "Link": "https://download.anydesk.com/AnyDesk.exe",
+    "Link64": "https://download.anydesk.com/AnyDesk.exe",
+    "Tag": "cAnyDesk"
+  },
+  {
+    "Title": "TeamViewer 15",
+    "Group": "Utilities",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/teamviewer.png",
+    "Link": "https://download.teamviewer.com/download/TeamViewer_Setup.exe",
+    "Link64": "https://download.teamviewer.com/download/TeamViewer_Setup.exe",
+    "Tag": "cTV"
+  },
+  {
+    "Title": "ImgBurn",
+    "Group": "Utilities",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "RealVNC Server",
+    "Group": "Utilities",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "RealVNC Viewer",
+    "Group": "Utilities",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "TightVNC",
+    "Group": "Utilities",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "TeraCopy",
+    "Group": "Utilities",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "CDBurnerXP",
+    "Group": "Utilities",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Revo Uninstaller",
+    "Group": "Utilities",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/revo.png",
+    "Link": "https://download.revouninstaller.com/download/revosetup.exe",
+    "Link64": "https://download.revouninstaller.com/download/revosetup.exe",
+    "Tag": "cRevo"
+  },
+  {
+    "Title": "Launchy",
+    "Group": "Utilities",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "WinDirStat",
+    "Group": "Utilities",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "WizTree",
+    "Group": "Utilities",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Glary",
+    "Group": "Utilities",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "InfraRecorder",
+    "Group": "Utilities",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Open-Shell",
+    "Group": "Utilities",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/openshell.png",
+    "Link": "https://github.com/Open-Shell/Open-Shell-Menu/releases/download/v4.4.160/OpenShellSetup_4_4_160.exe",
+    "Link64": "https://github.com/Open-Shell/Open-Shell-Menu/releases/download/v4.4.160/OpenShellSetup_4_4_160.exe",
+    "Tag": "cOpenShell"
+  },
+  {
+    "Title": "CCleaner",
+    "Group": "Utilities",
+    "Image": "",
+    "Link": "",
+    "Link64": "",
+    "Tag": ""
+  },
+  {
+    "Title": "Rufus",
+    "Group": "Utilities",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/rufus.png",
+    "Link": "https://github.com/pbatard/rufus/releases/download/v3.18/rufus-3.18.exe",
+    "Link64": "https://github.com/pbatard/rufus/releases/download/v3.18/rufus-3.18.exe",
+    "Tag": "cRufus"
+  }
+]

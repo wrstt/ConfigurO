@@ -1,0 +1,79 @@
+# Changelog
+
+All notable changes to ConfigurO are recorded here. The updater reads the
+heading for the running version to decide what to show, so keep the
+`## [x.y]` format.
+
+## [1.0]
+
+First release under the ConfigurO name, rebuilt around the **Nocturne** design.
+
+### Interface
+- Replaced the tabbed window with a borderless shell: a 46px custom title bar
+  and a 208px navigation rail, one screen per tool.
+- New design system (`src/ConfigurO/Nocturne/`): a single accent, Dark and Light
+  modes, one control language, all tokens defined in one place.
+- Bundled IBM Plex Sans and IBM Plex Mono; typographic hierarchy is size and
+  space rather than weight.
+- Icons are compiled vector outlines, so they stay sharp at any display scale.
+- Rewrote the Moon* control suite — toggle, checkbox, radio, select, list,
+  checked list, progress, menu renderer — against the new tokens.
+- Retired the Ocean/Magma/Zerg/Caramel/Lime/Minimal themes and the accent colour
+  picker. Appearance is now Dark or Light, remembered between runs.
+
+### Windows 11
+- Rounded window corners, immersive dark mode, and matching caption and border
+  colours through DWM.
+- Snap Layouts: hovering the maximise button raises the Windows 11 flyout.
+- Optional Mica backdrop (Windows 11 22H2 and newer).
+- Per-Monitor-V2 DPI awareness, with the layout rescaling when the window moves
+  between displays.
+- Accurate release detection via `RtlGetVersion`, including 21H2 through 25H2.
+- New tweaks: disable Recall, disable Click to Do, disable Bing and web results
+  in Search, disable suggested actions, disable setup reminders, hide the Task
+  View button, hide the Start "Recommended" section, never combine taskbar
+  buttons, add "End task" to the taskbar, open File Explorer to This PC, remove
+  Gallery and OneDrive from the Explorer navigation pane, show file extensions,
+  enable Sudo for Windows, disable memory integrity (HVCI), unlock all CPU cores.
+
+### Tools
+- Tweaks: all 84 switches come from one catalogue shared by the screen, silent
+  configurations and policy reinforcement. Live search over names and tips.
+- Cleaner: sizes are measured per location before anything is deleted.
+- Startup: entries can now be disabled without being removed, via the same
+  StartupApproved mechanism Task Manager uses.
+- Hosts: curated block lists, and the read-only lock moved onto the screen.
+- Apps: 15 categories, ~150 entries, concurrent downloads with per-tile
+  progress. The catalogue and its icons are cached for offline use.
+- Hardware: the WMI sweep runs off the UI thread and the report can be copied
+  or saved.
+
+### Fixes
+- Version and size parsing now uses the invariant culture; on a comma-decimal
+  locale the update check used to throw and fail silently.
+- Bundled fonts are registered from disk rather than memory, and a failure in
+  one step no longer discards every face. A `gdi32` call that could not be
+  resolved used to take the whole font load down with it.
+- `SaveSettings` used to return silently when the settings file was missing,
+  which left the app unable to persist anything at all after a repair.
+- Repair now restarts, instead of leaving the app running against a data
+  folder it had just deleted.
+- The unsupported-Windows message read the translation table before it was
+  loaded and crashed instead of showing.
+- The mouse wheel scrolls whatever is under the pointer. Windows sends it to
+  the focused control, so panes only scrolled once clicked.
+- The hosts file being missing is no longer reported as "read-only", which
+  silently disabled the entire screen with no explanation.
+- Downloads fall back to the profile's Downloads folder when the shell lookup
+  comes back empty, rather than writing to the working directory.
+- Long-running work marshals back to the UI safely when its screen has closed,
+  and the cleaner's progress timer cannot outlive its screen.
+- Screens that were never opened are disposed with the window.
+- Ampersands from the translation files render as one character; they were
+  doubled for WinForms buttons, which do not draw the new UI.
+
+### Known gaps
+- The 222 strings the redesign introduces are present in `Resources/i18n/EN.json`
+  and fall back to English in the other 27 languages until translated.
+- 54 of the 147 app-catalogue entries have no download link yet; those tiles
+  are shown but cannot be selected.

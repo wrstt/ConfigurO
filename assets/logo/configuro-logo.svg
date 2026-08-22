@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="cfgRing" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d2cefd"></stop><stop offset="0.55" stop-color="#9184d9"></stop><stop offset="1" stop-color="#5d5294"></stop>
+    </linearGradient>
+    <filter id="cfgGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3" result="b"></feGaussianBlur>
+      <feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+    </filter>
+  </defs>
+  <g fill="#75798c">
+    <circle cx="18" cy="22" r="0.9"></circle><circle cx="35" cy="10" r="0.6"></circle><circle cx="97" cy="15" r="0.8"></circle>
+    <circle cx="110" cy="40" r="0.6"></circle><circle cx="12" cy="78" r="0.7"></circle><circle cx="104" cy="96" r="1"></circle>
+    <circle cx="66" cy="6" r="0.6"></circle><circle cx="30" cy="106" r="0.8"></circle>
+  </g>
+  <circle cx="42" cy="30" r="1.4" fill="#d2cefd" filter="url(#cfgGlow)"></circle>
+  <g transform="rotate(-24 60 60)"><ellipse cx="60" cy="60" rx="52" ry="18.5" fill="none" stroke="#5d5294" stroke-width="1.4"></ellipse></g>
+  <g transform="rotate(28 60 60)"><ellipse cx="60" cy="60" rx="44" ry="14" fill="none" stroke="#423a6a" stroke-width="1.2"></ellipse></g>
+  <circle cx="60" cy="60" r="26" fill="none" stroke="#9184d9" stroke-width="1" opacity="0.5" filter="url(#cfgGlow)"></circle>
+  <circle cx="60" cy="60" r="26" fill="none" stroke="url(#cfgRing)" stroke-width="5.5"></circle>
+  <circle cx="60" cy="60" r="26" fill="none" stroke="#e7e5fe" stroke-width="5.5" stroke-dasharray="26 138" stroke-linecap="round" transform="rotate(-58 60 60)" filter="url(#cfgGlow)"></circle>
+  <g transform="rotate(11 60 60)">
+    <rect x="48.5" y="48.5" width="10.4" height="10.4" rx="1.6" fill="#e7e5fe"></rect>
+    <rect x="61.1" y="48.5" width="10.4" height="10.4" rx="1.6" fill="#9184d9"></rect>
+    <rect x="48.5" y="61.1" width="10.4" height="10.4" rx="1.6" fill="#9184d9"></rect>
+    <rect x="61.1" y="61.1" width="10.4" height="10.4" rx="1.6" fill="#5d5294"></rect>
+  </g>
+  <g transform="rotate(-24 60 60)"><circle cx="112" cy="60" r="3.2" fill="#d2cefd" filter="url(#cfgGlow)"></circle></g>
+  <g transform="rotate(28 60 60)"><circle cx="16" cy="60" r="2" fill="#9184d9"></circle></g>
+</svg>

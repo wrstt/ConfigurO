@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v2
+
+    - name: Restore Packages
+      run: nuget restore ConfigurO.sln
+
+    - name: Build Solution
+      run: msbuild.exe ConfigurO.sln /p:Configuration=Release
+
+    - name: Upload build
+      uses: actions/upload-artifact@v4
+      with:
+        name: ConfigurO
+        path: bin/Release/ConfigurO.exe

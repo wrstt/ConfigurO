@@ -155,6 +155,12 @@ ever genuinely needed, `Program.GetCurrentVersionToFloat`, `Present` and
 `Changelog` have to move to `System.Version` first, and every client older than
 that change is still unreachable.
 
+**The minor number only runs 0 to 9.** The same float parse makes `1.10` read as
+`1.1`, which is *older* than `1.9`, so an update numbered that way is invisible
+to every client that already has 1.9 and there is no correcting it afterwards.
+After `1.9` the next release is `2.0`. Nothing enforces this, and it is
+completely silent when it goes wrong.
+
 **`Program.Minor` is what the comparison actually reads.** `Present` compares
 the server's `version.txt` against `Program.Major`/`Program.Minor` — not
 against the `version.txt` sitting in the tree. Ship a build whose constants

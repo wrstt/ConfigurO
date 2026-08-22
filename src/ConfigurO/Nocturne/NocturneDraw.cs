@@ -20,15 +20,37 @@ namespace ConfigurO
         internal static readonly StringFormat Right = Make(StringAlignment.Far, StringAlignment.Center);
         internal static readonly StringFormat TopLeft = Make(StringAlignment.Near, StringAlignment.Near);
 
+        /// <summary>
+        /// Built on GenericTypographic, and that is load-bearing rather than a
+        /// detail. Widths are measured with GenericTypographic (see
+        /// <see cref="Width"/>); a plain `new StringFormat()` is GenericDefault,
+        /// which reserves roughly a sixth of an em of side bearing that
+        /// typographic measurement does not report. Drawing GenericDefault into
+        /// a box measured GenericTypographic leaves the string a little wider
+        /// than its box, and because these formats trim with an ellipsis, GDI+
+        /// resolves that by eating characters -- a button sized to its own
+        /// label still renders "Reinforce polic...". Measuring and drawing with
+        /// the same metrics is what stops that.
+        ///
+        /// It cannot be caught on the Linux harness: libgdiplus returns
+        /// identical widths for both generic formats, so the mismatch only
+        /// exists on real GDI+.
+        /// </summary>
         static StringFormat Make(StringAlignment h, StringAlignment v)
         {
-            return new StringFormat(StringFormatFlags.NoWrap)
-            {
-                Alignment = h,
-                LineAlignment = v,
-                Trimming = StringTrimming.EllipsisCharacter,
-                HotkeyPrefix = HotkeyPrefix.None
-            };
+            StringFormat f = new StringFormat(StringFormat.GenericTypographic);
+            // Take the typographic metrics but not LineLimit, which
+            // GenericTypographic sets and which drops any line taller than its
+            // box instead of drawing it. Rows lay text into boxes a little
+            // shorter than the line height on purpose, so leaving it on erases
+            // every name and tip in the list.
+            f.FormatFlags = (f.FormatFlags | StringFormatFlags.NoWrap)
+                            & ~StringFormatFlags.LineLimit;
+            f.Alignment = h;
+            f.LineAlignment = v;
+            f.Trimming = StringTrimming.EllipsisCharacter;
+            f.HotkeyPrefix = HotkeyPrefix.None;
+            return f;
         }
 
         /// <summary>
@@ -150,14 +172,67 @@ namespace ConfigurO
         /// A section label: an 11px uppercase caption preceded by a solid
         /// 14x2px accent dash, per the handoff type ramp.
         /// </summary>
+        /// <summary>
+        /// Letter-spacing, which GDI+ has no notion of: DrawString lays glyphs
+        /// out on the font's own advances and there is no tracking parameter.
+        /// Drawn a glyph at a time with the extra advance added by hand.
+        ///
+        /// Only worth it on short strings -- per-glyph drawing loses kerning
+        /// across the pairs it splits, which is invisible on an eight-character
+        /// uppercase label and would not be on a sentence.
+        /// </summary>
+        internal static void TrackedText(Graphics g, string s, Font f, Color c,
+                                         float x, float y, float height, float tracking)
+        {
+            if (string.IsNullOrEmpty(s)) return;
+            using (SolidBrush b = new SolidBrush(c))
+            {
+                StringFormat fmt = TopLeft;
+                float baseline = y + (height - f.GetHeight(g)) / 2f;
+                foreach (char ch in s)
+                {
+                    string glyph = ch.ToString();
+                    g.DrawString(glyph, f, b, x, baseline, fmt);
+                    x += g.MeasureString(glyph, f, int.MaxValue,
+                                         StringFormat.GenericTypographic).Width + tracking;
+                }
+            }
+        }
+
+        /// <summary>
+        /// One em in pixels. Font.Size is in points, while every x we advance
+        /// is a world-space pixel, so an em-relative measure has to be
+        /// converted through the surface DPI or it comes out ~25% short at
+        /// 96 DPI and drifts further as the display scales.
+        /// </summary>
+        internal static float Em(Graphics g, Font f)
+        {
+            return f.SizeInPoints * g.DpiY / 72f;
+        }
+
+        /// <summary>Width of a tracked run, so callers can lay out beside it.</summary>
+        internal static float TrackedWidth(Graphics g, string s, Font f, float tracking)
+        {
+            if (string.IsNullOrEmpty(s)) return 0f;
+            float w = 0f;
+            foreach (char ch in s)
+                w += g.MeasureString(ch.ToString(), f, int.MaxValue,
+                                     StringFormat.GenericTypographic).Width + tracking;
+            return w;
+        }
+
         internal static void SectionLabel(Graphics g, string text, Font f, int x, int y, int height)
         {
             int dashW = NocturneScale.S(14), dashH = Math.Max(2, NocturneScale.S(2));
             using (SolidBrush b = new SolidBrush(NocturneTheme.Accent))
                 g.FillRectangle(b, x, y + (height - dashH) / 2, dashW, dashH);
 
-            Text(g, (text ?? string.Empty).ToUpperInvariant(), f, NocturneTheme.TextMuted,
-                 new RectangleF(x + dashW + NocturneScale.S(8), y, 600, height), Left);
+            // 0.12em of tracking, per the handoff's type ramp. An uppercase
+            // caption set solid reads as a cramped word rather than a label;
+            // the spacing is most of what separates the two.
+            string label = (text ?? string.Empty).ToUpperInvariant();
+            TrackedText(g, label, f, NocturneTheme.TextMuted,
+                        x + dashW + NocturneScale.S(8), y, height, Em(g, f) * 0.12f);
         }
 
         /// <summary>Card chrome: optional fill plus a 1px hairline at radius 8.</summary>

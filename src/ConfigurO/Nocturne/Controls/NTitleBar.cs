@@ -21,11 +21,33 @@ namespace ConfigurO
         internal NTitleBar()
         {
             Height = NocturneScale.S(NocturneTheme.TitleBarHeight);
+
+            // Opaque, unlike every other NControl, and that is the whole point.
+            //
+            // This is a child window, so it clips the shell: the strip it covers
+            // is the one part of the client area the form's own background fill
+            // can never reach. Inheriting NControl's transparent BackColor
+            // therefore makes the bar's colour depend entirely on its custom
+            // paint landing -- and when that is missed, which is what "the title
+            // bar is blank until the pointer crosses it" was describing, the
+            // strip shows the raw window-class brush. That brush is light grey,
+            // across the top of a dark window.
+            //
+            // Forcing an extra paint was the previous attempt and it did not
+            // hold. An opaque BackColor removes the dependency instead: whatever
+            // happens to the custom paint, the fallback is now the right colour.
+            SetStyle(ControlStyles.SupportsTransparentBackColor, false);
+            BackColor = NocturneTheme.Bg;
         }
 
         protected override void OnScaleChanged()
         {
             Height = NocturneScale.S(NocturneTheme.TitleBarHeight);
+        }
+
+        protected override void OnThemeChanged()
+        {
+            BackColor = NocturneTheme.Bg;
         }
 
         internal string VersionTag = string.Empty;

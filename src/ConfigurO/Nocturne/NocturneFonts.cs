@@ -118,9 +118,25 @@ namespace ConfigurO
 
         static readonly string FontFolder = System.IO.Path.Combine(CoreHelper.CoreFolder, "Fonts");
 
+        static int _attempts;
+
         static void LoadCore()
         {
-            if (_private != null) return;
+            // Retried while the UI face is missing, rather than gated on the
+            // collection merely existing.
+            //
+            // The splash screen loads fonts from its own STA thread before the
+            // shell asks, so with the old gate a first attempt that failed was
+            // permanent: every later call saw a non-null collection and returned
+            // immediately, leaving _sans null for the rest of the session. The
+            // app then ran on the system fallback -- Segoe UI -- with nothing
+            // said anywhere, which looks like a UI nobody designed rather than
+            // like a bug.
+            if (_sans != null) return;
+            if (ForceSystemFonts) { Bundled = false; return; }
+            if (_attempts >= 3) return;          // a genuinely broken install
+            _attempts++;
+
             _private = new PrivateFontCollection();
 
             // Identify each face by the family it adds, not by its name: GDI+
@@ -135,6 +151,14 @@ namespace ConfigurO
             if (_sans == null) _sans = _sansMedium;
             if (_sansMedium == null) _sansMedium = _sans;
             Bundled = _sans != null;
+
+            // Written either way. Whether the interface is set in the face it
+            // was designed for is the single most visible thing about the app,
+            // and until now there was no way to tell from outside it.
+            Logger.LogInfoSilent(Bundled
+                ? "NocturneFonts: bundled faces registered (attempt " + _attempts + ")"
+                : "NocturneFonts: bundled faces NOT registered after attempt " + _attempts +
+                  " -- falling back to the system UI face");
         }
 
         /// <summary>

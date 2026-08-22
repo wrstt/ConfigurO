@@ -4,6 +4,18 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [1.8]
+
+### Fixes
+- The app would not start at all: it failed with "Object reference not set to an
+  instance of an object" before showing a window. A line added in 1.3 to record
+  whether the bundled fonts had loaded used a logging method that only works
+  during a silent configuration run, and throws on an ordinary launch. The
+  diagnostic meant to make a font problem visible was stopping the app instead.
+- Logging can no longer bring the app down. The silent-run methods return
+  quietly when there is nothing to write to, rather than throwing at exactly the
+  moment something was worth recording.
+
 ## [1.7]
 
 ### Fixes

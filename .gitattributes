@@ -61,3 +61,19 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# Language statistics (github/linguist)
+#
+# design_handoff/ holds the Nocturne design specification and its interactive
+# prototype -- reference material for building the WinForms UI, not shipped
+# source. Left unmarked, ConfigurO.dc.html and the 4.9 MB bundle generated from
+# it outweigh every .cs file in the repository put together, and GitHub reports
+# the project as "HTML". Mark the folder as documentation so the language bar
+# reflects the application instead.
+###############################################################################
+design_handoff/**                     linguist-documentation
+
+# Built by the design-canvas bundler from ConfigurO.dc.html with its _ds assets
+# inlined. Generated, so also collapse it in diffs and suppress it from blame.
+design_handoff/ConfigurO-standalone.html linguist-generated

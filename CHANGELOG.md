@@ -4,6 +4,24 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [1.4]
+
+### Interface
+- The tweak list has been re-spaced. Rows were tighter inside themselves than
+  they were from one another, so the list read as a wall of text; there is now
+  more air between rows than between a name and its note, which is what lets the
+  pair read as one item.
+- Removed the rule under every row. Eighty-four of them stacked made the list
+  look like a spreadsheet, and the spacing already separates one row from the
+  next.
+- Each group of tweaks now sits in a panel. A label on the left with its toggle
+  against the far right edge left a wide empty span between the two that grew
+  with the window; the panel gives that span something to belong to, and
+  separates one section from the next without reintroducing any rules.
+- Hovering a row lifts it as an inset rounded card rather than washing the full
+  width of the pane.
+- Labels are inset further from the edge of the content area.
+
 ## [1.3]
 
 ### Fixes

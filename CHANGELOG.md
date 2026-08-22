@@ -4,6 +4,22 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [1.9]
+
+### Fixes
+- Any failure in the Hosts tool crashed the app instead of reporting itself. The
+  five messages shown when a hosts operation fails were built in a way that
+  always throws, so the error handler was worse than the error.
+- Dialogs could crash rather than open if the translations had not loaded. The
+  update prompt, file unlocker, hosts editor, about box and both startup dialogs
+  now fall back to English instead.
+- Restarting Windows Explorer could leave the desktop, taskbar and Start menu
+  gone. Explorer is stopped and started again as part of applying some tweaks;
+  if starting it back up failed, nothing retried and nothing said so. It now
+  retries, and if it still cannot, explains how to restart it from Task Manager.
+- Restarting the machine and revealing a file in Explorer no longer throw if
+  Windows refuses the request.
+
 ## [1.8]
 
 ### Fixes

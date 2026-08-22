@@ -71,7 +71,6 @@ src/ConfigurO/            the application
   Controls/               the restyled Moon* control suite
   Forms/                  the shell and the remaining dialogs
   Resources/              i18n (28 languages), scripts, flags, fonts
-design_handoff/           the Nocturne spec and its interactive prototype
 feed/                     app catalogue (feed.json) and icon pack
 templates/                silent-configuration templates
 docs/                     guides and screenshots
@@ -82,10 +81,10 @@ build/                    Linux type-check and headless render harness
 ## Design
 
 The interface is **Nocturne** — a single accent, two modes, one control
-language. The specification and an interactive prototype live in
-[`design_handoff/`](design_handoff/); the tokens are implemented once in
-[`NocturneTheme.cs`](src/ConfigurO/Nocturne/NocturneTheme.cs) and nothing in the
-UI hard-codes a colour.
+language. The tokens are defined once in
+[`NocturneTheme.cs`](src/ConfigurO/Nocturne/NocturneTheme.cs), which is the
+source of truth for colour, geometry and type; nothing in the UI hard-codes a
+colour. See [docs/DEVELOPING.md](docs/DEVELOPING.md).
 
 ## License
 

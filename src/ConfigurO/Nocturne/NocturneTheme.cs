@@ -10,8 +10,6 @@ namespace ConfigurO
     /// Single source of truth for colour, geometry and type. Nothing in the UI
     /// layer may hard-code a hex literal; everything routes through the
     /// mode-aware accessors below so the Dark/Light switch is a one-liner.
-    ///
-    /// Spec: design_handoff/README.md ("Design Tokens", "Control Language").
     /// </summary>
     public static class NocturneTheme
     {

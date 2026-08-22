@@ -2,9 +2,8 @@
 """
 Generate feed/feed.json -- the ConfigurO app-downloader catalogue.
 
-The design handoff names design_handoff/ConfigurO.dc.html's `appDefs` block as
-the feed spec: 15 categories, ~130 entries. This script reproduces that
-catalogue and fills in download links from three sources:
+CATALOG below is the catalogue: 15 categories, ~130 entries. This script emits
+it and fills in download links from three sources:
 
   1. the upstream Optimizer feed, matched on title (real, maintained links);
   2. documented vendor endpoints for the runtime families that `appDefs`

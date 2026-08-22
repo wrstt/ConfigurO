@@ -8,11 +8,9 @@ namespace ConfigurO
     /// The complete tweak catalogue -- the single source of truth shared by the
     /// Tweaks screen, silent configs and policy reinforcement.
     ///
-    /// Ordering inside each group follows design_handoff/README.md; ids match
-    /// the prototype's `tweakDefs` wherever the prototype names a row, so the
-    /// implementation and the reference stay comparable. Tweaks the prototype
-    /// does not enumerate are carried over from the legacy tool and slotted
-    /// into the same six groups.
+    /// Tweaks are grouped into six categories; ids are stable and are what the
+    /// silent-configuration templates in templates/ refer to, so renaming one
+    /// breaks saved configurations.
     /// </summary>
     internal static class TweakRegistry
     {

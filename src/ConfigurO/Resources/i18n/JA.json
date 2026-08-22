@@ -1,4 +1,4 @@
-{
+﻿{
 	"subSystem": "システム",
 	"subPrivacy": "プライバシー",
 	"subGaming": "ゲーム",
@@ -431,7 +431,6 @@ SMBv3に置き換えられており、そちらのほうがより安全です。
 	"winSearchTip": "Windows Searchサービスを無効化します。",
 	"btnRestoreUwp": "全てのUWPを復元",
 	"restoreUwpMessage": "本当に復元しますか？",
-	"telemetrySvcToggle": "ConfigurOのテレメトリを無効にする",
 	"edgeAiSw": "Edge Discover を無効にする",
 	"edgeTelemetrySw": "エッジ テレメトリを無効にする",
 	"edgeAiTip": "Edge の Discover バーを削除します。",

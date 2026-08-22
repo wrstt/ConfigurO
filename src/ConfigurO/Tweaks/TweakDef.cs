@@ -88,6 +88,41 @@ namespace ConfigurO
         }
 
         internal string ResolvedLabel { get { return I18n.Get(LabelKey, Label); } }
-        internal string ResolvedTip { get { return I18n.Get(TipKey, Tip); } }
+
+        /// <summary>
+        /// i18n key for the row's one-line summary.
+        ///
+        /// Deliberately a new namespace rather than a reuse of TipKey. The
+        /// translation files key TipKey to Optimizer's long-form help -- several
+        /// sentences, often with a bulleted list and hard newlines, written for a
+        /// dialog that had room for it. A Nocturne row has one line, so that text
+        /// arrives flattened and then ellipsised: 72% of the tips are longer than
+        /// the summary written for this UI, and a third carry hard breaks. That is
+        /// what made the screen read as clutter rather than as a product.
+        ///
+        /// No file defines these keys yet, so every language falls back to the
+        /// English one-liner and reads correctly today, and a translator can add
+        /// one later without touching the legacy key or losing the long-form text.
+        /// </summary>
+        internal string SummaryKey { get { return TipKey + "Short"; } }
+
+        /// <summary>The one-line summary drawn in the row.</summary>
+        internal string ResolvedSummary { get { return I18n.Get(SummaryKey, Tip); } }
+
+        /// <summary>
+        /// The long-form help, shown on hover. This is the already-translated
+        /// legacy text; hard newlines in it are wanted here, where there is room.
+        /// </summary>
+        internal string ResolvedDetail { get { return I18n.Get(TipKey, Tip); } }
+
+        /// <summary>Detail worth showing separately, i.e. not just the summary again.</summary>
+        internal bool HasDetail
+        {
+            get
+            {
+                string d = ResolvedDetail;
+                return !string.IsNullOrEmpty(d) && d != ResolvedSummary;
+            }
+        }
     }
 }

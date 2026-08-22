@@ -410,7 +410,6 @@
 	"storeUpdatesTip": "Отключает функцию автоматического обновления Microsoft Store.",
 	"btnRestoreUwp": "Восстановить все UWP",
 	"restoreUwpMessage": "Вы уверены, что хотите это сделать?",
-	"telemetrySvcToggle": "Отключить телеметрию данного приложения",
 	"edgeAiSw": "Отключить обнаружение Edge",
 	"edgeTelemetrySw": "Отключить пограничную телеметрию",
 	"edgeAiTip": "Удаляет панель обнаружения в Edge.",

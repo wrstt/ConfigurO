@@ -1,4 +1,4 @@
-{
+﻿{
 	"subSystem": "系統",
 	"subPrivacy": "隱私",
 	"subGaming": "遊戲",
@@ -436,7 +436,6 @@
 	"storeUpdatesTip": "停用 Microsoft Store 自動更新功能。",
 	"btnRestoreUwp": "還原所有 UWP",
 	"restoreUwpMessage": "您確定要這麼做嗎？",
-	"telemetrySvcToggle": "停用 ConfigurO 遙測",
 	"edgeAiSw": "停用 Edge 探索",
 	"edgeTelemetrySw": "停用 Edge 遙測",
 	"edgeAiTip": "移除 Edge 中的探索欄。",

@@ -1,4 +1,4 @@
-{
+﻿{
 	"subSystem": "Sistem",
 	"subPrivacy": "Privasi",
 	"subGaming": "Gaming",
@@ -439,7 +439,6 @@ Ini berdampak negatif pada kinerja.",
 	"winSearchTip": "Menonaktifkan layanan pencarian Windows.",
 	"btnRestoreUwp": "Kembalikan semua UWP",
 	"restoreUwpMessage": "Apakah Anda yakin ingin melakukan ini?",
-	"telemetrySvcToggle": "Nonaktifkan Wawasan Pengoptimal",
 	"edgeAiSw": "Nonaktifkan Edge Discover",
 	"edgeTelemetrySw": "Nonaktifkan Edge Telemetry",
   	"edgeAiTip": "Menghapus Bilah Temukan di Edge.",

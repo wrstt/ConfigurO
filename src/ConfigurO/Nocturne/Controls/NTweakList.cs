@@ -96,7 +96,10 @@ namespace ConfigurO
         {
             if (_query.Length == 0) return true;
             return r.Def.ResolvedLabel.IndexOf(_query, StringComparison.OrdinalIgnoreCase) >= 0
-                || r.Def.ResolvedTip.IndexOf(_query, StringComparison.OrdinalIgnoreCase) >= 0;
+                || r.Def.ResolvedSummary.IndexOf(_query, StringComparison.OrdinalIgnoreCase) >= 0
+                // The long-form text is searched too: it carries the detail
+                // someone would actually recall a tweak by.
+                || r.Def.ResolvedDetail.IndexOf(_query, StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         /// <summary>Recomputes row positions and the control's total height.</summary>
@@ -133,6 +136,79 @@ namespace ConfigurO
 
         internal int AppliedCount { get { return _groups.Sum(g => g.Rows.Count(r => r.On)); } }
 
+        // ── Long-form help on hover ─────────────────────────────────────
+        //
+        // The row shows a one-line summary; the translated long-form text lives
+        // here, where there is room for its paragraphs and bullet lists. Drawn
+        // rather than left to the shell: a default tooltip is a light-grey
+        // system rectangle, which on a dark themed window looks like a defect.
+
+        readonly ToolTip _tips = new ToolTip
+        {
+            OwnerDraw = true,
+            InitialDelay = 450,
+            ReshowDelay = 120,
+            AutoPopDelay = 32000,
+            UseFading = false,
+            UseAnimation = false
+        };
+
+        bool _tipsWired;
+
+        int TipPadX { get { return NocturneScale.S(12); } }
+        int TipPadY { get { return NocturneScale.S(10); } }
+        int TipMaxWidth { get { return NocturneScale.S(420); } }
+
+        void UpdateTip(Row r)
+        {
+            if (!_tipsWired)
+            {
+                _tips.Popup += OnTipPopup;
+                _tips.Draw += OnTipDraw;
+                _tipsWired = true;
+            }
+            _tips.SetToolTip(this, r != null && r.Def.HasDetail ? r.Def.ResolvedDetail : null);
+        }
+
+        void OnTipPopup(object sender, PopupEventArgs e)
+        {
+            string text = _tips.GetToolTip(this);
+            if (string.IsNullOrEmpty(text)) { e.Cancel = true; return; }
+
+            using (Graphics g = NocturneDraw.CreateMeasureGraphics())
+            using (Font f = NocturneFonts.Tip())
+            {
+                SizeF s = g.MeasureString(text, f, TipMaxWidth - TipPadX * 2);
+                e.ToolTipSize = new Size((int)Math.Ceiling(s.Width) + TipPadX * 2,
+                                         (int)Math.Ceiling(s.Height) + TipPadY * 2);
+            }
+        }
+
+        void OnTipDraw(object sender, DrawToolTipEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            NocturneDraw.Prepare(g);
+
+            Rectangle r = new Rectangle(0, 0, e.Bounds.Width - 1, e.Bounds.Height - 1);
+            NocturneTheme.FillRounded(g, r, NocturneTheme.RadiusMd, NocturneTheme.SurfaceAlt);
+            NocturneTheme.DrawRounded(g, r, NocturneTheme.RadiusMd, NocturneTheme.Border);
+
+            using (Font f = NocturneFonts.Tip())
+            using (SolidBrush b = new SolidBrush(NocturneTheme.Text))
+            using (StringFormat sf = new StringFormat(StringFormat.GenericTypographic))
+            {
+                // Wrapping is the point here, so NoWrap stays off -- but
+                // LineLimit has to go or the last line is dropped whenever it
+                // does not fit the box whole.
+                sf.FormatFlags &= ~StringFormatFlags.LineLimit;
+                sf.Trimming = StringTrimming.None;
+                g.DrawString(e.ToolTipText, f, b,
+                    new RectangleF(TipPadX, TipPadY,
+                                   e.Bounds.Width - TipPadX * 2,
+                                   e.Bounds.Height - TipPadY * 2), sf);
+            }
+        }
+
         Row RowAt(Point p)
         {
             foreach (Group g in _groups)
@@ -154,6 +230,7 @@ namespace ConfigurO
             if (r != _hover)
             {
                 _hover = r;
+                UpdateTip(r);
                 Cursor = r != null ? Cursors.Hand : Cursors.Default;
                 Invalidate();
             }
@@ -163,6 +240,7 @@ namespace ConfigurO
         protected override void OnMouseLeave(EventArgs e)
         {
             _hover = null;
+            UpdateTip(null);
             Cursor = Cursors.Default;
             Invalidate();
             base.OnMouseLeave(e);
@@ -273,7 +351,7 @@ namespace ConfigurO
                             NocturneDraw.Text(g, r.Def.ResolvedLabel, name, NocturneTheme.Text,
                                 new RectangleF(SidePad, r.Y + NocturneScale.S(9), textW, NocturneScale.S(18)),
                                 NocturneDraw.Left);
-                            NocturneDraw.Text(g, r.Def.ResolvedTip, tip, NocturneTheme.TextFaint,
+                            NocturneDraw.Text(g, r.Def.ResolvedSummary, tip, NocturneTheme.TextFaint,
                                 new RectangleF(SidePad, r.Y + NocturneScale.S(29), textW, NocturneScale.S(16)),
                                 NocturneDraw.Left);
                         }
@@ -295,7 +373,7 @@ namespace ConfigurO
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing) _animation.Dispose();
+            if (disposing) { _animation.Dispose(); _tips.Dispose(); }
             base.Dispose(disposing);
         }
     }

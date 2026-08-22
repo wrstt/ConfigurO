@@ -390,7 +390,6 @@
   "winSearchTip": "Tắt dịch vụ tìm kiếm Windows.",
   "btnRestoreUwp": "Khôi phục tất cả ứng dụng UWP",
   "restoreUwpMessage": "Bạn có chắc chắn muốn làm điều này không?",
-  "telemetrySvcToggle": "Tắt ConfigurO Insights",
   "edgeAiSw": "Tắt Edge Discover",
   "edgeTelemetrySw": "Tắt Telemetry của Edge",
   "edgeAiTip": "Loại bỏ thanh Discover Bar trong Edge.",

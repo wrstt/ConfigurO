@@ -427,7 +427,6 @@
 	"winSearchTip": "غیرفعال کردن سرویس جست و جو ویندوز",
 	"btnRestoreUwp": "بازگرداندن همه UWP",
 	"restoreUwpMessage": "آیا مطمئنید که می خواهید این کار را انجام دهید؟",
-	"telemetrySvcToggle": "غیرفعال کردن ConfigurO Insights",
 	"edgeAiSw": "غیرفعال کردن Edge Discover",
 	"edgeTelemetrySw": "غیرفعال کردن Edge Telemetry",
 	"edgeAiTip": "حذف Discover Bar در Edge.",

@@ -1,4 +1,4 @@
-{
+﻿{
 	"subSystem": "Sistem",
 	"subPrivacy": "Confidențialitate",
 	"subGaming": "Jocuri",
@@ -422,7 +422,6 @@
 	"storeUpdatesTip": "Dezactivează funcționalitatea de actualizări automate din Microsoft Store.",
 	"btnRestoreUwp": "Restaurați toate Aplicatiile Nedorite",
 	"restoreUwpMessage": "Ești sigur că vrei să faci asta?",
-	"telemetrySvcToggle": "Dezactivați telemetria ConfigurO",
 	"edgeAiSw": "Dezactiveaza Descoperirea pe Edge",
 	"edgeTelemetrySw": "Dezactiveaza Telemetria pentru Edge",
 	"edgeAiTip": "Scoate Bara de Descoperire din Edge",

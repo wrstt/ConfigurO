@@ -1,4 +1,4 @@
-{
+﻿{
    "subSystem": "Systeem",
    "subPrivacy": "Privacy",
    "subGaming": "Gamen",
@@ -391,7 +391,6 @@ Het heeft een negatief effect op de prestaties.",
 	"storeUpdatesTip": "Schakelt de functionaliteit voor automatische updates van de Microsoft Store uit.",
    "btnRestoreUwp": "Herstel alle UWP",
 	"restoreUwpMessage": "Weet je zeker dat je dit wilt doen?",
-   "telemetrySvcToggle": "Schakel ConfigurO-telemetrie uit",
    "edgeAiSw": "Schakel Edge Discover uit",
 	"edgeTelemetrySw": "Schakel Edge-telemetrie uit",
 	"edgeAiTip": "Verwijdert Discover Bar in Edge.",

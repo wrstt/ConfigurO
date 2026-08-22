@@ -1,4 +1,4 @@
-{
+﻿{
 	"subSystem": "Système",
 	"subPrivacy": "Intimité",
 	"subGaming": "Jeux",
@@ -414,7 +414,6 @@ Necessite l'ouverture d'un compte Microsoft.",
 	"storeUpdatesTip": "Désactive la fonctionnalité de mises à jour automatiques de Microsoft Store.",
 	"btnRestoreUwp": "Restaurer tous les UWP",
 	"restoreUwpMessage": "Es-tu sûr de vouloir faire ça?",
-	"telemetrySvcToggle": "Désactiver la télémétrie de l'optimiseur",
 	"edgeAiSw": "Désactiver Edge Discover",
 	"edgeTelemetrySw": "Désactiver la télémétrie Edge",
 	"edgeAiTip": "Supprime la barre de découverte dans Edge.",

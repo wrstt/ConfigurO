@@ -1,4 +1,4 @@
-{
+﻿{
 	"subSystem": "시스템",
 	"subPrivacy": "개인 정보",
 	"subGaming": "게이밍",
@@ -440,7 +440,6 @@ Microsoft 계정 로그인이 필요합니다.",
 	"winSearchTip": "Windows 검색 서비스를 사용하지 않도록 설정합니다.",
 	"btnRestoreUwp": "모든 UWP 복원",
 	"restoreUwpMessage": "정말 이 작업을 수행하시겠습니까?",
-	"telemetrySvcToggle": "ConfigurO 인사이트 사용 안 함",
 	"edgeAiSw": "Edge 검색 사용 안 함",
 	"edgeTelemetrySw": "Edge 원격 측정 사용 안 함",
 	"edgeAiTip": "Edge에서 탐색 막대를 제거합니다.",

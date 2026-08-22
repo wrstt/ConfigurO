@@ -1,4 +1,4 @@
-{
+﻿{
 	"subSystem": "Система",
 	"subPrivacy": "Анонимност",
 	"subGaming": "Гейминг",
@@ -440,7 +440,6 @@
 	"winSearchTip": "Изключва услугата Windows search.",
 	"btnRestoreUwp": "Възтанови целия UWP",
 	"restoreUwpMessage": "Сигурен ли си, че искаш да направиш това?",
-	"telemetrySvcToggle": "Изключи ConfigurO Insights",
 	"edgeAiSw": "Изключи Edge Discover",
 	"edgeTelemetrySw": "Изключи Edge телеметрия",
 	"edgeAiTip": "Премахва Discover Bar в Edge.",

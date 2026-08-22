@@ -1,4 +1,4 @@
-{
+﻿{
   "subSystem": "System",
   "subPrivacy": "Privacy",
   "subGaming": "Gaming",
@@ -18,7 +18,7 @@
   "linkUpdate": "Update available",
   "lblLab": "Experimental build\n(delete after testing)",
   "performanceSw": "Optimize Performance",
-  "networkSw": "ConfigurO Network",
+  "networkSw": "Disable network throttling",
   "defenderSw": "Disable Windows Defender",
   "systemRestoreSw": "Disable System Restore",
   "printSw": "Disable Print Service",
@@ -390,7 +390,6 @@
   "winSearchTip": "Disables Windows search service.",
   "btnRestoreUwp": "Restore all UWP",
   "restoreUwpMessage": "Are you sure you want to do this?",
-  "telemetrySvcToggle": "Disable ConfigurO Insights",
   "edgeAiSw": "Disable Edge Discover",
   "edgeTelemetrySw": "Disable Edge Telemetry",
   "edgeAiTip": "Removes Discover Bar in Edge.",

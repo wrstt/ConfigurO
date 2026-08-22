@@ -1,4 +1,4 @@
-{
+﻿{
 	"subSystem": "系统",
 	"subPrivacy": "隐私",
 	"subGaming": "游戏",
@@ -439,7 +439,6 @@
 	"storeUpdatesTip": "禁用 Microsoft Store 自动更新功能。",
 	"btnRestoreUwp": "恢复所有 UWP",
 	"restoreUwpMessage": "你确定要这么做吗？",
-	"telemetrySvcToggle": "禁用优化器遥测",
 	"edgeAiSw": "禁用 Edge 发现栏",
 	"edgeTelemetrySw": "禁用 Edge 遥测",
 	"edgeAiTip": "删除 Edge 中的发现栏。",

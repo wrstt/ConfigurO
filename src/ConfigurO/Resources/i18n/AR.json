@@ -1,4 +1,4 @@
-{
+﻿{
 	"subSystem": "النظام",
 	"subPrivacy": "الخصوصية",
 	"subGaming": "الألعاب",
@@ -440,7 +440,6 @@
 	"winSearchTip": "تعطيل خدمة البحث في ويندوز.",
 	"btnRestoreUwp": "استعادة كل تطبيقات UWP",
 	"restoreUwpMessage": "هل انت متأكد من أنك تريد أن تفعل هذا؟",
-	"telemetrySvcToggle": "تعطيل ConfigurO Insights",
 	"edgeAiSw": "تعطيل ميزة الإكتشاف في Edge",
 	"edgeTelemetrySw": "تعطيل إرسال البيانات في Edge",
 	"edgeAiTip": "قم بإزالة شريط Discover في Edge.",

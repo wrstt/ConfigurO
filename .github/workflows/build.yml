@@ -26,8 +26,42 @@ jobs:
     - name: Build Solution
       run: msbuild.exe ConfigurO.sln /p:Configuration=Release
 
+
+    - name: Build the setup bootstrapper
+      shell: pwsh
+      run: |
+        # Native Win32, so it needs the C++ toolchain rather than MSBuild.
+        # vswhere locates it; hard-coding a Visual Studio path breaks whenever
+        # the runner image moves.
+        $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+        $vs = & $vswhere -latest -products * `
+                -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 `
+                -property installationPath
+        if (-not $vs) { throw "no Visual C++ toolchain on this runner" }
+        $vcvars = Join-Path $vs "VC\Auxiliary\Build\vcvars64.bat"
+
+        # The resource compiler embeds these two by name from the working dir.
+        Copy-Item bin/Release/ConfigurO.exe installer/ConfigurO.exe -Force
+        Copy-Item src/ConfigurO/ConfigurO.ico installer/ConfigurO.ico -Force
+
+        # /MT statically links the CRT: setup must not itself depend on a
+        # Visual C++ redistributable, since it exists to run where nothing is
+        # installed. wWinMain needs its entry point named explicitly.
+        $build = @(
+          'rc /nologo /fo bootstrap.res bootstrap.rc',
+          'cl /nologo /W3 /O1 /MT /EHsc /DUNICODE /D_UNICODE bootstrap.cpp bootstrap.res ' +
+            '/Fe:ConfigurO-Setup.exe /link /SUBSYSTEM:WINDOWS /ENTRY:wWinMainCRTStartup'
+        ) -join ' && '
+        cmd /c "`"$vcvars`" >nul && cd installer && $build"
+        if ($LASTEXITCODE -ne 0) { throw "bootstrapper build failed" }
+
+        $size = (Get-Item installer/ConfigurO-Setup.exe).Length
+        Write-Host "ConfigurO-Setup.exe built, $size bytes"
+
     - name: Upload build
       uses: actions/upload-artifact@v4
       with:
         name: ConfigurO
-        path: bin/Release/ConfigurO.exe
+        path: |
+          bin/Release/ConfigurO.exe
+          installer/ConfigurO-Setup.exe

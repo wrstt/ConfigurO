@@ -272,3 +272,11 @@ __pycache__/
 /build/render/*.exe
 /build/render/*.dll
 /build/render/*.resources
+
+# Built by the installer step; the app binary and icon are copied in for the
+# resource compiler and the setup executable is produced next to them.
+installer/ConfigurO.exe
+installer/ConfigurO.ico
+installer/*.res
+installer/*.obj
+installer/ConfigurO-Setup.exe

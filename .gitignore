@@ -280,3 +280,4 @@ installer/ConfigurO.ico
 installer/*.res
 installer/*.obj
 installer/ConfigurO-Setup.exe
+build-setup.bat

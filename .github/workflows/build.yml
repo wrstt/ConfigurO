@@ -39,20 +39,32 @@ jobs:
                 -property installationPath
         if (-not $vs) { throw "no Visual C++ toolchain on this runner" }
         $vcvars = Join-Path $vs "VC\Auxiliary\Build\vcvars64.bat"
+        Write-Host "toolchain: $vcvars"
 
         # The resource compiler embeds these two by name from the working dir.
         Copy-Item bin/Release/ConfigurO.exe installer/ConfigurO.exe -Force
         Copy-Item src/ConfigurO/ConfigurO.ico installer/ConfigurO.ico -Force
 
+        # Driven from a batch file rather than a cmd /c one-liner. vcvars has to
+        # run in the same shell as the compiler, and nesting that plus quoted
+        # paths inside cmd /c mangles the quoting before either tool sees it.
+        #
         # /MT statically links the CRT: setup must not itself depend on a
         # Visual C++ redistributable, since it exists to run where nothing is
         # installed. wWinMain needs its entry point named explicitly.
-        $build = @(
-          'rc /nologo /fo bootstrap.res bootstrap.rc',
-          'cl /nologo /W3 /O1 /MT /EHsc /DUNICODE /D_UNICODE bootstrap.cpp bootstrap.res ' +
-            '/Fe:ConfigurO-Setup.exe /link /SUBSYSTEM:WINDOWS /ENTRY:wWinMainCRTStartup'
-        ) -join ' && '
-        cmd /c "`"$vcvars`" >nul && cd installer && $build"
+        $dir = Join-Path $PWD.Path "installer"
+        $bat = @"
+        @echo off
+        call "$vcvars"
+        if errorlevel 1 exit /b 1
+        cd /d "$dir"
+        rc /nologo /fo bootstrap.res bootstrap.rc
+        if errorlevel 1 exit /b 1
+        cl /nologo /W3 /O1 /MT /EHsc /DUNICODE /D_UNICODE bootstrap.cpp bootstrap.res /Fe:ConfigurO-Setup.exe /link /SUBSYSTEM:WINDOWS /ENTRY:wWinMainCRTStartup
+        if errorlevel 1 exit /b 1
+        "@ -replace '(?m)^        ', ''
+        $bat | Set-Content -Path build-setup.bat -Encoding ascii
+        cmd /c build-setup.bat
         if ($LASTEXITCODE -ne 0) { throw "bootstrapper build failed" }
 
         $size = (Get-Item installer/ConfigurO-Setup.exe).Length

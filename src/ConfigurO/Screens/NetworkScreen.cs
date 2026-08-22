@@ -302,12 +302,12 @@ namespace ConfigurO
 
             int y = _console.Bottom + NocturneScale.S(10);
             int x = 0;
-            x = Tag(g, x, y, I18n.Get("min", "Min"), _latencies.Min() + " ms", false);
-            x = Tag(g, x, y, I18n.Get("avg", "Avg"), (int)Math.Round(_latencies.Average()) + " ms", true);
-            Tag(g, x, y, I18n.Get("max", "Max"), _latencies.Max() + " ms", false);
+            x = SummaryTag(g, x, y, I18n.Get("min", "Min"), _latencies.Min() + " ms", false);
+            x = SummaryTag(g, x, y, I18n.Get("avg", "Avg"), (int)Math.Round(_latencies.Average()) + " ms", true);
+            SummaryTag(g, x, y, I18n.Get("max", "Max"), _latencies.Max() + " ms", false);
         }
 
-        int Tag(Graphics g, int x, int y, string label, string value, bool accent)
+        int SummaryTag(Graphics g, int x, int y, string label, string value, bool accent)
         {
             string text = label + " " + value;
             using (Font f = NocturneFonts.Tag())

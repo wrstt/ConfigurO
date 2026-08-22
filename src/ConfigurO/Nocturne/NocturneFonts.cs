@@ -45,7 +45,7 @@ namespace ConfigurO
         /// memory font it cannot then rasterise, which turns every glyph into
         /// a box. Must be set before <see cref="Load"/>.
         /// </summary>
-        internal static bool ForceSystemFonts;
+        internal static bool ForceSystemFonts { get; set; }
 
         /// <summary>The families GDI+ actually registered. Diagnostics only.</summary>
         internal static FontFamily[] LoadedFamilies

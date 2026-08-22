@@ -82,8 +82,19 @@ namespace ConfigurO
                     Directory.CreateDirectory(Path.GetDirectoryName(SettingsFile));
                 }
 
-                File.WriteAllText(SettingsFile,
-                    JsonConvert.SerializeObject(CurrentOptions, Formatting.Indented));
+                // Written to one side and swapped in, never straight over the
+                // top. File.WriteAllText truncates the target before it writes,
+                // so a process that dies in that window -- killed because it had
+                // hung, say -- leaves an empty settings file behind. That file
+                // then deserialises to null on every subsequent launch, and the
+                // app stops starting altogether until someone deletes it by
+                // hand. The swap means the file on disk is always either the
+                // old settings or the new ones.
+                string tmp = SettingsFile + ".tmp";
+                File.WriteAllText(tmp, JsonConvert.SerializeObject(CurrentOptions, Formatting.Indented));
+
+                if (File.Exists(SettingsFile)) File.Replace(tmp, SettingsFile, null);
+                else File.Move(tmp, SettingsFile);
             }
             catch (Exception ex)
             {
@@ -102,7 +113,8 @@ namespace ConfigurO
                     // colour and no mode. Keep everything else, and give the
                     // fields the redesign introduced their defaults rather
                     // than the false/null that deserialization leaves behind.
-                    Options previous = JsonConvert.DeserializeObject<Options>(File.ReadAllText(SettingsFile));
+                    Options previous = ReadSettingsFile();
+                    if (previous == null) { StartOver(); return; }
                     previous.ThemeMode = NocturneTheme.Mode.Dark;
                     previous.ShowHelpMessages = true;
                     previous.UseMica = false;
@@ -224,7 +236,9 @@ namespace ConfigurO
             }
             else
             {
-                CurrentOptions = JsonConvert.DeserializeObject<Options>(File.ReadAllText(SettingsFile));
+                Options loaded = ReadSettingsFile();
+                if (loaded == null) { StartOver(); return; }
+                CurrentOptions = loaded;
             }
 
             NocturneTheme.Current = CurrentOptions.ThemeMode;
@@ -236,6 +250,53 @@ namespace ConfigurO
             //}
 
             LoadTranslation();
+        }
+
+        static bool _startingOver;
+
+        /// <summary>
+        /// Reads the settings file, or null if it cannot be used.
+        ///
+        /// Deserialising an empty or truncated file returns null rather than
+        /// throwing, which is the trap: the caller went on to read a property
+        /// off it and the app died with a NullReferenceException before it had
+        /// drawn anything. Every caller has to treat null as "no settings".
+        /// </summary>
+        static Options ReadSettingsFile()
+        {
+            try
+            {
+                string json = File.ReadAllText(SettingsFile);
+                if (string.IsNullOrWhiteSpace(json)) return null;
+                return JsonConvert.DeserializeObject<Options>(json);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("OptionsHelper.ReadSettingsFile", ex.Message, ex.StackTrace);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Drops an unusable settings file and loads defaults over the top.
+        ///
+        /// Losing preferences is a poor outcome; refusing to start is a worse
+        /// one, and before this that is what happened -- permanently, since
+        /// nothing ever rewrote the bad file.
+        /// </summary>
+        static void StartOver()
+        {
+            if (_startingOver) { CurrentOptions = new Options(); LoadTranslation(); return; }
+            _startingOver = true;
+            try
+            {
+                Logger.LogInfoSilent("OptionsHelper: settings file unusable, restoring defaults");
+                if (File.Exists(SettingsFile)) File.Delete(SettingsFile);
+            }
+            catch (Exception ex) { Logger.LogError("OptionsHelper.StartOver", ex.Message, ex.StackTrace); }
+
+            try { LoadSettings(); }
+            finally { _startingOver = false; }
         }
 
         internal static void LoadTranslation()

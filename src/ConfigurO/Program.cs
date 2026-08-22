@@ -427,13 +427,19 @@ namespace ConfigurO
                 //}
 
                 // ideal place to replace internal messages from translation list
-                _adminMissingMessage = OptionsHelper.TranslationList["adminMissingMsg"];
-                _unsupportedMessage = OptionsHelper.TranslationList["unsupportedMsg"];
-                _confInvalidFormatMsg = OptionsHelper.TranslationList["confInvalidFormatMsg"];
-                _confInvalidVersionMsg = OptionsHelper.TranslationList["confInvalidVersionMsg"];
-                _confNotFoundMsg = OptionsHelper.TranslationList["confNotFoundMsg"];
-                _argInvalidMsg = OptionsHelper.TranslationList["argInvalidMsg"];
-                _alreadyRunningMsg = OptionsHelper.TranslationList["alreadyRunningMsg"];
+                // Through I18n.Get rather than indexing TranslationList.
+                // TranslationList is dynamic, so indexing it while it is null
+                // throws -- and these seven lines ran before the app had shown
+                // anything, so a translation that failed to load took the whole
+                // launch with it. I18n.Get returns the English already in these
+                // fields instead, which is worth far more than the message.
+                _adminMissingMessage = I18n.Get("adminMissingMsg", _adminMissingMessage);
+                _unsupportedMessage = I18n.Get("unsupportedMsg", _unsupportedMessage);
+                _confInvalidFormatMsg = I18n.Get("confInvalidFormatMsg", _confInvalidFormatMsg);
+                _confInvalidVersionMsg = I18n.Get("confInvalidVersionMsg", _confInvalidVersionMsg);
+                _confNotFoundMsg = I18n.Get("confNotFoundMsg", _confNotFoundMsg);
+                _argInvalidMsg = I18n.Get("argInvalidMsg", _argInvalidMsg);
+                _alreadyRunningMsg = I18n.Get("alreadyRunningMsg", _alreadyRunningMsg);
             }
             catch (Exception ex)
             {

@@ -9,9 +9,18 @@ heading for the running version to decide what to show, so keep the
 First release under the ConfigurO name, rebuilt around the **Nocturne** design.
 
 ### Interface
-- The language picker's 28 flags were 32x19-pixel bitmaps, upscaled by the
-  form's DPI scaling into a smear. Reshipped at 160x95 with the letterboxing
-  baked in, so the PictureBox stretch is a pure downscale.
+- Rebuilt the first-run language chooser, the one screen the redesign had not
+  reached. It was 28 PictureBoxes and 28 RadioButtons at fixed coordinates,
+  sized against a font the app no longer uses, with a hand-written click
+  handler per flag. It is now one table: language, flag, native name. That
+  table also fixes three faults the old wiring had drifted into -- clicking the
+  Korea flag selected Chinese, the Ukraine and Bulgaria flags were connected to
+  nothing, and the Taiwan flag was never shown at all because China's was used
+  for both. Each name is drawn in a face that can render its own script, and
+  the list is keyboard-navigable.
+- The picker's 28 flags were 32x19-pixel bitmaps, upscaled by the form's DPI
+  scaling into a smear. Reshipped at 160x95 with the letterboxing baked in, so
+  the PictureBox stretch is a pure downscale.
 - 34 app-catalogue tiles that drew without artwork now have icons, sourced from
   each publisher and normalised to 128x128. `tools/build_feed.py` rebuilds
   `feed/icons.zip` and fails `--check` if an entry references a file that is

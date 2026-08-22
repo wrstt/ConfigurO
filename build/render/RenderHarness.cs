@@ -46,6 +46,7 @@ namespace ConfigurO
                 string suffix = mode == NocturneTheme.Mode.Dark ? "dark" : "light";
                 Shell(suffix);
                 Controls(suffix);
+                FirstRun(suffix);
                 if (mode == NocturneTheme.Mode.Dark)
                 {
                     _narrow = false; Screens();
@@ -134,8 +135,9 @@ namespace ConfigurO
             try { a(); }
             catch (Exception ex)
             {
-                Console.WriteLine("  !! skipped " + what + ": " +
-                                  (ex.InnerException ?? ex).GetType().Name);
+                Exception e = ex.InnerException ?? ex;
+                Console.WriteLine("  !! skipped " + what + ": " + e.GetType().Name +
+                                  ": " + e.Message);
             }
         }
 
@@ -375,6 +377,43 @@ namespace ConfigurO
         }
 
         /// <summary>Paints a container and every visible child, recursively.</summary>
+        /// <summary>
+        /// The first-run language chooser. Rebuilding it out of Nocturne
+        /// controls is what makes it renderable at all -- the Designer form it
+        /// replaced was 28 PictureBoxes and 28 RadioButtons, which libgdiplus
+        /// will not paint, so nobody could look at this screen without Windows.
+        /// </summary>
+        static void FirstRun(string suffix)
+        {
+            Safe("firstrun", () =>
+            {
+                // A Form cannot be realised without X11, so build the same
+                // layout the form does from the same shared constants.
+                NLanguagePicker picker = new NLanguagePicker();
+                int pad = FirstRunForm.Pad;
+                int w = NocturneScale.S(560);
+                picker.SetBounds(pad, FirstRunForm.HeaderHeight, w - pad * 2, 1);
+                picker.Height = picker.PreferredHeight;
+                int h = FirstRunForm.HeaderHeight + picker.Height + FirstRunForm.FooterHeight;
+
+                NButton start = new NButton { Style = NButtonStyle.Primary, Text = "Start" };
+                start.AutoWidth = true;
+                start.AutoFit();
+                start.Height = NocturneScale.S(34);
+                start.Location = new Point(w - pad - start.Width,
+                                           h - FirstRunForm.FooterHeight + NocturneScale.S(14));
+
+                Graphics g;
+                Bitmap b = Canvas(w, h, out g);
+                FirstRunForm.PaintChrome(g, new Size(w, h));
+                PaintTree(g, picker, picker.Left, picker.Top);
+                PaintTree(g, start, start.Left, start.Top);
+                Save(b, g, "firstrun-" + suffix);
+                picker.Dispose();
+                start.Dispose();
+            });
+        }
+
         static void PaintTree(Graphics g, Control c, int x, int y)
         {
             Paint(g, c, x, y);

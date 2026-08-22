@@ -59,8 +59,17 @@ namespace ConfigurO
         static string[] ScriptFallback()
         {
             Options o = OptionsHelper.CurrentOptions;
-            if (o == null) return null;
-            switch (o.LanguageCode)
+            return o == null ? null : ScriptFallback(o.LanguageCode);
+        }
+
+        /// <summary>
+        /// The chain for one specific language, whatever the app is currently
+        /// set to. The first-run picker lists all 28 names in their own scripts
+        /// at once, so it needs this per row rather than per app.
+        /// </summary>
+        internal static string[] ScriptFallback(LanguageCode code)
+        {
+            switch (code)
             {
                 case LanguageCode.AR:
                 case LanguageCode.FA:
@@ -254,6 +263,14 @@ namespace ConfigurO
         }
 
         internal static Font Mono(float pt) { return Make(_mono, MonoFallback, pt, FontStyle.Regular); }
+
+        /// <summary>Body text that must render <paramref name="code"/>'s script.</summary>
+        internal static Font SansFor(LanguageCode code, float pt)
+        {
+            string[] script = ScriptFallback(code);
+            if (script != null) return Make(null, script, pt, FontStyle.Regular);
+            return Make(_sans, SansFallback, pt, FontStyle.Regular);
+        }
 
         // ── The type ramp from the handoff, in points (px * 0.75) ───────
         // These are methods, not properties: each call allocates a Font that

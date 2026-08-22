@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -122,6 +122,7 @@
     <Compile Include="Nocturne\NocturneMenu.cs" />
     <Compile Include="Nocturne\Controls\NBanner.cs" />
     <Compile Include="Nocturne\Controls\NButton.cs" />
+    <Compile Include="Nocturne\Controls\NLanguagePicker.cs" />
     <Compile Include="Nocturne\Controls\NCard.cs" />
     <Compile Include="Nocturne\Controls\NConsole.cs" />
     <Compile Include="Nocturne\Controls\NControl.cs" />
@@ -177,9 +178,6 @@
     </Compile>
     <Compile Include="Forms\FirstRunForm.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FirstRunForm.Designer.cs">
-      <DependentUpon>FirstRunForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\HelperForm.cs">
       <SubType>Form</SubType>
@@ -254,9 +252,6 @@
     <Compile Include="UWPHelper.cs" />
     <EmbeddedResource Include="Forms\FileUnlockForm.resx">
       <DependentUpon>FileUnlockForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FirstRunForm.resx">
-      <DependentUpon>FirstRunForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HelperForm.resx">
       <DependentUpon>HelperForm.cs</DependentUpon>

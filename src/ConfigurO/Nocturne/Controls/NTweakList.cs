@@ -29,6 +29,8 @@ namespace ConfigurO
         {
             internal string Title;
             internal int Y, Height;
+            /// <summary>Bounds of the panel the group's rows sit in.</summary>
+            internal int CardTop, CardBottom;
             internal readonly List<Row> Rows = new List<Row>();
         }
 
@@ -66,13 +68,28 @@ namespace ConfigurO
             }
         }
 
-        int GroupHeaderHeight { get { return NocturneScale.S(34); } }
-        // 46 put the label and its tip 16px apart with the pair sitting high in
-        // the row: the two lines read as one crowded block rather than as a
-        // heading and its note. 54 gives the pair 19px of separation and even
-        // padding above and below.
-        int RowHeight { get { return NocturneScale.S(_showTips ? 54 : 34); } }
-        int SidePad { get { return NocturneScale.S(12); } }
+        // Rhythm.
+        //
+        // A row is a name over a note, and the pair has to read as one object
+        // with air around it rather than as two lines pushed together. At 54
+        // the pair filled 36 of the row's 54 pixels, leaving 9 above and below
+        // -- less separation between a row and its neighbour than between the
+        // two lines inside it, which is what made the screen feel crammed. 64
+        // puts 13 above and 12 below, so the gap between rows is wider than the
+        // gap within one and the eye groups them correctly.
+        int GroupHeaderHeight { get { return NocturneScale.S(40); } }
+        int RowHeight { get { return NocturneScale.S(_showTips ? 64 : 42); } }
+        int NameTop { get { return NocturneScale.S(13); } }
+        int NoteTop { get { return NocturneScale.S(35); } }
+
+        /// <summary>Text inset. 12 sat the labels almost on the pane's edge.</summary>
+        int SidePad { get { return NocturneScale.S(20); } }
+
+        /// <summary>Air between one group and the next section label.</summary>
+        int GroupGap { get { return NocturneScale.S(32); } }
+
+        /// <summary>Padding inside the group panel, above the first row and below the last.</summary>
+        int CardPadY { get { return NocturneScale.S(8); } }
 
         /// <summary>Reloads from <see cref="TweakRegistry"/> and re-applies the filter.</summary>
         internal void Load()
@@ -113,6 +130,9 @@ namespace ConfigurO
 
                 g.Y = y;
                 y += GroupHeaderHeight;
+
+                g.CardTop = y;
+                y += CardPadY;
                 foreach (Row r in g.Rows)
                 {
                     if (!Matches(r)) { r.Height = 0; continue; }
@@ -120,8 +140,10 @@ namespace ConfigurO
                     r.Height = RowHeight;
                     y += RowHeight;
                 }
+                y += CardPadY;
+                g.CardBottom = y;
                 g.Height = y - g.Y;
-                y += NocturneScale.S(14);
+                y += GroupGap;
             }
             Height = Math.Max(y, 1);
             Invalidate();
@@ -319,7 +341,21 @@ namespace ConfigurO
                     if (grp.Y + grp.Height < clip.Top || grp.Y > clip.Bottom) continue;
 
                     NocturneDraw.SectionLabel(g, grp.Title, section, SidePad,
-                        grp.Y + NocturneScale.S(8), NocturneScale.S(18));
+                        grp.Y + NocturneScale.S(12), NocturneScale.S(18));
+
+                    // The group is a panel, and the rows live inside it.
+                    //
+                    // Without one, a row is a label on the left and a toggle
+                    // against the right edge with several hundred pixels of
+                    // nothing in between -- the wider the window, the more the
+                    // pair looks unrelated. Giving the group a surface makes
+                    // that span belong to something, which is how every settings
+                    // UI worth copying handles the same problem, and it separates
+                    // one section from the next without a page of rules.
+                    Rectangle card = new Rectangle(0, grp.CardTop, Width,
+                                                   Math.Max(0, grp.CardBottom - grp.CardTop));
+                    NocturneTheme.FillRounded(g, card, NocturneTheme.RadiusLg, NocturneTheme.Surface);
+                    NocturneTheme.DrawRounded(g, card, NocturneTheme.RadiusLg, NocturneTheme.Border);
 
                     foreach (Row r in grp.Rows)
                     {
@@ -328,8 +364,17 @@ namespace ConfigurO
 
                         if (r == _hover)
                         {
-                            using (SolidBrush b = new SolidBrush(NocturneTheme.Alpha(NocturneTheme.Text, 0.04)))
-                                g.FillRectangle(b, 0, r.Y, Width, r.Height);
+                            // Inset and rounded, rather than a band running the
+                            // full bleed of the pane. A square edge-to-edge
+                            // wash reads as a table selection; a card reads as
+                            // the row lifting, and it keeps the highlight
+                            // aligned with the text rather than with the window.
+                            int inset = NocturneScale.S(6);
+                            Rectangle hov = new Rectangle(inset, r.Y + NocturneScale.S(2),
+                                                          Math.Max(0, Width - inset * 2),
+                                                          r.Height - NocturneScale.S(4));
+                            NocturneTheme.FillRounded(g, hov, NocturneTheme.RadiusMd,
+                                NocturneTheme.Alpha(NocturneTheme.Text, 0.05));
                         }
 
                         int toggleX = Width - SidePad - tw;
@@ -349,10 +394,10 @@ namespace ConfigurO
                         if (_showTips)
                         {
                             NocturneDraw.Text(g, r.Def.ResolvedLabel, name, NocturneTheme.Text,
-                                new RectangleF(SidePad, r.Y + NocturneScale.S(9), textW, NocturneScale.S(18)),
+                                new RectangleF(SidePad, r.Y + NameTop, textW, NocturneScale.S(19)),
                                 NocturneDraw.Left);
                             NocturneDraw.Text(g, r.Def.ResolvedSummary, tip, NocturneTheme.TextFaint,
-                                new RectangleF(SidePad, r.Y + NocturneScale.S(29), textW, NocturneScale.S(16)),
+                                new RectangleF(SidePad, r.Y + NoteTop, textW, NocturneScale.S(17)),
                                 NocturneDraw.Left);
                         }
                         else
@@ -364,8 +409,12 @@ namespace ConfigurO
                         NocturneTogglePill.DrawAnimated(g,
                             new Rectangle(toggleX, r.Y + (r.Height - th) / 2, tw - 1, th - 1), r.Anim);
 
-                        NocturneTheme.DrawFadedRule(g, SidePad, r.Y + r.Height - 1,
-                            Width - SidePad * 2, NocturneTheme.Border);
+                        // No rule under the row. Eighty-four of them stacked is
+                        // a page of horizontal lines, and the spacing above
+                        // already separates one row from the next -- a divider
+                        // as well is belt and braces, and it is what made the
+                        // list look like a spreadsheet.
+
                     }
                 }
             }

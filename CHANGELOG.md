@@ -4,6 +4,29 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [2.0]
+
+Numbered 2.0 rather than 1.10 because the updater compares versions as decimal
+numbers, and 1.10 reads as 1.1 — older than 1.9.
+
+### Added
+- **ConfigurO-Setup.exe**, for PCs without the .NET Framework. It checks for
+  version 4.8, offers to download it from Microsoft if it is missing, then
+  installs ConfigurO into Program Files with a Start Menu shortcut and starts
+  it. Setup needs nothing itself: it is a native program with no runtime of its
+  own, so it works on a machine with nothing installed. The plain
+  `ConfigurO-<version>.exe` is unchanged for anyone who already has the
+  framework.
+
+### Changed
+- Now built against .NET Framework 4.8 rather than 4.8.1. 4.8.1 is not available
+  for Windows 7, 8, 8.1 or Windows 10 before 21H2, so the app was requiring
+  something those systems cannot install while claiming to support them. 4.8 is
+  built into Windows 10 (May 2019) and later and installs on everything older
+  that ConfigurO supports. Machines with 4.8.1 are unaffected.
+- If the .NET Framework is older than 4.8, ConfigurO now says so and links the
+  download instead of failing partway through with an unrelated error.
+
 ## [1.9]
 
 ### Fixes

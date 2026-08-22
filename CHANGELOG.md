@@ -4,6 +4,45 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [1.2]
+
+Fixes for what the first Windows run showed: text truncating in controls sized
+to fit it, and a Tweaks screen that read as clutter.
+
+### Fixes
+- Text was measured with one set of metrics and drawn with another. Measurement
+  used `GenericTypographic`; drawing used a `GenericDefault`-based format, which
+  reserves about a sixth of an em of side bearing that typographic measurement
+  does not report. Every string was therefore drawn into a box slightly narrower
+  than it needed, and because those formats trim with an ellipsis, GDI+ resolved
+  it by dropping characters -- a button sized by AutoFit to its own label still
+  rendered "Reinforce polic...". The shortfall is a fraction of the em, so it
+  grew with the font's pixel size and looked like a DPI fault; the 1.1 DPI fix
+  was correct but unrelated. Both paths measure and draw the same way now.
+
+### Interface
+- Tweak rows show the one-line summary written for them. They had been showing
+  the legacy long-form help instead: across 66 tweaks that text averages 78
+  characters against 41, 72% of it is longer than the summary, and a third of it
+  carries hard line breaks, because it was written for a dialog with room for
+  paragraphs and bullet lists. Flattened onto a single row it truncated.
+- That long-form help is now the hover tooltip, where the paragraphs belong.
+  Nothing translated was discarded, and the tooltip is drawn in the app's own
+  palette rather than left as a light system rectangle on a dark window.
+- Section labels are set with 0.12em of letter-spacing, per the design's type
+  ramp. Set solid they read as a cramped word rather than as a label.
+- Searching a tweak matches its name, its summary and its long-form text.
+
+### Fixes to the rebrand
+- Two tweaks were named after the application because a find-and-replace had
+  rewritten the product name where it formed part of a tweak's name. "Optimizer
+  Network" had become "ConfigurO Network"; it is the tweak that disables network
+  throttling, and is now named that. Croatian carried the same fault, and Urdu
+  still carried the previous product name transliterated.
+- Removed a leftover switch offering to disable "ConfigurO Insights". Nothing
+  read it -- it was the previous project's opt-out for its own analytics, which
+  this application does not collect -- and in 15 languages it implied otherwise.
+
 ## [1.1]
 
 `ConfigurO-1.0.exe` was built seven commits before the 1.0 notes below were

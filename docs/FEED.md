@@ -1,36 +1,72 @@
-# Including an App in Common Apps using feed.json
+# Adding an app to the Apps screen
 
-To include an app in Common Apps using the `feed.json` file, follow these steps:
+`feed/feed.json` is **generated**. Editing it by hand works until the next time
+anyone runs the generator, which overwrites the file. Add the app to
+[`tools/build_feed.py`](../tools/build_feed.py) instead.
 
-## Prerequisites
+## 1. Add it to the catalogue
 
-You will need the following information:
+`CATALOG` maps each group to a list of `(title, icon)` pairs. The icon name is
+the base name of a PNG in `feed/icons/`, or `None` if there isn't one — the tile
+still renders, just without artwork.
 
-- Direct download links for both x64 and x86 variants of the app (if one variant is unavailable, provide the available variant).
-- Official app title.
-- A tag, usually the app title without spaces, preceded by a 'c'.
-- A PNG image with a transparent background, up to 256x256 pixels in size and not exceeding 50KB.
-- The group in which the app will be categorized.
+```python
+'Utilities': [..., ('Everything', 'everything'), ('YourApp', 'yourapp')],
+```
 
-## Available Groups
+The groups are the ones the Apps screen shows:
 
-Choose one of the available groups to categorize your app:
+| | | |
+|---|---|---|
+| Web Browsers | Messaging | Media |
+| .NET | Java | Imaging |
+| Documents | Security | Compression |
+| File Sharing | Other | Online Storage |
+| VC++ Redistributables | Developer Tools | Utilities |
 
-- SystemTools
-- Internet
-- Coding
-- GraphicsSound
+## 2. Give it a link
 
-## Example
+Pick whichever of these fits, in order of preference:
 
-Here's an example of how to structure your entry in the `feed.json` file:
+- **`RESOLVERS`** — the publisher exposes something machine-readable (a GitHub
+  releases API, a version index, a download API). Write a small function
+  returning `(link32, link64)`. It re-runs on every regeneration, so the feed
+  tracks new versions instead of freezing on whatever was current the day it
+  was added. Prefer this.
+- **`VENDOR`** — the publisher serves a stable, versionless URL
+  (`https://download.ccleaner.com/ccsetup.exe`), or a version-pinned file is the
+  only thing they publish. A lone string is used for both architectures; a
+  `(x86, x64)` tuple sets them separately.
+- **`NO_LINK`** — there is nothing worth linking. Record *why*. The tile shows
+  "No link yet" and cannot be selected, and the reason keeps a deliberate blank
+  from being mistaken for a regression later.
 
-```json
-{
-  "Title": "Google Chrome",
-  "Link": "<link_x86>",
-  "Link64": "<link_x64>",
-  "Tag": "cChrome",
-  "Image": "<link_to_png>",
-  "Group": "Internet"
-}
+The link **must** end in `.exe` or `.msi`, or be a redirector that serves one.
+The Apps screen names the downloaded file from the URL it was given and then
+runs it, so a `.zip` gets saved as `.exe` and executed. That is why Paint.NET,
+which ships only archives, is in `NO_LINK`.
+
+## 3. Regenerate and verify
+
+```
+tools/build_feed.py --check
+```
+
+This rewrites `feed/feed.json`, then fetches the first kilobyte of every link
+and fails on anything that is not a Windows installer — a 404, an HTML
+click-through page, an archive, or an installer for another platform. All three
+have been shipped by real publishers in this catalogue, so do not skip it.
+
+## 4. Icons
+
+Icons live in `feed/icons/` as PNGs with a transparent background, up to
+256×256 and under 50 KB, and are served from
+`raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/`. `feed/icons.zip`
+is the offline cache the app falls back to; regenerate it after adding one.
+
+## The upstream feed
+
+`build_feed.py` still reads the Optimizer feed, but **only** for its `Tag`
+values. Its download links are years out of date — a check in August 2026 found
+17 of them dead, including one that served a macOS `.pkg` — so nothing it says
+about links is trusted any more.

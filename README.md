@@ -23,7 +23,7 @@ one dark, dense, keyboard-friendly interface.
 | **Cleaner** | Measures then clears temp files, dumps, error reports and browser caches |
 | **Startup** | Enable, disable or remove anything that launches at sign-in |
 | **Hosts** | Edit entries, apply curated block lists, lock the file read-only |
-| **Apps** | Download and install ~150 common apps straight from their vendors |
+| **Apps** | Download and install 147 common apps straight from their vendors |
 | **Network** | Ping with live output, switch DNS provider, flush the resolver cache |
 | **UWP Apps** | List installed packages with their size and uninstall in bulk |
 | **Hardware** | CPU, memory, GPU, storage, board and network, copyable as a report |

@@ -2,7 +2,7 @@
 # Linux type-check harness for ConfigurO.
 #
 # The shipping build is MSBuild on Windows (src/ConfigurO/ConfigurO.csproj,
-# .NET Framework 4.8.1). This script exists only so the C# can be compiled and
+# .NET Framework 4.8). This script exists only so the C# can be compiled and
 # type-checked on a Linux dev box using Mono's reference assemblies. It stubs
 # System.Management.Automation (Windows-only) and skips resource embedding.
 #

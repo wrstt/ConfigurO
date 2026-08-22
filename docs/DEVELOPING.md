@@ -1,7 +1,7 @@
 # Developing ConfigurO
 
 ConfigurO is a Windows configuration, privacy and cleanup utility.
-C#, WinForms, .NET Framework 4.8.1. Ships as a single elevated executable.
+C#, WinForms, .NET Framework 4.8. Ships as a single elevated executable.
 
 The interface is **Nocturne**: two modes, one accent, one control language.
 `NocturneTheme` is the sole source of truth for colour, geometry and type — if
@@ -121,7 +121,7 @@ google.com the Google G).
 
 ## Building for real
 
-Visual Studio 2022 or MSBuild with the .NET Framework 4.8.1 targeting pack:
+Visual Studio 2022 or MSBuild with the .NET Framework 4.8 targeting pack:
 
 ```
 nuget restore ConfigurO.sln

@@ -6,7 +6,7 @@
 
 <p align="center">
   Windows configuration, privacy and cleanup — in one window.<br>
-  <sub>by <b>WRSTT</b> · Windows 7 – 11 · .NET Framework 4.8.1</sub>
+  <sub>by <b>WRSTT</b> · Windows 7 – 11 · .NET Framework 4.8</sub>
 </p>
 
 ---
@@ -38,7 +38,7 @@ rights, because most of what it does writes to `HKLM`, services or system policy
 
 ## Build
 
-Requires Visual Studio 2022 (or MSBuild) with the .NET Framework 4.8.1
+Requires Visual Studio 2022 (or MSBuild) with the .NET Framework 4.8
 targeting pack.
 
 ```

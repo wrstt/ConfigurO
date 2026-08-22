@@ -4,6 +4,20 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [1.6]
+
+### Fixes
+- The app could fail to start with "Object reference not set to an instance of
+  an object", on every launch, and stay that way. Settings were written straight
+  over the existing file, so a process that was killed mid-write left an empty
+  one behind; an empty settings file loaded as nothing rather than failing, and
+  the app read from it and died. Settings are now written alongside and swapped
+  in, so the file on disk is always complete, and a file that cannot be read is
+  replaced with defaults instead of stopping the app.
+- The messages shown before the main window appeared were read from the
+  translations in a way that could itself fail if the translations had not
+  loaded. They fall back to English now.
+
 ## [1.5]
 
 ### Fixes

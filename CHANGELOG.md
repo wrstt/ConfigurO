@@ -4,6 +4,15 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [1.7]
+
+### Fixes
+- When the app cannot start, the message now says what failed and where instead
+  of only "Object reference not set to an instance of an object". Ctrl+C copies
+  it.
+- A fault in the first-run language chooser can no longer stop the app starting.
+  It opens with English already loaded, so the app continues without it.
+
 ## [1.6]
 
 ### Fixes

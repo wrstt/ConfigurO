@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -340,15 +341,51 @@ namespace ConfigurO
             try
             {
                 MessageBox.Show(
-                    "ConfigurO could not start.\n\n" +
-                    (ex == null ? "Unknown error." : ex.Message) +
-                    "\n\nDetails were written to:\n" + CoreHelper.CoreFolder + "ConfigurO.log",
+                    "ConfigurO could not start.\n\n" + Describe(where, ex) +
+                    "\n\nPress Ctrl+C to copy this message.\nFull details: " +
+                    CoreHelper.CoreFolder + "ConfigurO.log",
                     "ConfigurO", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch { }
 
             ReleaseMutex();
             Environment.Exit(1);
+        }
+
+        /// <summary>
+        /// A failure description someone can act on.
+        ///
+        /// Showing only Exception.Message meant the dialog said "Object
+        /// reference not set to an instance of an object" and nothing else --
+        /// true, and worth exactly nothing, since it does not say which
+        /// reference or where. The type, the site and the first few frames make
+        /// the difference between a report that can be diagnosed and one that
+        /// can only be guessed at.
+        /// </summary>
+        static string Describe(string where, Exception ex)
+        {
+            if (ex == null) return "Unknown error in " + where + ".";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append(ex.GetType().Name).Append(": ").Append(ex.Message);
+            sb.Append("\n\nWhere: ").Append(where);
+
+            for (Exception inner = ex.InnerException; inner != null; inner = inner.InnerException)
+                sb.Append("\nCaused by: ").Append(inner.GetType().Name)
+                  .Append(": ").Append(inner.Message);
+
+            Exception deepest = ex;
+            while (deepest.InnerException != null) deepest = deepest.InnerException;
+
+            if (!string.IsNullOrEmpty(deepest.StackTrace))
+            {
+                sb.Append("\n");
+                string[] frames = deepest.StackTrace.Split(new[] { "\r\n", "\n" },
+                                                           StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < frames.Length && i < 6; i++)
+                    sb.Append('\n').Append(frames[i].Trim());
+            }
+            return sb.ToString();
         }
 
         /// <summary>Gives up the single-instance mutex, if this process holds it.</summary>
@@ -412,8 +449,23 @@ namespace ConfigurO
                     OptionsHelper.LoadSettings();
                     if (!SILENT_MODE)
                     {
-                        FirstRunForm frf = new FirstRunForm();
-                        frf.ShowDialog();
+                        // Contained. Choosing a language is not a prerequisite
+                        // for running the app -- English is already loaded by
+                        // this point -- so a fault in the chooser must not be
+                        // the reason the app will not start. It is also the one
+                        // screen no harness can exercise: a Form cannot be
+                        // realised headlessly, so this dialog reaches a user
+                        // without ever having been run anywhere else.
+                        try
+                        {
+                            using (FirstRunForm frf = new FirstRunForm())
+                                frf.ShowDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.LogError("Program.FirstRunForm", ex.Message, ex.StackTrace);
+                            OptionsHelper.SaveSettings();
+                        }
                     }
                 }
                 else

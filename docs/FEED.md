@@ -70,3 +70,18 @@ is the offline cache the app falls back to; regenerate it after adding one.
 values. Its download links are years out of date — a check in August 2026 found
 17 of them dead, including one that served a macOS `.pkg` — so nothing it says
 about links is trusted any more.
+
+That feed is now **frozen**. `hellzerg/optimizer` was archived on 2026-01-20
+and is read-only. It still serves — 106 entries, fetched and checked in August
+2026 — so `build_feed.py` keeps working and nothing needs changing today. But it
+will never gain an entry again, which means `RESOLVERS`/`VENDOR` are no longer a
+stopgap covering for a lagging upstream. They are the only thing keeping the
+catalogue current, and nothing else will ever fix a link that rots.
+
+Worth knowing before spending any effort on it: `Tag` is the sole field taken
+from upstream, and **nothing reads it**. It is deserialised into `AppInfo.Tag`
+and never consumed — it was Optimizer's silent-install switch, and this app
+downloads and runs installers interactively instead. An entry that matches
+nothing upstream simply gets `''`. So the upstream fetch is already inert, and
+dropping `UPSTREAM` altogether would change no output; it is kept only so the
+provenance of the catalogue stays visible.

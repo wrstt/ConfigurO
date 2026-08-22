@@ -9,6 +9,13 @@ heading for the running version to decide what to show, so keep the
 First release under the ConfigurO name, rebuilt around the **Nocturne** design.
 
 ### Interface
+- The language picker's 28 flags were 32x19-pixel bitmaps, upscaled by the
+  form's DPI scaling into a smear. Reshipped at 160x95 with the letterboxing
+  baked in, so the PictureBox stretch is a pure downscale.
+- 34 app-catalogue tiles that drew without artwork now have icons, sourced from
+  each publisher and normalised to 128x128. `tools/build_feed.py` rebuilds
+  `feed/icons.zip` and fails `--check` if an entry references a file that is
+  not in it.
 - Replaced the tabbed window with a borderless shell: a 46px custom title bar
   and a 208px navigation rail, one screen per tool.
 - New design system (`src/ConfigurO/Nocturne/`): a single accent, Dark and Light
@@ -96,5 +103,9 @@ First release under the ConfigurO name, rebuilt around the **Nocturne** design.
   are shown but cannot be selected. Each is listed in `NO_LINK` in
   `tools/build_feed.py` with the reason — the publisher ships only a .zip, gates
   downloads behind a form, hotlink-protects the file, or has shut down.
-- 41 catalogue entries have no icon, so their tiles draw without artwork.
+- 7 catalogue entries have no icon, so their tiles draw without artwork: GOM,
+  SugarSync, ImgBurn, RealVNC Server, RealVNC Viewer, Launchy and
+  InfraRecorder. Nothing legible is published for these at a usable size, and a
+  16px favicon blown up to a tile is a smear -- which reads as broken rather
+  than as absent.
 - `docs/screenshots/` still shows the legacy interface.

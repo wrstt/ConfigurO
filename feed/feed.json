@@ -82,7 +82,7 @@
   {
     "Title": "Pidgin",
     "Group": "Messaging",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/pidgin.png",
     "Link": "https://downloads.sourceforge.net/project/pidgin/Pidgin/2.14.14/pidgin-2.14.14-offline.exe",
     "Link64": "https://downloads.sourceforge.net/project/pidgin/Pidgin/2.14.14/pidgin-2.14.14-offline.exe",
     "Tag": ""
@@ -98,7 +98,7 @@
   {
     "Title": "Trillian",
     "Group": "Messaging",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/trillian.png",
     "Link": "",
     "Link64": "",
     "Tag": ""
@@ -122,7 +122,7 @@
   {
     "Title": "AIMP",
     "Group": "Media",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/aimp.png",
     "Link": "https://www.aimp.ru/?do=download.file&id=4",
     "Link64": "https://www.aimp.ru/?do=download.file&id=3",
     "Tag": ""
@@ -146,7 +146,7 @@
   {
     "Title": "MusicBee",
     "Group": "Media",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/musicbee.png",
     "Link": "",
     "Link64": "",
     "Tag": ""
@@ -186,7 +186,7 @@
   {
     "Title": "CCCP",
     "Group": "Media",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/cccp.png",
     "Link": "",
     "Link64": "",
     "Tag": ""
@@ -194,7 +194,7 @@
   {
     "Title": "MediaMonkey",
     "Group": "Media",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/mediamonkey.png",
     "Link": "https://www.mediamonkey.com/MediaMonkey-2024_Setup.exe",
     "Link64": "https://www.mediamonkey.com/MediaMonkey-2024_Setup.exe",
     "Tag": ""
@@ -202,7 +202,7 @@
   {
     "Title": "HandBrake",
     "Group": "Media",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/handbrake.png",
     "Link": "https://github.com/HandBrake/HandBrake/releases/download/1.11.2/HandBrake-1.11.2-x86_64-Win_GUI.exe",
     "Link64": "https://github.com/HandBrake/HandBrake/releases/download/1.11.2/HandBrake-1.11.2-x86_64-Win_GUI.exe",
     "Tag": ""
@@ -530,7 +530,7 @@
   {
     "Title": "Krita",
     "Group": "Imaging",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/krita.png",
     "Link": "https://download.kde.org/stable/krita/6.0.3/krita-x64-6.0.3-setup.exe",
     "Link64": "https://download.kde.org/stable/krita/6.0.3/krita-x64-6.0.3-setup.exe",
     "Tag": ""
@@ -546,7 +546,7 @@
   {
     "Title": "Paint.NET",
     "Group": "Imaging",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/paintnet.png",
     "Link": "",
     "Link64": "",
     "Tag": ""
@@ -570,7 +570,7 @@
   {
     "Title": "XnView",
     "Group": "Imaging",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/xnview.png",
     "Link": "https://download.xnview.com/XnView-win-full.exe",
     "Link64": "https://download.xnview.com/XnView-win-full.exe",
     "Tag": ""
@@ -578,7 +578,7 @@
   {
     "Title": "Inkscape",
     "Group": "Imaging",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/inkscape.png",
     "Link": "https://inkscape.org/gallery/item/59502/inkscape-1.4.4_2026-05-05_dcaf3e7-x64.signed.exe",
     "Link64": "https://inkscape.org/gallery/item/59502/inkscape-1.4.4_2026-05-05_dcaf3e7-x64.signed.exe",
     "Tag": ""
@@ -586,7 +586,7 @@
   {
     "Title": "FastStone",
     "Group": "Imaging",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/faststone.png",
     "Link": "https://www.faststone.org/DN/FSViewerSetup85.exe",
     "Link64": "https://www.faststone.org/DN/FSViewerSetup85.exe",
     "Tag": ""
@@ -594,7 +594,7 @@
   {
     "Title": "Greenshot",
     "Group": "Imaging",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/greenshot.png",
     "Link": "https://github.com/greenshot/greenshot/releases/download/v1.3.315/Greenshot-INSTALLER-1.3.315-RELEASE.exe",
     "Link64": "https://github.com/greenshot/greenshot/releases/download/v1.3.315/Greenshot-INSTALLER-1.3.315-RELEASE.exe",
     "Tag": ""
@@ -634,7 +634,7 @@
   {
     "Title": "CutePDF",
     "Group": "Documents",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/cutepdf.png",
     "Link": "https://www.cutepdf.com/download/CuteWriter.exe",
     "Link64": "https://www.cutepdf.com/download/CuteWriter.exe",
     "Tag": ""
@@ -642,7 +642,7 @@
   {
     "Title": "OpenOffice",
     "Group": "Documents",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/openoffice.png",
     "Link": "https://downloads.sourceforge.net/project/openofficeorg.mirror/4.1.15/binaries/en-US/Apache_OpenOffice_4.1.15_Win_x86_install_en-US.exe",
     "Link64": "https://downloads.sourceforge.net/project/openofficeorg.mirror/4.1.15/binaries/en-US/Apache_OpenOffice_4.1.15_Win_x86_install_en-US.exe",
     "Tag": ""
@@ -658,7 +658,7 @@
   {
     "Title": "Avast",
     "Group": "Security",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/avast.png",
     "Link": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN/installertype_ONLINE/build_RELEASE/cookie_mmm_avn_998_999_a1t_04/avast_free_antivirus_setup_online.exe",
     "Link64": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN/installertype_ONLINE/build_RELEASE/cookie_mmm_avn_998_999_a1t_04/avast_free_antivirus_setup_online.exe",
     "Tag": ""
@@ -666,7 +666,7 @@
   {
     "Title": "AVG",
     "Group": "Security",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/avg.png",
     "Link": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN_AVG/installertype_ONLINE/build_RELEASE/avg_antivirus_free_setup.exe",
     "Link64": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN_AVG/installertype_ONLINE/build_RELEASE/avg_antivirus_free_setup.exe",
     "Tag": ""
@@ -674,7 +674,7 @@
   {
     "Title": "Spybot 2",
     "Group": "Security",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/spybot.png",
     "Link": "https://updates2.safer-networking.org/spybot1/spybotsd-2.9.85.5.exe",
     "Link64": "https://updates2.safer-networking.org/spybot1/spybotsd-2.9.85.5.exe",
     "Tag": ""
@@ -682,7 +682,7 @@
   {
     "Title": "Avira",
     "Group": "Security",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/avira.png",
     "Link": "https://package.avira.com/package/oeavira/win/int/avira_en_av.exe",
     "Link64": "https://package.avira.com/package/oeavira/win/int/avira_en_av.exe",
     "Tag": ""
@@ -690,7 +690,7 @@
   {
     "Title": "SUPERAntiSpyware",
     "Group": "Security",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/superantispyware.png",
     "Link": "https://secure.superantispyware.com/SUPERAntiSpyware.exe",
     "Link64": "https://secure.superantispyware.com/SUPERAntiSpyware.exe",
     "Tag": ""
@@ -738,7 +738,7 @@
   {
     "Title": "Google Earth",
     "Group": "Other",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/googleearth.png",
     "Link": "https://dl.google.com/earth/client/advanced/current/GoogleEarthProWin-x64.exe",
     "Link64": "https://dl.google.com/earth/client/advanced/current/GoogleEarthProWin-x64.exe",
     "Tag": ""
@@ -762,7 +762,7 @@
   {
     "Title": "KeePass 2",
     "Group": "Other",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/keepass.png",
     "Link": "https://downloads.sourceforge.net/keepass/KeePass-2.59-Setup.exe",
     "Link64": "https://downloads.sourceforge.net/keepass/KeePass-2.59-Setup.exe",
     "Tag": ""
@@ -778,7 +778,7 @@
   {
     "Title": "NV Access",
     "Group": "Other",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/nvaccess.png",
     "Link": "https://www.nvaccess.org/files/nvda/releases/2026.1.1/nvda_2026.1.1.exe",
     "Link64": "https://www.nvaccess.org/files/nvda/releases/2026.1.1/nvda_2026.1.1.exe",
     "Tag": ""
@@ -794,7 +794,7 @@
   {
     "Title": "Google Drive for Desktop",
     "Group": "Online Storage",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/googledrive.png",
     "Link": "https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe",
     "Link64": "https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe",
     "Tag": ""
@@ -946,7 +946,7 @@
   {
     "Title": "Git",
     "Group": "Developer Tools",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/git.png",
     "Link": "https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.5/Git-2.55.0.5-64-bit.exe",
     "Link64": "https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.5/Git-2.55.0.5-64-bit.exe",
     "Tag": ""
@@ -986,7 +986,7 @@
   {
     "Title": "WinMerge",
     "Group": "Developer Tools",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/winmerge.png",
     "Link": "https://github.com/WinMerge/winmerge/releases/download/v2.16.58/WinMerge-2.16.58-Setup.exe",
     "Link64": "https://github.com/WinMerge/winmerge/releases/download/v2.16.58/WinMerge-2.16.58-x64-Setup.exe",
     "Tag": ""
@@ -1010,7 +1010,7 @@
   {
     "Title": "Cursor",
     "Group": "Developer Tools",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/cursor.png",
     "Link": "https://downloads.cursor.com/production/2fdd31c9f33f7fbe501f2d57772dc5bf64b63621/win32/x64/user-setup/CursorUserSetup-x64-3.17.8.exe",
     "Link64": "https://downloads.cursor.com/production/2fdd31c9f33f7fbe501f2d57772dc5bf64b63621/win32/x64/user-setup/CursorUserSetup-x64-3.17.8.exe",
     "Tag": ""
@@ -1082,7 +1082,7 @@
   {
     "Title": "TightVNC",
     "Group": "Utilities",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/tightvnc.png",
     "Link": "https://www.tightvnc.com/download/2.8.85/tightvnc-2.8.85-gpl-setup-32bit.msi",
     "Link64": "https://www.tightvnc.com/download/2.8.85/tightvnc-2.8.85-gpl-setup-64bit.msi",
     "Tag": ""
@@ -1090,7 +1090,7 @@
   {
     "Title": "TeraCopy",
     "Group": "Utilities",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/teracopy.png",
     "Link": "https://codesector.com/files/teracopy.exe",
     "Link64": "https://codesector.com/files/teracopy.exe",
     "Tag": ""
@@ -1098,7 +1098,7 @@
   {
     "Title": "CDBurnerXP",
     "Group": "Utilities",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/cdburnerxp.png",
     "Link": "",
     "Link64": "",
     "Tag": ""
@@ -1122,7 +1122,7 @@
   {
     "Title": "WinDirStat",
     "Group": "Utilities",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/windirstat.png",
     "Link": "https://github.com/windirstat/windirstat/releases/download/release/v2.8.0/WinDirStat-x86.msi",
     "Link64": "https://github.com/windirstat/windirstat/releases/download/release/v2.8.0/WinDirStat-x64.msi",
     "Tag": ""
@@ -1130,7 +1130,7 @@
   {
     "Title": "WizTree",
     "Group": "Utilities",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/wiztree.png",
     "Link": "https://diskanalyzer.com/files/wiztree_4_32_setup.exe",
     "Link64": "https://diskanalyzer.com/files/wiztree_4_32_setup.exe",
     "Tag": ""
@@ -1138,7 +1138,7 @@
   {
     "Title": "Glary",
     "Group": "Utilities",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/glary.png",
     "Link": "https://download.glarysoft.com/gu5setup.exe",
     "Link64": "https://download.glarysoft.com/gu5setup.exe",
     "Tag": ""
@@ -1162,7 +1162,7 @@
   {
     "Title": "CCleaner",
     "Group": "Utilities",
-    "Image": "",
+    "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/ccleaner.png",
     "Link": "https://download.ccleaner.com/ccsetup.exe",
     "Link64": "https://download.ccleaner.com/ccsetup.exe",
     "Tag": ""

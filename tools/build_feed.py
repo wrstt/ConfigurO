@@ -53,20 +53,20 @@ VC_LEGACY = {
 
 CATALOG = {
  'Web Browsers': [('Chrome','chrome'),('Opera','opera'),('Firefox','firefox'),('Edge','edge'),('Brave','brave'),('Vivaldi','vivaldi')],
- 'Messaging': [('Zoom','zoom'),('Discord','discord'),('Teams','teams'),('Telegram','telegram'),('Pidgin',None),('Thunderbird','thunderbird'),('Trillian',None)],
- 'Media': [('iTunes','itunes'),('VLC','vlc'),('AIMP',None),('foobar2000','foobar'),('Winamp','winamp'),('MusicBee',None),('Audacity','audacity'),('K-Lite Codecs','klite'),('GOM',None),('Spotify','spotify'),('CCCP',None),('MediaMonkey',None),('HandBrake',None),('OBS Studio','obs')],
+ 'Messaging': [('Zoom','zoom'),('Discord','discord'),('Teams','teams'),('Telegram','telegram'),('Pidgin','pidgin'),('Thunderbird','thunderbird'),('Trillian','trillian')],
+ 'Media': [('iTunes','itunes'),('VLC','vlc'),('AIMP','aimp'),('foobar2000','foobar'),('Winamp','winamp'),('MusicBee','musicbee'),('Audacity','audacity'),('K-Lite Codecs','klite'),('GOM',None),('Spotify','spotify'),('CCCP','cccp'),('MediaMonkey','mediamonkey'),('HandBrake','handbrake'),('OBS Studio','obs')],
  '.NET': [('.NET 4.8.1','netfw')] + [('.NET Desktop Runtime '+v,'netfw') for v in NET_V] + [('ASP.NET Core Runtime '+v,'netfw') for v in NET_V],
  'Java': [('Java (AdoptOpenJDK) '+v,'java') for v in JAVA_V] + [('JDK (AdoptOpenJDK) '+v,'java') for v in JAVA_V] + [('JDK (Amazon Corretto) '+v,'java') for v in JAVA_V] + [('JRE (Amazon Corretto) x64 8','java'),('JRE (Amazon Corretto) 8','java')],
- 'Imaging': [('Krita',None),('Blender','blender'),('Paint.NET',None),('GIMP','gimp'),('IrfanView','irfanview'),('XnView',None),('Inkscape',None),('FastStone',None),('Greenshot',None),('ShareX','sharex')],
- 'Documents': [('Foxit Reader','foxit'),('LibreOffice','libreoffice'),('SumatraPDF','sumatrapdf'),('CutePDF',None),('OpenOffice',None)],
- 'Security': [('Malwarebytes','malwarebytes'),('Avast',None),('AVG',None),('Spybot 2',None),('Avira',None),('SUPERAntiSpyware',None)],
+ 'Imaging': [('Krita','krita'),('Blender','blender'),('Paint.NET','paintnet'),('GIMP','gimp'),('IrfanView','irfanview'),('XnView','xnview'),('Inkscape','inkscape'),('FastStone','faststone'),('Greenshot','greenshot'),('ShareX','sharex')],
+ 'Documents': [('Foxit Reader','foxit'),('LibreOffice','libreoffice'),('SumatraPDF','sumatrapdf'),('CutePDF','cutepdf'),('OpenOffice','openoffice')],
+ 'Security': [('Malwarebytes','malwarebytes'),('Avast','avast'),('AVG','avg'),('Spybot 2','spybot'),('Avira','avira'),('SUPERAntiSpyware','superantispyware')],
  'Compression': [('7-Zip','7zip'),('PeaZip','peazip'),('WinRAR','winrar')],
  'File Sharing': [('qBittorrent','qbittorrent')],
- 'Other': [('Evernote','evernote'),('Google Earth',None),('Steam','steam'),('Epic Games Launcher','epic'),('KeePass 2',None),('Everything','everything'),('NV Access',None)],
- 'Online Storage': [('Dropbox','dropbox'),('Google Drive for Desktop',None),('OneDrive','onedrive'),('SugarSync',None)],
+ 'Other': [('Evernote','evernote'),('Google Earth','googleearth'),('Steam','steam'),('Epic Games Launcher','epic'),('KeePass 2','keepass'),('Everything','everything'),('NV Access','nvaccess')],
+ 'Online Storage': [('Dropbox','dropbox'),('Google Drive for Desktop','googledrive'),('OneDrive','onedrive'),('SugarSync',None)],
  'VC++ Redistributables': [('VC Redist '+v,'visualcpp') for v in VC_V],
- 'Developer Tools': [('Python x64 3','python'),('Python arm64 3','python'),('Python 3','python'),('Git',None),('FileZilla','filezilla'),('Notepad++','notepadpp'),('WinSCP','winscp'),('PuTTY','putty'),('WinMerge',None),('Eclipse','eclipse'),('Visual Studio Code','vscode'),('Cursor',None),('GitHub Desktop','github'),('Node.js','nodejs'),('Sublime Text','sublimetext')],
- 'Utilities': [('AnyDesk','anydesk'),('TeamViewer 15','teamviewer'),('ImgBurn',None),('RealVNC Server',None),('RealVNC Viewer',None),('TightVNC',None),('TeraCopy',None),('CDBurnerXP',None),('Revo Uninstaller','revo'),('Launchy',None),('WinDirStat',None),('WizTree',None),('Glary',None),('InfraRecorder',None),('Open-Shell','openshell'),('CCleaner',None),('Rufus','rufus')],
+ 'Developer Tools': [('Python x64 3','python'),('Python arm64 3','python'),('Python 3','python'),('Git','git'),('FileZilla','filezilla'),('Notepad++','notepadpp'),('WinSCP','winscp'),('PuTTY','putty'),('WinMerge','winmerge'),('Eclipse','eclipse'),('Visual Studio Code','vscode'),('Cursor','cursor'),('GitHub Desktop','github'),('Node.js','nodejs'),('Sublime Text','sublimetext')],
+ 'Utilities': [('AnyDesk','anydesk'),('TeamViewer 15','teamviewer'),('ImgBurn',None),('RealVNC Server',None),('RealVNC Viewer',None),('TightVNC','tightvnc'),('TeraCopy','teracopy'),('CDBurnerXP','cdburnerxp'),('Revo Uninstaller','revo'),('Launchy',None),('WinDirStat','windirstat'),('WizTree','wiztree'),('Glary','glary'),('InfraRecorder',None),('Open-Shell','openshell'),('CCleaner','ccleaner'),('Rufus','rufus')],
 }
 
 
@@ -413,6 +413,30 @@ def vendor_links(title):
     return (None, None)
 
 
+def pack_icons(entries):
+    """Rebuild feed/icons.zip from feed/icons/.
+
+    The app downloads the zip once and reads tiles out of it, so it has to be
+    regenerated whenever the icon folder changes or a new entry references a
+    file that is only on disk. Flat layout -- AppFeed matches on entry name.
+    """
+    import zipfile
+
+    folder = os.path.join(ROOT, 'feed', 'icons')
+    names = sorted(f for f in os.listdir(folder) if f.lower().endswith('.png'))
+    path = os.path.join(ROOT, 'feed', 'icons.zip')
+    with zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED) as z:
+        for n in names:
+            z.write(os.path.join(folder, n), n)
+
+    wanted = set(a['Image'].rsplit('/', 1)[-1] for a in entries if a['Image'])
+    missing = sorted(wanted - set(names))
+    print('  icons.zip: %d files, %d bytes' % (len(names), os.path.getsize(path)))
+    if missing:
+        print('  ! referenced but absent: ' + ', '.join(missing))
+    return missing
+
+
 def resolve(title, cache):
     """(link32, link64) from RESOLVERS then VENDOR. Resolvers are network
     calls, so each is run at most once and its failure is not fatal."""
@@ -519,13 +543,18 @@ def main():
         json.dump(out, f, indent=2, ensure_ascii=False)
         f.write('\n')
 
+    missing_icons = pack_icons(out)
+
     print('wrote %s' % path)
     print('  entries: %d   with links: %d   without: %d' % (len(out), linked, len(unlinked)))
+    noicon = [a['Title'] for a in out if not a['Image']]
+    if noicon:
+        print('  no icon: %d  (%s)' % (len(noicon), ', '.join(noicon)))
     for title in unlinked:
         print('  no link: %-16s %s' % (title, NO_LINK.get(title, 'REGRESSION -- was linked')))
 
     if do_check:
-        raise SystemExit(1 if check(out) else 0)
+        raise SystemExit(1 if (check(out) or missing_icons) else 0)
 
 
 if __name__ == '__main__':

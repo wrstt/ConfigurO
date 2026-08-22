@@ -661,6 +661,28 @@ namespace ConfigurO
             }
         }
 
+        /// <summary>
+        /// The .NET Framework 4.x release number, or 0 when 4.x is absent.
+        /// 528040 is 4.8; 533320 and above is 4.8.1.
+        /// </summary>
+        internal static int GetNETFrameworkRelease()
+        {
+            try
+            {
+                using (RegistryKey ndp = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32)
+                                                    .OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\"))
+                {
+                    object v = ndp == null ? null : ndp.GetValue("Release");
+                    return v == null ? 0 : (int)v;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Utilities.GetNETFrameworkRelease", ex.Message, ex.StackTrace);
+                return 0;   // unreadable is not the same as missing; do not block on it
+            }
+        }
+
         internal static string GetNETFramework()
         {
             string subkey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\";

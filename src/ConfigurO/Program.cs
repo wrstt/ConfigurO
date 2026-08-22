@@ -55,6 +55,9 @@ namespace ConfigurO
         static string _argInvalidMsg = "Invalid argument! Example: ConfigurO.exe /config=win10.json";
         static string _alreadyRunningMsg = "ConfigurO is already running in the background!";
 
+        /// <summary>Registry release number for .NET Framework 4.8.</summary>
+        const int NET_48_RELEASE = 528040;
+
         const string MUTEX_GUID = @"{DEADMOON-0EFC7B8A-D1FC-467F-B4B1-0117C643FE19-CONFIGURO}";
         internal static Mutex MUTEX;
         static bool _notRunning;
@@ -104,6 +107,24 @@ namespace ConfigurO
             // again until the stale process was killed by hand.
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += (s, e) => Fatal("Application.ThreadException", e.Exception);
+
+            // The .NET Framework cannot be carried inside the executable --
+            // it is a machine-wide Windows component, not a library that can be
+            // embedded the way Newtonsoft.Json and the fonts are. All that can
+            // be done is to notice it is missing and say so, rather than let the
+            // app fail later with a MissingMethodException from somewhere
+            // arbitrary, which reads as the app being broken.
+            int release = Utilities.GetNETFrameworkRelease();
+            if (release > 0 && release < NET_48_RELEASE)
+            {
+                MessageBox.Show(
+                    "ConfigurO needs the Microsoft .NET Framework 4.8 or newer.\n\n" +
+                    "This PC has an older version installed. It is a free download from Microsoft:\n" +
+                    "https://dotnet.microsoft.com/download/dotnet-framework/net48",
+                    "ConfigurO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Environment.Exit(0);
+                return;
+            }
 
             // single-instance mechanism
             MUTEX = new Mutex(true, MUTEX_GUID, out _notRunning);

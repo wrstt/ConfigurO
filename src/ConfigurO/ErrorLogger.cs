@@ -12,6 +12,7 @@ namespace ConfigurO
 
         private static void LogErrorSilent(string functionName, string errorMessage, string errorStackTrace)
         {
+            if (_silentReportLog == null) return;
             _silentReportLog.AppendLine(string.Format("[ERROR] [{0}] in function [{1}]", DateTime.Now.ToString(), functionName));
             _silentReportLog.AppendLine();
             _silentReportLog.AppendLine(errorMessage);
@@ -21,10 +22,39 @@ namespace ConfigurO
             _silentReportLog.AppendLine();
         }
 
+        /// <summary>
+        /// Appends to the silent-run report. Only meaningful during a silent
+        /// configuration run, which is the only thing that builds the report.
+        ///
+        /// The null check is not decoration. This is a logger: if it throws, it
+        /// takes down whatever was trying to record something, and it does so
+        /// at exactly the moment there is a problem worth recording. It threw
+        /// on every interactive launch after a caller outside SilentOps started
+        /// using it, and killed the app before it drew a window.
+        /// </summary>
         internal static void LogInfoSilent(string message)
         {
+            if (_silentReportLog == null) return;
             _silentReportLog.AppendLine($"[OK] {message}");
             _silentReportLog.AppendLine();
+        }
+
+        /// <summary>
+        /// Records something noteworthy that is not a failure, in whichever
+        /// place this run is writing to. Safe from any thread at any point in
+        /// startup, including before settings exist.
+        /// </summary>
+        internal static void LogInfo(string message)
+        {
+            if (Program.SILENT_MODE) { LogInfoSilent(message); return; }
+
+            try
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(ErrorLogFile));
+                File.AppendAllText(ErrorLogFile, string.Format("[INFO] [{0}] {1}{2}",
+                    DateTime.Now.ToString(), message, Environment.NewLine));
+            }
+            catch { }
         }
 
         internal static void InitializeSilentReport()

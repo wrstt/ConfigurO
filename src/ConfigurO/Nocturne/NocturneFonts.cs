@@ -155,7 +155,7 @@ namespace ConfigurO
             // Written either way. Whether the interface is set in the face it
             // was designed for is the single most visible thing about the app,
             // and until now there was no way to tell from outside it.
-            Logger.LogInfoSilent(Bundled
+            Logger.LogInfo(Bundled
                 ? "NocturneFonts: bundled faces registered (attempt " + _attempts + ")"
                 : "NocturneFonts: bundled faces NOT registered after attempt " + _attempts +
                   " -- falling back to the system UI face");

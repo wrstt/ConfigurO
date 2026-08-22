@@ -290,7 +290,7 @@ namespace ConfigurO
             _startingOver = true;
             try
             {
-                Logger.LogInfoSilent("OptionsHelper: settings file unusable, restoring defaults");
+                Logger.LogInfo("OptionsHelper: settings file unusable, restoring defaults");
                 if (File.Exists(SettingsFile)) File.Delete(SettingsFile);
             }
             catch (Exception ex) { Logger.LogError("OptionsHelper.StartOver", ex.Message, ex.StackTrace); }

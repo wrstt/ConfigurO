@@ -43,8 +43,15 @@ First release under the ConfigurO name, rebuilt around the **Nocturne** design.
 - Startup: entries can now be disabled without being removed, via the same
   StartupApproved mechanism Task Manager uses.
 - Hosts: curated block lists, and the read-only lock moved onto the screen.
-- Apps: 15 categories, ~150 entries, concurrent downloads with per-tile
+- Apps: 15 categories, 147 entries, concurrent downloads with per-tile
   progress. The catalogue and its icons are cached for offline use.
+  `tools/build_feed.py` now resolves download links itself rather than
+  inheriting them from the upstream Optimizer feed, whose links are years
+  stale: publishers with a machine-readable index (GitHub releases, the Edge
+  enterprise API, python.org, KDE, Cursor) are re-resolved on every run, and
+  the rest come from a table of stable vendor endpoints. `--check` downloads
+  the first kilobyte of every link and fails on anything that is not a Windows
+  installer. 137 of the 147 entries now carry a verified link, up from 93.
 - Hardware: the WMI sweep runs off the UI thread and the report can be copied
   or saved.
 
@@ -72,8 +79,15 @@ First release under the ConfigurO name, rebuilt around the **Nocturne** design.
 - Ampersands from the translation files render as one character; they were
   doubled for WinForms buttons, which do not draw the new UI.
 
+### Translations
+- The 245 strings the redesign introduces are translated into all 27 languages.
+  Every key in `EN.json` now resolves in every language file; the English
+  fallback in `I18n.Get` remains, but nothing currently depends on it.
+
 ### Known gaps
-- The 222 strings the redesign introduces are present in `Resources/i18n/EN.json`
-  and fall back to English in the other 27 languages until translated.
-- 54 of the 147 app-catalogue entries have no download link yet; those tiles
-  are shown but cannot be selected.
+- 10 of the 147 app-catalogue entries still have no download link; those tiles
+  are shown but cannot be selected. Each is listed in `NO_LINK` in
+  `tools/build_feed.py` with the reason — the publisher ships only a .zip, gates
+  downloads behind a form, hotlink-protects the file, or has shut down.
+- 41 catalogue entries have no icon, so their tiles draw without artwork.
+- `docs/screenshots/` still shows the legacy interface.

@@ -27,8 +27,8 @@
     "Title": "Edge",
     "Group": "Web Browsers",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/edge.png",
-    "Link": "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/8d1fd468-c6d9-4ade-8870-d4e0dac4f0fb/MicrosoftEdgeEnterpriseX86.msi",
-    "Link64": "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/dc298968-ce66-4bf0-ac5b-c274bf03ee7e/MicrosoftEdgeEnterpriseX64.msi",
+    "Link": "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/8ec6e43b-be55-4fcb-b3ec-0e4eed142103/MicrosoftEdgeEnterpriseX86.msi",
+    "Link64": "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/d209ad46-3748-45ee-9a0f-826275ced29c/MicrosoftEdgeEnterpriseX64.msi",
     "Tag": "cEdge"
   },
   {
@@ -67,8 +67,8 @@
     "Title": "Teams",
     "Group": "Messaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/teams.png",
-    "Link": "https://statics.teams.cdn.office.net/production-windows/1.3.00.32283/Teams_windows.exe",
-    "Link64": "https://statics.teams.cdn.office.net/production-windows-x64/1.3.00.32283/Teams_windows_x64.exe",
+    "Link": "https://go.microsoft.com/fwlink/?linkid=2243204",
+    "Link64": "https://go.microsoft.com/fwlink/?linkid=2243204",
     "Tag": "cMSTeams"
   },
   {
@@ -83,8 +83,8 @@
     "Title": "Pidgin",
     "Group": "Messaging",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://downloads.sourceforge.net/project/pidgin/Pidgin/2.14.14/pidgin-2.14.14-offline.exe",
+    "Link64": "https://downloads.sourceforge.net/project/pidgin/Pidgin/2.14.14/pidgin-2.14.14-offline.exe",
     "Tag": ""
   },
   {
@@ -123,16 +123,16 @@
     "Title": "AIMP",
     "Group": "Media",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://www.aimp.ru/?do=download.file&id=4",
+    "Link64": "https://www.aimp.ru/?do=download.file&id=3",
     "Tag": ""
   },
   {
     "Title": "foobar2000",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/foobar.png",
-    "Link": "https://www.foobar2000.org/getfile/foobar2000_v1.6.10.exe",
-    "Link64": "https://www.foobar2000.org/getfile/foobar2000_v1.6.10.exe",
+    "Link": "https://www.foobar2000.org/downloads/foobar2000_v2.25.10.exe",
+    "Link64": "https://www.foobar2000.org/downloads/foobar2000-x64_v2.25.10.exe",
     "Tag": "cFoobar"
   },
   {
@@ -195,16 +195,16 @@
     "Title": "MediaMonkey",
     "Group": "Media",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://www.mediamonkey.com/MediaMonkey-2024_Setup.exe",
+    "Link64": "https://www.mediamonkey.com/MediaMonkey-2024_Setup.exe",
     "Tag": ""
   },
   {
     "Title": "HandBrake",
     "Group": "Media",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://github.com/HandBrake/HandBrake/releases/download/1.11.2/HandBrake-1.11.2-x86_64-Win_GUI.exe",
+    "Link64": "https://github.com/HandBrake/HandBrake/releases/download/1.11.2/HandBrake-1.11.2-x86_64-Win_GUI.exe",
     "Tag": ""
   },
   {
@@ -531,8 +531,8 @@
     "Title": "Krita",
     "Group": "Imaging",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.kde.org/stable/krita/6.0.3/krita-x64-6.0.3-setup.exe",
+    "Link64": "https://download.kde.org/stable/krita/6.0.3/krita-x64-6.0.3-setup.exe",
     "Tag": ""
   },
   {
@@ -563,40 +563,40 @@
     "Title": "IrfanView",
     "Group": "Imaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/irfanview.png",
-    "Link": "http://www.storage.programosy.pl/iview458_setup.exe",
-    "Link64": "http://www.storage.programosy.pl/iview458_setup.exe",
+    "Link": "",
+    "Link64": "",
     "Tag": "cIrfan"
   },
   {
     "Title": "XnView",
     "Group": "Imaging",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.xnview.com/XnView-win-full.exe",
+    "Link64": "https://download.xnview.com/XnView-win-full.exe",
     "Tag": ""
   },
   {
     "Title": "Inkscape",
     "Group": "Imaging",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://inkscape.org/gallery/item/59502/inkscape-1.4.4_2026-05-05_dcaf3e7-x64.signed.exe",
+    "Link64": "https://inkscape.org/gallery/item/59502/inkscape-1.4.4_2026-05-05_dcaf3e7-x64.signed.exe",
     "Tag": ""
   },
   {
     "Title": "FastStone",
     "Group": "Imaging",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://www.faststone.org/DN/FSViewerSetup85.exe",
+    "Link64": "https://www.faststone.org/DN/FSViewerSetup85.exe",
     "Tag": ""
   },
   {
     "Title": "Greenshot",
     "Group": "Imaging",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://github.com/greenshot/greenshot/releases/download/v1.3.315/Greenshot-INSTALLER-1.3.315-RELEASE.exe",
+    "Link64": "https://github.com/greenshot/greenshot/releases/download/v1.3.315/Greenshot-INSTALLER-1.3.315-RELEASE.exe",
     "Tag": ""
   },
   {
@@ -619,32 +619,32 @@
     "Title": "LibreOffice",
     "Group": "Documents",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/libreoffice.png",
-    "Link": "https://optimizer-downloader.azurewebsites.net/libre86.msi",
-    "Link64": "https://optimizer-downloader.azurewebsites.net/libre64.msi",
+    "Link": "https://download.documentfoundation.org/libreoffice/stable/26.2.5/win/x86/LibreOffice_26.2.5_Win_x86.msi",
+    "Link64": "https://download.documentfoundation.org/libreoffice/stable/26.2.5/win/x86_64/LibreOffice_26.2.5_Win_x86-64.msi",
     "Tag": "cLibreOffice"
   },
   {
     "Title": "SumatraPDF",
     "Group": "Documents",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/sumatrapdf.png",
-    "Link": "https://kjkpubsf.sfo2.digitaloceanspaces.com/software/sumatrapdf/rel/SumatraPDF-3.3.3-install.exe",
-    "Link64": "https://kjkpubsf.sfo2.digitaloceanspaces.com/software/sumatrapdf/rel/SumatraPDF-3.3.3-64-install.exe",
+    "Link": "https://www.sumatrapdfreader.org/dl/rel/3.5.2/SumatraPDF-3.5.2-64-install.exe",
+    "Link64": "https://www.sumatrapdfreader.org/dl/rel/3.5.2/SumatraPDF-3.5.2-64-install.exe",
     "Tag": "cSumatra"
   },
   {
     "Title": "CutePDF",
     "Group": "Documents",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://www.cutepdf.com/download/CuteWriter.exe",
+    "Link64": "https://www.cutepdf.com/download/CuteWriter.exe",
     "Tag": ""
   },
   {
     "Title": "OpenOffice",
     "Group": "Documents",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://downloads.sourceforge.net/project/openofficeorg.mirror/4.1.15/binaries/en-US/Apache_OpenOffice_4.1.15_Win_x86_install_en-US.exe",
+    "Link64": "https://downloads.sourceforge.net/project/openofficeorg.mirror/4.1.15/binaries/en-US/Apache_OpenOffice_4.1.15_Win_x86_install_en-US.exe",
     "Tag": ""
   },
   {
@@ -659,48 +659,48 @@
     "Title": "Avast",
     "Group": "Security",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN/installertype_ONLINE/build_RELEASE/cookie_mmm_avn_998_999_a1t_04/avast_free_antivirus_setup_online.exe",
+    "Link64": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN/installertype_ONLINE/build_RELEASE/cookie_mmm_avn_998_999_a1t_04/avast_free_antivirus_setup_online.exe",
     "Tag": ""
   },
   {
     "Title": "AVG",
     "Group": "Security",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN_AVG/installertype_ONLINE/build_RELEASE/avg_antivirus_free_setup.exe",
+    "Link64": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN_AVG/installertype_ONLINE/build_RELEASE/avg_antivirus_free_setup.exe",
     "Tag": ""
   },
   {
     "Title": "Spybot 2",
     "Group": "Security",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://updates2.safer-networking.org/spybot1/spybotsd-2.9.85.5.exe",
+    "Link64": "https://updates2.safer-networking.org/spybot1/spybotsd-2.9.85.5.exe",
     "Tag": ""
   },
   {
     "Title": "Avira",
     "Group": "Security",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://package.avira.com/package/oeavira/win/int/avira_en_av.exe",
+    "Link64": "https://package.avira.com/package/oeavira/win/int/avira_en_av.exe",
     "Tag": ""
   },
   {
     "Title": "SUPERAntiSpyware",
     "Group": "Security",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://secure.superantispyware.com/SUPERAntiSpyware.exe",
+    "Link64": "https://secure.superantispyware.com/SUPERAntiSpyware.exe",
     "Tag": ""
   },
   {
     "Title": "7-Zip",
     "Group": "Compression",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/7zip.png",
-    "Link": "https://www.7-zip.org/a/7z2107.exe",
-    "Link64": "https://www.7-zip.org/a/7z2107-x64.exe",
+    "Link": "https://www.7-zip.org/a/7z2301.exe",
+    "Link64": "https://www.7-zip.org/a/7z2301-x64.exe",
     "Tag": "c7zip"
   },
   {
@@ -723,8 +723,8 @@
     "Title": "qBittorrent",
     "Group": "File Sharing",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/qbittorrent.png",
-    "Link": "https://jztkft.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-4.4.2/qbittorrent_4.4.2_setup.exe",
-    "Link64": "https://deac-ams.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-4.4.2/qbittorrent_4.4.2_x64_setup.exe",
+    "Link": "https://downloads.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-5.1.2/qbittorrent_5.1.2_x64_setup.exe",
+    "Link64": "https://downloads.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-5.1.2/qbittorrent_5.1.2_x64_setup.exe",
     "Tag": "cQB"
   },
   {
@@ -739,8 +739,8 @@
     "Title": "Google Earth",
     "Group": "Other",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://dl.google.com/earth/client/advanced/current/GoogleEarthProWin-x64.exe",
+    "Link64": "https://dl.google.com/earth/client/advanced/current/GoogleEarthProWin-x64.exe",
     "Tag": ""
   },
   {
@@ -763,8 +763,8 @@
     "Title": "KeePass 2",
     "Group": "Other",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://downloads.sourceforge.net/keepass/KeePass-2.59-Setup.exe",
+    "Link64": "https://downloads.sourceforge.net/keepass/KeePass-2.59-Setup.exe",
     "Tag": ""
   },
   {
@@ -779,24 +779,24 @@
     "Title": "NV Access",
     "Group": "Other",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://www.nvaccess.org/files/nvda/releases/2026.1.1/nvda_2026.1.1.exe",
+    "Link64": "https://www.nvaccess.org/files/nvda/releases/2026.1.1/nvda_2026.1.1.exe",
     "Tag": ""
   },
   {
     "Title": "Dropbox",
     "Group": "Online Storage",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/dropbox.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://www.dropbox.com/download?plat=win",
+    "Link64": "https://www.dropbox.com/download?plat=win",
     "Tag": ""
   },
   {
     "Title": "Google Drive for Desktop",
     "Group": "Online Storage",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe",
+    "Link64": "https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe",
     "Tag": ""
   },
   {
@@ -843,120 +843,120 @@
     "Title": "VC Redist x64 2013",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe",
+    "Link64": "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe",
     "Tag": ""
   },
   {
     "Title": "VC Redist x86 2013",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe",
+    "Link64": "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe",
     "Tag": ""
   },
   {
     "Title": "VC Redist x64 2012",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe",
+    "Link64": "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe",
     "Tag": ""
   },
   {
     "Title": "VC Redist x86 2012",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe",
+    "Link64": "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe",
     "Tag": ""
   },
   {
     "Title": "VC Redist x64 2010",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.microsoft.com/download/3/2/2/3224B87F-CFA0-4E70-BDA3-3DE650EFEBA5/vcredist_x64.exe",
+    "Link64": "https://download.microsoft.com/download/3/2/2/3224B87F-CFA0-4E70-BDA3-3DE650EFEBA5/vcredist_x64.exe",
     "Tag": ""
   },
   {
     "Title": "VC Redist x86 2010",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe",
+    "Link64": "https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe",
     "Tag": ""
   },
   {
     "Title": "VC Redist x64 2008",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe",
+    "Link64": "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe",
     "Tag": ""
   },
   {
     "Title": "VC Redist x86 2008",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe",
+    "Link64": "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe",
     "Tag": ""
   },
   {
     "Title": "VC Redist x64 2005",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x64.EXE",
+    "Link64": "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x64.EXE",
     "Tag": ""
   },
   {
     "Title": "VC Redist x86 2005",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.EXE",
+    "Link64": "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.EXE",
     "Tag": ""
   },
   {
     "Title": "Python x64 3",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/python.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://www.python.org/ftp/python/3.14.7/python-3.14.7-amd64.exe",
+    "Link64": "https://www.python.org/ftp/python/3.14.7/python-3.14.7-amd64.exe",
     "Tag": ""
   },
   {
     "Title": "Python arm64 3",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/python.png",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://www.python.org/ftp/python/3.14.7/python-3.14.7-arm64.exe",
+    "Link64": "https://www.python.org/ftp/python/3.14.7/python-3.14.7-arm64.exe",
     "Tag": ""
   },
   {
     "Title": "Python 3",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/python.png",
-    "Link": "https://www.python.org/ftp/python/3.10.0/python-3.10.0.exe",
-    "Link64": "https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe",
+    "Link": "https://www.python.org/ftp/python/3.14.7/python-3.14.7.exe",
+    "Link64": "https://www.python.org/ftp/python/3.14.7/python-3.14.7.exe",
     "Tag": "cPython3"
   },
   {
     "Title": "Git",
     "Group": "Developer Tools",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.5/Git-2.55.0.5-64-bit.exe",
+    "Link64": "https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.5/Git-2.55.0.5-64-bit.exe",
     "Tag": ""
   },
   {
     "Title": "FileZilla",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/filezilla.png",
-    "Link": "https://download.filezilla-project.org/client/FileZilla_3.59.0_win32-setup.exe",
-    "Link64": "https://download.filezilla-project.org/client/FileZilla_3.59.0_win64-setup.exe",
+    "Link": "",
+    "Link64": "",
     "Tag": "cFileZilla"
   },
   {
@@ -971,24 +971,24 @@
     "Title": "WinSCP",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/winscp.png",
-    "Link": "https://optimizer-downloader.azurewebsites.net/winscp",
-    "Link64": "https://optimizer-downloader.azurewebsites.net/winscp",
+    "Link": "https://downloads.sourceforge.net/project/winscp/WinSCP/6.5.6/WinSCP-6.5.6-Setup.exe",
+    "Link64": "https://downloads.sourceforge.net/project/winscp/WinSCP/6.5.6/WinSCP-6.5.6-Setup.exe",
     "Tag": "cWinScp"
   },
   {
     "Title": "PuTTY",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/putty.png",
-    "Link": "https://the.earth.li/~sgtatham/putty/latest/w32/putty-0.76-installer.msi",
-    "Link64": "https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.76-installer.msi",
+    "Link": "https://the.earth.li/~sgtatham/putty/latest/w32/putty-0.85-installer.msi",
+    "Link64": "https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.85-installer.msi",
     "Tag": "cPutty"
   },
   {
     "Title": "WinMerge",
     "Group": "Developer Tools",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://github.com/WinMerge/winmerge/releases/download/v2.16.58/WinMerge-2.16.58-Setup.exe",
+    "Link64": "https://github.com/WinMerge/winmerge/releases/download/v2.16.58/WinMerge-2.16.58-x64-Setup.exe",
     "Tag": ""
   },
   {
@@ -1003,7 +1003,7 @@
     "Title": "Visual Studio Code",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/vscode.png",
-    "Link": "https://code.visualstudio.com/sha/download?build=stable&os=win32-user",
+    "Link": "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user",
     "Link64": "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user",
     "Tag": "cVSCode"
   },
@@ -1011,16 +1011,16 @@
     "Title": "Cursor",
     "Group": "Developer Tools",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://downloads.cursor.com/production/2fdd31c9f33f7fbe501f2d57772dc5bf64b63621/win32/x64/user-setup/CursorUserSetup-x64-3.17.8.exe",
+    "Link64": "https://downloads.cursor.com/production/2fdd31c9f33f7fbe501f2d57772dc5bf64b63621/win32/x64/user-setup/CursorUserSetup-x64-3.17.8.exe",
     "Tag": ""
   },
   {
     "Title": "GitHub Desktop",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/github.png",
-    "Link": "",
-    "Link64": "https://desktop.githubusercontent.com/github-desktop/releases/2.9.4-24101633/GitHubDesktopSetup-x64.exe",
+    "Link": "https://central.github.com/deployments/desktop/desktop/latest/win32",
+    "Link64": "https://central.github.com/deployments/desktop/desktop/latest/win32",
     "Tag": "cGitHub"
   },
   {
@@ -1059,16 +1059,16 @@
     "Title": "ImgBurn",
     "Group": "Utilities",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.imgburn.com/SetupImgBurn_2.5.8.0.exe",
+    "Link64": "https://download.imgburn.com/SetupImgBurn_2.5.8.0.exe",
     "Tag": ""
   },
   {
     "Title": "RealVNC Server",
     "Group": "Utilities",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://downloads.realvnc.com/download/file/vnc.files/VNC-Server-7.18.0-Windows.exe",
+    "Link64": "https://downloads.realvnc.com/download/file/vnc.files/VNC-Server-7.18.0-Windows.exe",
     "Tag": ""
   },
   {
@@ -1083,16 +1083,16 @@
     "Title": "TightVNC",
     "Group": "Utilities",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://www.tightvnc.com/download/2.8.85/tightvnc-2.8.85-gpl-setup-32bit.msi",
+    "Link64": "https://www.tightvnc.com/download/2.8.85/tightvnc-2.8.85-gpl-setup-64bit.msi",
     "Tag": ""
   },
   {
     "Title": "TeraCopy",
     "Group": "Utilities",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://codesector.com/files/teracopy.exe",
+    "Link64": "https://codesector.com/files/teracopy.exe",
     "Tag": ""
   },
   {
@@ -1115,40 +1115,40 @@
     "Title": "Launchy",
     "Group": "Utilities",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://www.launchy.net/downloads/win/Launchy2.5.exe",
+    "Link64": "https://www.launchy.net/downloads/win/Launchy2.5.exe",
     "Tag": ""
   },
   {
     "Title": "WinDirStat",
     "Group": "Utilities",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://github.com/windirstat/windirstat/releases/download/release/v2.8.0/WinDirStat-x86.msi",
+    "Link64": "https://github.com/windirstat/windirstat/releases/download/release/v2.8.0/WinDirStat-x64.msi",
     "Tag": ""
   },
   {
     "Title": "WizTree",
     "Group": "Utilities",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://diskanalyzer.com/files/wiztree_4_32_setup.exe",
+    "Link64": "https://diskanalyzer.com/files/wiztree_4_32_setup.exe",
     "Tag": ""
   },
   {
     "Title": "Glary",
     "Group": "Utilities",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.glarysoft.com/gu5setup.exe",
+    "Link64": "https://download.glarysoft.com/gu5setup.exe",
     "Tag": ""
   },
   {
     "Title": "InfraRecorder",
     "Group": "Utilities",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://downloads.sourceforge.net/project/infrarecorder/InfraRecorder/0.53/ir053.exe",
+    "Link64": "https://downloads.sourceforge.net/project/infrarecorder/InfraRecorder/0.53/ir053.exe",
     "Tag": ""
   },
   {
@@ -1163,8 +1163,8 @@
     "Title": "CCleaner",
     "Group": "Utilities",
     "Image": "",
-    "Link": "",
-    "Link64": "",
+    "Link": "https://download.ccleaner.com/ccsetup.exe",
+    "Link64": "https://download.ccleaner.com/ccsetup.exe",
     "Tag": ""
   },
   {

@@ -1,0 +1,67 @@
+name: Release
+
+# The in-app updater downloads
+#   github.com/wrstt/ConfigurO/releases/download/<version>/ConfigurO-<version>.exe
+# where <version> is the contents of version.txt. So the tag has to be the bare
+# version -- 1.0, not v1.0 -- and the asset has to carry that exact name.
+on:
+  push:
+    tags: ['[0-9]*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Check the tag matches version.txt
+      shell: pwsh
+      run: |
+        $tag = "${{ github.ref_name }}"
+        $version = (Get-Content version.txt -Raw).Trim()
+        if ($tag -ne $version) {
+          throw "tag '$tag' does not match version.txt '$version'; the updater builds its download URL from version.txt, so a mismatch ships a release nobody can reach"
+        }
+        echo "VERSION=$version" >> $env:GITHUB_ENV
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v2
+
+    - name: Restore Packages
+      run: nuget restore ConfigurO.sln
+
+    - name: Build Solution
+      run: msbuild.exe ConfigurO.sln /p:Configuration=Release
+
+    - name: Name the asset the way the updater expects
+      shell: pwsh
+      run: Copy-Item bin/Release/ConfigurO.exe "ConfigurO-$env:VERSION.exe"
+
+    - name: Extract this version's changelog section
+      shell: pwsh
+      run: |
+        # The updater shows the same section in its "View changes" dialog.
+        $lines = Get-Content CHANGELOG.md
+        $start = ($lines | Select-String -Pattern "^## \[$([regex]::Escape($env:VERSION))\]" |
+                  Select-Object -First 1).LineNumber
+        if (-not $start) { throw "CHANGELOG.md has no '## [$env:VERSION]' heading" }
+        $rest = $lines[$start..($lines.Count - 1)]
+        $end = ($rest | Select-String -Pattern '^## \[' | Select-Object -First 1).LineNumber
+        $body = if ($end) { $rest[0..($end - 2)] } else { $rest }
+        $body -join "`n" | Set-Content notes.md -Encoding utf8
+
+    - name: Publish the release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: ConfigurO ${{ env.VERSION }}
+        body_path: notes.md
+        files: ConfigurO-${{ env.VERSION }}.exe
+        fail_on_unmatched_files: true

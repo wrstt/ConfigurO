@@ -1090,16 +1090,16 @@ namespace ConfigurO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] IBMPlexSans_Regular {
+        internal static byte[] Inter_Regular {
             get {
-                object obj = ResourceManager.GetObject("IBMPlexSans_Regular", resourceCulture);
+                object obj = ResourceManager.GetObject("Inter_Regular", resourceCulture);
                 return ((byte[])(obj));
             }
         }
 
-        internal static byte[] IBMPlexSans_Medium {
+        internal static byte[] Inter_Medium {
             get {
-                object obj = ResourceManager.GetObject("IBMPlexSans_Medium", resourceCulture);
+                object obj = ResourceManager.GetObject("Inter_Medium", resourceCulture);
                 return ((byte[])(obj));
             }
         }

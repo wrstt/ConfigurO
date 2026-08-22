@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -144,6 +144,31 @@ namespace ConfigurO
             BackColor = NocturneTheme.Bg;
             ApplyChrome();
             Invalidate(true);
+        }
+
+        /// <summary>
+        /// Repaints the title bar once the window is actually on screen.
+        ///
+        /// The bar was reported blank on first show -- the app name, mark and
+        /// window buttons only appeared once the pointer crossed it, which is
+        /// the hover handler invalidating a region that never received its
+        /// first paint. Render() fills its whole client rectangle opaquely, so
+        /// there is nothing wrong with what it draws; it simply had not been
+        /// asked to. Forcing one paint here is cheap and cannot make a
+        /// correctly-painted bar wrong.
+        /// </summary>
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            if (TitleBar == null) return;
+            TitleBar.Invalidate();
+            TitleBar.Update();
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            if (TitleBar != null) TitleBar.Invalidate();
         }
 
         protected override void OnResize(EventArgs e)

@@ -6,9 +6,12 @@ using System.Runtime.InteropServices;
 namespace ConfigurO
 {
     /// <summary>
-    /// The ConfigurO type system: IBM Plex Sans for UI, IBM Plex Mono for
-    /// paths, IPs and console output. Both are bundled (SIL OFL 1.1) and
-    /// loaded from embedded resources, so nothing has to be installed.
+    /// The ConfigurO type system: Inter for UI, IBM Plex Mono for paths, IPs
+    /// and console output. Both are bundled (SIL OFL 1.1) and loaded from
+    /// embedded resources, so nothing has to be installed.
+    ///
+    /// Inter is what the Nocturne handoff was drawn against, and it holds its
+    /// colour at 12-14px on any display, which is the whole job here.
     ///
     /// Hierarchy is size and space -- never weight above Medium (500).
     /// If loading fails for any reason we fall back through the best
@@ -30,8 +33,47 @@ namespace ConfigurO
 
         static readonly string[] SansFallback =
         {
-            "IBM Plex Sans", "Segoe UI Variable Text", "Segoe UI", "Tahoma"
+            "Inter", "Segoe UI Variable Text", "Segoe UI", "Tahoma"
         };
+
+        /// <summary>
+        /// Inter covers Latin, Greek and Cyrillic and nothing else. Nine of the
+        /// 28 languages are written in scripts it has no glyphs for, and GDI+
+        /// does not font-link a PrivateFontCollection face, so those would draw
+        /// as rows of .notdef boxes. Each maps to the system UI face Windows
+        /// ships for that script instead; the bundled face is skipped entirely
+        /// rather than half-used.
+        /// </summary>
+        static readonly string[] ArabicFallback   = { "Segoe UI", "Tahoma", "Arial" };
+        static readonly string[] ChineseFallback  = { "Microsoft YaHei UI", "Microsoft YaHei", "SimSun" };
+        static readonly string[] TaiwanFallback   = { "Microsoft JhengHei UI", "Microsoft JhengHei", "MingLiU" };
+        static readonly string[] JapaneseFallback = { "Yu Gothic UI", "Meiryo UI", "Meiryo", "MS UI Gothic" };
+        static readonly string[] KoreanFallback   = { "Malgun Gothic", "Gulim" };
+        static readonly string[] IndicFallback    = { "Nirmala UI", "Mangal" };
+
+        /// <summary>
+        /// The fallback chain for the language in use, or null when Inter can
+        /// render it. Read per call so switching language takes effect without
+        /// a restart.
+        /// </summary>
+        static string[] ScriptFallback()
+        {
+            Options o = OptionsHelper.CurrentOptions;
+            if (o == null) return null;
+            switch (o.LanguageCode)
+            {
+                case LanguageCode.AR:
+                case LanguageCode.FA:
+                case LanguageCode.UR:
+                case LanguageCode.KU: return ArabicFallback;
+                case LanguageCode.CN: return ChineseFallback;
+                case LanguageCode.TW: return TaiwanFallback;
+                case LanguageCode.JA: return JapaneseFallback;
+                case LanguageCode.KO: return KoreanFallback;
+                case LanguageCode.NE: return IndicFallback;
+                default: return null;
+            }
+        }
         static readonly string[] MonoFallback =
         {
             "IBM Plex Mono", "Cascadia Mono", "Consolas", "Courier New"
@@ -74,11 +116,11 @@ namespace ConfigurO
 
             // Identify each face by the family it adds, not by its name: GDI+
             // reports different family names on different platforms (Windows
-            // uses the font's GDI family, "IBM Plex Sans Medm"; libgdiplus
+            // uses the font's GDI family, "Inter Medium"; libgdiplus
             // uses the typographic one), so both Sans faces can arrive with
             // identical names. Load order is the only thing true everywhere.
-            _sans       = Add("IBMPlexSans-Regular.ttf", Properties.Resources.IBMPlexSans_Regular);
-            _sansMedium = Add("IBMPlexSans-Medium.ttf", Properties.Resources.IBMPlexSans_Medium);
+            _sans       = Add("Inter-Regular.ttf", Properties.Resources.Inter_Regular);
+            _sansMedium = Add("Inter-Medium.ttf", Properties.Resources.Inter_Medium);
             _mono       = Add("IBMPlexMono-Regular.ttf", Properties.Resources.IBMPlexMono_Regular);
 
             if (_sans == null) _sans = _sansMedium;
@@ -190,11 +232,21 @@ namespace ConfigurO
         }
 
         /// <summary>Body / control text (weight 400).</summary>
-        internal static Font Sans(float pt) { return Make(_sans, SansFallback, pt, FontStyle.Regular); }
+        internal static Font Sans(float pt)
+        {
+            string[] script = ScriptFallback();
+            if (script != null) return Make(null, script, pt, FontStyle.Regular);
+            return Make(_sans, SansFallback, pt, FontStyle.Regular);
+        }
 
         /// <summary>Titles and emphasis (weight 500) -- never heavier.</summary>
         internal static Font Medium(float pt)
         {
+            // A script face has one weight here; asking for Medium would only
+            // synthesise bold, which the type rules forbid.
+            string[] script = ScriptFallback();
+            if (script != null) return Make(null, script, pt, FontStyle.Regular);
+
             if (_sansMedium != null && _sansMedium != _sans) return Make(_sansMedium, SansFallback, pt, FontStyle.Regular);
             // No dedicated Medium face: synthesising bold would break the
             // "never above 500" rule, so stay at Regular.

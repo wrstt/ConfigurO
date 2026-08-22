@@ -26,7 +26,7 @@ namespace ConfigurO
 
             // libgdiplus registers a PrivateFontCollection face but cannot
             // rasterise it -- every glyph comes out as a box. The shipping
-            // Windows build uses the bundled IBM Plex; these renders use the
+            // Windows build uses bundled Inter; these renders use the
             // system fallback chain so the layout is actually reviewable.
             NocturneFonts.ForceSystemFonts = true;
             NocturneFonts.Load();

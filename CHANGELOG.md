@@ -13,8 +13,15 @@ First release under the ConfigurO name, rebuilt around the **Nocturne** design.
   and a 208px navigation rail, one screen per tool.
 - New design system (`src/ConfigurO/Nocturne/`): a single accent, Dark and Light
   modes, one control language, all tokens defined in one place.
-- Bundled IBM Plex Sans and IBM Plex Mono; typographic hierarchy is size and
-  space rather than weight.
+- Bundled Inter for the interface and IBM Plex Mono for paths, IPs and console
+  output; typographic hierarchy is size and space rather than weight. Inter is
+  what the Nocturne handoff was drawn against and holds its colour at 12-14px
+  on any display.
+- Nine of the 28 languages -- Arabic, Persian, Urdu, Kurdish, Nepali, Chinese,
+  Taiwanese, Japanese and Korean -- are written in scripts Inter has no glyphs
+  for, and GDI+ does not font-link a privately-registered face. Those languages
+  now draw in the system UI face Windows ships for the script instead of a row
+  of .notdef boxes.
 - Icons are compiled vector outlines, so they stay sharp at any display scale.
 - Rewrote the Moon* control suite — toggle, checkbox, radio, select, list,
   checked list, progress, menu renderer — against the new tokens.

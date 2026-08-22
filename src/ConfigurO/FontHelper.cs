@@ -9,7 +9,7 @@ namespace ConfigurO
     internal static class FontHelper
     {
         /// <summary>
-        /// Loads the bundled IBM Plex faces. Kept as the entry point Program
+        /// Loads the bundled Inter and IBM Plex Mono faces. Kept as the entry point Program
         /// already calls; the work itself lives in <see cref="NocturneFonts"/>.
         /// </summary>
         internal static void LoadFont()

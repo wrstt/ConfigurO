@@ -15,11 +15,20 @@ ConfigurO is likewise GPL-3.0; see [LICENSE](LICENSE).
 - Upstream: https://github.com/hellzerg/optimizer
 - Licence: GPL-3.0
 
-## IBM Plex
+## Inter
 
-The interface is set in **IBM Plex Sans** and **IBM Plex Mono**, bundled as
-embedded resources in `src/ConfigurO/Resources/Fonts/` and registered at
-runtime. Nothing is installed system-wide.
+The interface is set in **Inter**, bundled as an embedded resource in
+`src/ConfigurO/Resources/Fonts/` and registered at runtime. Nothing is
+installed system-wide.
+
+- Copyright © 2016 The Inter Project Authors
+- Source: https://github.com/rsms/inter (v4.1)
+- Licence: SIL Open Font License 1.1 — https://scripts.sil.org/OFL
+
+## IBM Plex Mono
+
+Paths, IP addresses and console output are set in **IBM Plex Mono**, bundled
+the same way.
 
 - Copyright © 2017 IBM Corp., with Reserved Font Name "Plex"
 - Source: https://github.com/IBM/plex (v6.4.0)

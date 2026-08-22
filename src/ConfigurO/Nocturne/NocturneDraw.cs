@@ -10,7 +10,7 @@ namespace ConfigurO
     /// Text and surface drawing helpers shared by every Nocturne control.
     ///
     /// Everything goes through GDI+ (<c>Graphics.DrawString</c>) rather than
-    /// <c>TextRenderer</c>, because the bundled IBM Plex faces live in a
+    /// <c>TextRenderer</c>, because the bundled Inter and Plex Mono faces live in a
     /// PrivateFontCollection that GDI cannot see.
     /// </summary>
     internal static class NocturneDraw

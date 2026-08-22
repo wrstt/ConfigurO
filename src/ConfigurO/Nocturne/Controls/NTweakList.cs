@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -67,7 +67,11 @@ namespace ConfigurO
         }
 
         int GroupHeaderHeight { get { return NocturneScale.S(34); } }
-        int RowHeight { get { return NocturneScale.S(_showTips ? 46 : 34); } }
+        // 46 put the label and its tip 16px apart with the pair sitting high in
+        // the row: the two lines read as one crowded block rather than as a
+        // heading and its note. 54 gives the pair 19px of separation and even
+        // padding above and below.
+        int RowHeight { get { return NocturneScale.S(_showTips ? 54 : 34); } }
         int SidePad { get { return NocturneScale.S(12); } }
 
         /// <summary>Reloads from <see cref="TweakRegistry"/> and re-applies the filter.</summary>
@@ -267,10 +271,10 @@ namespace ConfigurO
                         if (_showTips)
                         {
                             NocturneDraw.Text(g, r.Def.ResolvedLabel, name, NocturneTheme.Text,
-                                new RectangleF(SidePad, r.Y + NocturneScale.S(7), textW, NocturneScale.S(18)),
+                                new RectangleF(SidePad, r.Y + NocturneScale.S(9), textW, NocturneScale.S(18)),
                                 NocturneDraw.Left);
                             NocturneDraw.Text(g, r.Def.ResolvedTip, tip, NocturneTheme.TextFaint,
-                                new RectangleF(SidePad, r.Y + NocturneScale.S(24), textW, NocturneScale.S(16)),
+                                new RectangleF(SidePad, r.Y + NocturneScale.S(29), textW, NocturneScale.S(16)),
                                 NocturneDraw.Left);
                         }
                         else

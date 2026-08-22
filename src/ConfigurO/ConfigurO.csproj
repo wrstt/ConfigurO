@@ -305,8 +305,8 @@
     <None Include="Resources\i18n\PL.json" />
     <None Include="Resources\i18n\KU.json" />
     <None Include="Resources\i18n\RO.json" />
-    <None Include="Resources\Fonts\IBMPlexSans-Regular.ttf" />
-    <None Include="Resources\Fonts\IBMPlexSans-Medium.ttf" />
+    <None Include="Resources\Fonts\Inter-Regular.ttf" />
+    <None Include="Resources\Fonts\Inter-Medium.ttf" />
     <None Include="Resources\Fonts\IBMPlexMono-Regular.ttf" />
     <None Include="Resources\i18n\UA.json" />
     <None Include="Resources\i18n\ID.json" />

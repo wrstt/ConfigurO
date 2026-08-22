@@ -4,6 +4,31 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [1.5]
+
+### Fixes
+- The app could be started and simply not appear -- no splash, no window, no
+  message -- with a second attempt reporting it was already running. A failure
+  while loading settings exited silently, and an unhandled error left a process
+  alive with no window still holding the single-instance lock, so nothing would
+  open again until that process was ended by hand. Failures now say what went
+  wrong and where the log is, and always release the lock.
+- Starting the app relaunches it with administrator rights, and the first
+  process was holding the single-instance lock while the second started, so the
+  two raced each other. Losing that race is what produced "already running" on a
+  first launch. The lock is handed over before the elevated copy starts.
+- The splash screen could keep a failed launch alive on its own.
+- Declining the administrator prompt is treated as a decision rather than an
+  error.
+
+### Interface
+- "ConfigurO is already running" now offers to restart: it closes the other
+  instance and starts a fresh copy, for when that instance is not responding.
+- The window, taskbar button and Alt-Tab now show the ConfigurO icon. Only the
+  .exe carried it before.
+- The notification-area icon is removed properly when the app closes instead of
+  leaving its slot behind.
+
 ## [1.4]
 
 ### Interface

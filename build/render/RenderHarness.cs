@@ -55,6 +55,25 @@ namespace ConfigurO
                 }
             }
 
+            // Everything above renders at 96 DPI, the one scale at which a
+            // measurement taken on a default Bitmap agrees with what gets
+            // painted. This pass catches layout that only adds up at 100%:
+            // boxes, padding and column math.
+            //
+            // It does NOT catch font-metric bugs. libgdiplus draws and
+            // measures a point-sized font at the same pixel size whatever the
+            // Graphics DPI says, so type never grows here the way it does on
+            // Windows. That blind spot is how an undersized-measurement bug
+            // reached 1.0 -- invisible on this harness by construction, and
+            // visible immediately on a real scaled Windows display.
+            NocturneTheme.Current = NocturneTheme.Mode.Dark;
+            NocturneScale.SetDpi(120);
+            _narrow = false;
+            _suffix = "-125";
+            Screens();
+            NocturneScale.SetDpi(96);
+            _suffix = "";
+
             Console.WriteLine("wrote PNGs to " + _out);
             return 0;
         }
@@ -63,6 +82,12 @@ namespace ConfigurO
         static Bitmap Canvas(int w, int h, out Graphics g)
         {
             Bitmap b = new Bitmap(w, h);
+            // Match the DPI a real window would paint at, so a point-sized font
+            // grows here the way it does on a scaled display. Without this the
+            // canvas stays at 96 DPI, type never scales, and the scaled pass
+            // measures nothing the 100% pass did not already cover.
+            float dpi = 96f * NocturneScale.Factor;
+            b.SetResolution(dpi, dpi);
             g = Graphics.FromImage(b);
             using (SolidBrush s = new SolidBrush(NocturneTheme.Bg)) g.FillRectangle(s, 0, 0, w, h);
             return b;
@@ -316,6 +341,7 @@ namespace ConfigurO
 
         // ── every real screen, built and laid out the way the shell does it ──
         static bool _narrow;
+        static string _suffix = "";
 
         static void Screens()
         {
@@ -332,8 +358,9 @@ namespace ConfigurO
                 Safe("screen:" + id, () =>
                 {
                     // Same box the shell gives a screen at the default size.
-                    screen.Size = new Size(_narrow ? 1040 - 208 : 1340 - 208,
-                                           _narrow ? 660 - 46 : 860 - 46);
+                    screen.Size = new Size(
+                        NocturneScale.S(_narrow ? 1040 - 208 : 1340 - 208),
+                        NocturneScale.S(_narrow ? 660 - 46 : 860 - 46));
                     screen.EnsureBuilt();
                     Safe("activate:" + id, () => screen.Activate());
                     screen.PerformLayout();
@@ -341,7 +368,7 @@ namespace ConfigurO
                     Graphics g;
                     Bitmap b = Canvas(screen.Width, screen.Height, out g);
                     PaintTree(g, screen, 0, 0);
-                    Save(b, g, "screen-" + id + (_narrow ? "-narrow" : ""));
+                    Save(b, g, "screen-" + id + (_narrow ? "-narrow" : "") + _suffix);
                 });
                 screen.Dispose();
             }

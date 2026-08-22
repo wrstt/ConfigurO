@@ -4,6 +4,24 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [1.3]
+
+### Fixes
+- The title bar could show as a light grey strip across the top of the window,
+  or stay blank until the pointer crossed it. It is a child window, so it clips
+  the shell and the strip it covers is the one part of the client area the
+  form's own background can never fill; with a transparent background of its
+  own, the bar's colour depended entirely on its custom paint landing, and when
+  that was missed the strip showed the raw window-class brush. The bar now
+  carries an opaque background that tracks the theme, so the fallback is the
+  right colour whatever happens to the paint.
+- The interface could be drawn in the system font instead of the bundled Inter.
+  Font loading gave up permanently after a single failed attempt -- the splash
+  screen loads fonts from its own thread before the main window asks, and a
+  first failure there left every later request falling back for the rest of the
+  session. It now retries, and records in the log whether the bundled faces were
+  registered.
+
 ## [1.2]
 
 Fixes for what the first Windows run showed: text truncating in controls sized

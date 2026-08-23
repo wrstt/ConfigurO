@@ -4,6 +4,20 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [2.6]
+
+### Fixes
+- The window can be dragged by its title bar. It never could: the bar is a child
+  window and was consuming the press itself, so the window could only be moved
+  by maximising it. Snapping and the drag-to-edge zones work too.
+- Card titles no longer run into the line beneath them. Every card on every
+  screen shares one control, so Settings, Network, Apps and the rest all showed
+  it — most visibly in the about box, where the name, description and licence
+  line were drawn on top of one another.
+- The Integrator screen no longer writes an error to the log every time it
+  opens. Checking whether "Take ownership" is installed threw whenever it was
+  not, which is the normal case.
+
 ## [2.5]
 
 ### Fixes

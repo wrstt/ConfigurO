@@ -4,6 +4,15 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [2.3]
+
+### Interface
+- Each tweak now sits on its own card. A name on the left and its switch on the
+  right had several hundred pixels of empty space between them on a wide window,
+  with nothing connecting the two, so a row read as a label and an unrelated
+  control rather than as one setting. The card gives that space something to
+  belong to. Hovering lifts the card.
+
 ## [2.2]
 
 ### Interface

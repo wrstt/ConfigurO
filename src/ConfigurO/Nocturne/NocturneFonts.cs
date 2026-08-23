@@ -24,6 +24,9 @@ namespace ConfigurO
         [DllImport("gdi32.dll", CharSet = CharSet.Unicode)]
         static extern int AddFontResourceEx(string file, uint flags, IntPtr reserved);
 
+        static readonly System.Collections.Generic.HashSet<string> _warned =
+            new System.Collections.Generic.HashSet<string>();
+
         static PrivateFontCollection _private;
         static FontFamily _sans, _sansMedium, _mono;
 
@@ -281,6 +284,24 @@ namespace ConfigurO
                     f.Dispose();
                 }
                 catch (ArgumentException) { }
+            }
+            // Nothing in the chain was available, so this is the shell's own UI
+            // font -- which very likely cannot draw the script that asked for a
+            // chain in the first place, and will produce a row of .notdef
+            // boxes. That is worth a line in the log: boxes on screen are
+            // otherwise completely silent, and indistinguishable from a layout
+            // fault to anyone reporting them.
+            //
+            // Once per chain. Make runs on every paint.
+            if (fallback != null && fallback.Length > 0)
+            {
+                lock (_warned)
+                {
+                    if (_warned.Add(fallback[0]))
+                        Logger.LogInfo("NocturneFonts: no face available for the '" + fallback[0] +
+                                       "' chain (" + string.Join(", ", fallback) +
+                                       ") -- text in that script will not render");
+                }
             }
             return new Font(System.Drawing.SystemFonts.MessageBoxFont.FontFamily, size, style, GraphicsUnit.Point);
         }

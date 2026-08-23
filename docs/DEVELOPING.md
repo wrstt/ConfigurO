@@ -93,6 +93,32 @@ Without this every render is in DejaVu or whatever the system offers, and any
 judgement about type size, weight or spacing is being made against the wrong
 face. Several rounds of spacing work were done that way and had to be redone.
 
+**Run it under Wine.** The harness paints controls; Wine runs the actual
+program, including the screens no harness can reach — the shell, the dialogs and
+the first-run picker, which needs a real window.
+
+```
+sudo apt install wine wine64 winetricks xvfb
+export WINEPREFIX=~/.wine-configuro
+export PATH=/usr/lib/x86_64-linux-gnu/wine:$PATH   # Ubuntu hides wineserver
+xvfb-run -a winetricks -q -f dotnet48              # slow, once
+Xvfb :77 -screen 0 1500x950x24 & DISPLAY=:77 wine ConfigurO.exe
+DISPLAY=:77 import -window root shot.png
+```
+
+Delete `drive_c/ProgramData/ConfigurO/ConfigurO.json` in the prefix to get the
+first-run picker back.
+
+What it is good for: does the app start, does a screen paint, does a control
+respond, does a change land. It found the Korean fallback drawing .notdef boxes
+on a screen nothing else can render.
+
+What it is not good for: **which fonts a Windows machine has.** Wine answers
+`new Font("Noto Sans Devanagari")` with Tahoma, so a chain that works on Windows
+can look broken here. It has no DWM either, so the title bar, Mica and rounded
+corners are all absent. Treat it as an oracle for behaviour, never for
+appearance.
+
 **Know what these cannot tell you.** Both have hard blind spots, and each one
 has already let a real bug reach a release:
 

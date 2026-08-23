@@ -4,6 +4,21 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [2.5]
+
+### Fixes
+- The title bar went blank when the window lost focus — brand, version, system
+  details and window buttons all disappeared until it was clicked again. It
+  repaints on losing focus now as well as on gaining it.
+- Button labels are set slightly smaller when space is short instead of losing
+  their last letters. "Reinforce policies" no longer becomes "Reinforce poli…"
+  in a smaller window.
+- The two lines in the sidebar footer were touching, and it said "1 tweaks
+  applied".
+- Buttons no longer show a focus outline just because the window opened. It
+  appears when you start navigating with the keyboard and goes away when you
+  click.
+
 ## [2.4]
 
 ### Interface

@@ -93,7 +93,7 @@ namespace ConfigurO
 
         protected int Pad { get { return NocturneScale.S(32); } }
         protected int TopPad { get { return NocturneScale.S(26); } }
-        int HeaderHeight { get { return NocturneScale.S(58); } }
+        int HeaderHeight { get { return NocturneScale.S(66); } }
 
         /// <summary>Adds a control to the right side of the header row.</summary>
         protected void AddAction(Control c)
@@ -194,7 +194,10 @@ namespace ConfigurO
 
             using (Font f = NocturneFonts.ScreenSubtitle())
                 NocturneDraw.Text(g, SubtitleText, f, NocturneTheme.TextMuted,
-                    new RectangleF(Pad, TopPad + NocturneScale.S(27), maxWidth, NocturneScale.S(18)),
+                    // 27 put the subtitle's box at 53 while the title's ran to
+                    // 54: the two overlapped by a pixel, so they read as one
+                    // clump rather than as a title with a count under it.
+                    new RectangleF(Pad, TopPad + NocturneScale.S(34), maxWidth, NocturneScale.S(19)),
                     NocturneDraw.Left);
 
             if (string.IsNullOrEmpty(EmptyMessage)) return;

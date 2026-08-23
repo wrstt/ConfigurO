@@ -76,9 +76,9 @@ namespace ConfigurO
         // puts 13 above and 12 below, so the gap between rows is wider than the
         // gap within one and the eye groups them correctly.
         int GroupHeaderHeight { get { return NocturneScale.S(40); } }
-        int RowHeight { get { return NocturneScale.S(_showTips ? 64 : 46); } }
+        int RowHeight { get { return NocturneScale.S(_showTips ? 78 : 50); } }
         int NameTop { get { return NocturneScale.S(13); } }
-        int NoteTop { get { return NocturneScale.S(34); } }
+        int NoteTop { get { return NocturneScale.S(39); } }
 
         /// <summary>Text inset. 12 sat the labels almost on the pane's edge.</summary>
         int SidePad { get { return NocturneScale.S(20); } }
@@ -87,7 +87,7 @@ namespace ConfigurO
         int GroupGap { get { return NocturneScale.S(32); } }
 
         /// <summary>Vertical gap between one row's card and the next.</summary>
-        int CardGap { get { return NocturneScale.S(6); } }
+        int CardGap { get { return NocturneScale.S(8); } }
 
         /// <summary>Reloads from <see cref="TweakRegistry"/> and re-applies the filter.</summary>
         internal void Load()
@@ -381,10 +381,10 @@ namespace ConfigurO
                         if (_showTips)
                         {
                             NocturneDraw.Text(g, r.Def.ResolvedLabel, name, NocturneTheme.Text,
-                                new RectangleF(SidePad, r.Y + NameTop, textW, NocturneScale.S(20)),
+                                new RectangleF(SidePad, r.Y + NameTop, textW, NocturneScale.S(21)),
                                 NocturneDraw.Left);
                             NocturneDraw.Text(g, r.Def.ResolvedSummary, tip, NocturneTheme.TextMuted,
-                                new RectangleF(SidePad, r.Y + NoteTop, textW, NocturneScale.S(18)),
+                                new RectangleF(SidePad, r.Y + NoteTop, textW, NocturneScale.S(19)),
                                 NocturneDraw.Left);
                         }
                         else

@@ -98,7 +98,11 @@ namespace ConfigurO
             using (Graphics g = NocturneDraw.CreateMeasureGraphics())
             using (Font f = NocturneFonts.Row())
             {
-                int w = (int)Math.Ceiling(NocturneDraw.Width(g, Text, f)) + NocturneScale.S(horizontalPadding) * 2;
+                // Two pixels of slack: measuring happens on a scratch surface
+                // and drawing happens on the screen, and grid-fitting does not
+                // have to agree between them to the pixel.
+                int w = (int)Math.Ceiling(NocturneDraw.Width(g, Text, f)) + NocturneScale.S(2)
+                      + NocturneScale.S(horizontalPadding) * 2;
                 if (!string.IsNullOrEmpty(_icon)) w += EffectiveIconSize + NocturneScale.S(7);
                 Width = w;
             }
@@ -204,8 +208,17 @@ namespace ConfigurO
                     NocturneIcons.Draw(g, _icon, (int)Math.Round(x), (Height - iconSize) / 2, iconSize, text);
                     x += iconSize + NocturneScale.S(7);
                 }
+                // Given every pixel left in the button, not a box cut to the
+                // width just measured. AutoFit already sized the button to hold
+                // this string with padding either side, so the room is there --
+                // but boxing the text to measured+2 means any disagreement
+                // between measuring on a scratch surface and drawing on the
+                // screen, however small, lands as a trimmed word. "Reinforce
+                // policies" came out "Reinforce policie". Slack costs nothing;
+                // the ellipsis is meant for text that genuinely does not fit.
+                float room = Math.Max(0, Width - x - NocturneScale.S(4));
                 NocturneDraw.Text(g, Text, f, text,
-                    new RectangleF(x, 0, textW + NocturneScale.S(2), Height), NocturneDraw.Left);
+                    new RectangleF(x, 0, room, Height), NocturneDraw.Left);
             }
         }
     }

@@ -228,6 +228,26 @@ namespace ConfigurO
             if (item == null || !item.Enabled) start = TweaksScreen.ScreenId;
             Navigate(start);
 
+            // One line, written once, that settles the questions no screenshot
+            // can. Whether the window is actually borderless, whether the
+            // custom title bar exists and where it ended up, what DPI and scale
+            // the layout was computed at, and whether the bundled typeface
+            // registered. Each of those has been guessed at rather than known.
+            try
+            {
+                Logger.LogInfo(string.Format(
+                    "Shell: border={0} titlebar={1} bounds={2} height={3} dpi={4} scale={5} inter={6}",
+                    FormBorderStyle,
+                    TitleBar == null ? "absent" : "present",
+                    TitleBar == null ? "-" : TitleBar.Bounds.ToString(),
+                    TitleBar == null ? 0 : TitleBar.Height,
+                    DeviceDpi,
+                    NocturneScale.Factor.ToString("0.00",
+                        System.Globalization.CultureInfo.InvariantCulture),
+                    NocturneFonts.Bundled));
+            }
+            catch { }
+
             ApplyTraySetting(OptionsHelper.CurrentOptions.EnableTray);
 
             if (OptionsHelper.CurrentOptions.UpdateOnLaunch)

@@ -198,10 +198,47 @@ namespace ConfigurO
             TitleBar.Update();
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // The moment someone reaches for the keyboard to move around, focus
+            // rings become useful and are switched on for the rest of the run.
+            Keys key = keyData & Keys.KeyCode;
+            if (key == Keys.Tab || key == Keys.Up || key == Keys.Down ||
+                key == Keys.Left || key == Keys.Right)
+            {
+                if (!NocturneDraw.ShowFocusRings)
+                {
+                    NocturneDraw.ShowFocusRings = true;
+                    Invalidate(true);
+                }
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
             if (TitleBar != null) TitleBar.Invalidate();
+        }
+
+        /// <summary>
+        /// Deactivating repaints the bar too, and this is the half that was
+        /// missing.
+        ///
+        /// Losing focus left the bar blank -- no brand mark, no version, no OS
+        /// string, no window buttons -- and it stayed that way until the window
+        /// was clicked again, because only OnActivated ever asked for a repaint.
+        /// It looked like the bar had never drawn at all, and it is why every
+        /// screenshot of it came back empty: taking a screenshot moves focus to
+        /// the capture tool, so the bar was blank in the picture and correct on
+        /// the screen the moment the picture was taken.
+        /// </summary>
+        protected override void OnDeactivate(EventArgs e)
+        {
+            base.OnDeactivate(e);
+            if (TitleBar == null) return;
+            TitleBar.Invalidate();
+            TitleBar.Update();      // paint now, not whenever focus comes back
         }
 
         protected override void OnResize(EventArgs e)

@@ -60,7 +60,7 @@ namespace ConfigurO
         int ItemHeight { get { return NocturneScale.S(34); } }
         int TopPad { get { return NocturneScale.S(10); } }
         int SidePad { get { return NocturneScale.S(10); } }
-        int FooterHeight { get { return NocturneScale.S(52); } }
+        int FooterHeight { get { return NocturneScale.S(62); } }
 
         List<NNavItem> VisibleItems()
         {
@@ -187,11 +187,14 @@ namespace ConfigurO
             using (Font f = NocturneFonts.Small())
             {
                 NocturneDraw.Text(g, FooterPrimary, f, NocturneTheme.TextFaint,
-                    new RectangleF(SidePad + NocturneScale.S(2), fy + NocturneScale.S(10),
-                                   Width - SidePad * 2, NocturneScale.S(15)), NocturneDraw.Left);
+                    new RectangleF(SidePad + NocturneScale.S(2), fy + NocturneScale.S(12),
+                                   Width - SidePad * 2, NocturneScale.S(16)), NocturneDraw.Left);
                 NocturneDraw.Text(g, FooterSecondary, f, NocturneTheme.TextDim,
-                    new RectangleF(SidePad + NocturneScale.S(2), fy + NocturneScale.S(25),
-                                   Width - SidePad * 2, NocturneScale.S(15)), NocturneDraw.Left);
+                    // 25 sat this line's box directly against the one above,
+                    // whose box ran to exactly 25. Two lines with no gap read as
+                    // one wrapped sentence rather than as a count and a state.
+                    new RectangleF(SidePad + NocturneScale.S(2), fy + NocturneScale.S(31),
+                                   Width - SidePad * 2, NocturneScale.S(16)), NocturneDraw.Left);
             }
         }
     }

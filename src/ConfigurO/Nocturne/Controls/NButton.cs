@@ -115,7 +115,17 @@ namespace ConfigurO
 
         protected override void OnMouseEnter(EventArgs e) { _hover = true; Invalidate(); base.OnMouseEnter(e); }
         protected override void OnMouseLeave(EventArgs e) { _hover = _pressed = false; Invalidate(); base.OnMouseLeave(e); }
-        protected override void OnMouseDown(MouseEventArgs e) { _pressed = true; Focus(); Invalidate(); base.OnMouseDown(e); }
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            // Clicking is not navigating: a ring here answers a question nobody
+            // asked, and it is the one that appears on launch.
+            if (NocturneDraw.ShowFocusRings)
+            {
+                NocturneDraw.ShowFocusRings = false;
+                Parent?.Invalidate(true);
+            }
+            _pressed = true; Focus(); Invalidate(); base.OnMouseDown(e);
+        }
         protected override void OnMouseUp(MouseEventArgs e) { _pressed = false; Invalidate(); base.OnMouseUp(e); }
         protected override void OnGotFocus(EventArgs e) { Invalidate(); base.OnGotFocus(e); }
         protected override void OnLostFocus(EventArgs e) { Invalidate(); base.OnLostFocus(e); }
@@ -186,7 +196,8 @@ namespace ConfigurO
                                       ? NocturneTheme.HoverFill : NocturneTheme.HoverAccent;
 
             NocturneDraw.Card(g, r, fill, border, radius);
-            if (Focused && Enabled) NocturneDraw.FocusRing(g, new Rectangle(0, 0, Width - 1, Height - 1), radius);
+            if (Focused && Enabled && NocturneDraw.ShowFocusRings)
+                NocturneDraw.FocusRing(g, new Rectangle(0, 0, Width - 1, Height - 1), radius);
 
             int iconSize = EffectiveIconSize;
             bool hasIcon = !string.IsNullOrEmpty(_icon) && NocturneIcons.Exists(_icon);
@@ -197,28 +208,44 @@ namespace ConfigurO
                 return;
             }
 
-            using (Font f = NocturneFonts.Row())
+            using (Font baseFont = NocturneFonts.Row())
             {
+                float pad = NocturneScale.S(4);
+                float iconSpace = hasIcon ? iconSize + NocturneScale.S(7) : 0;
+                float room = Math.Max(0, Width - pad * 2 - iconSpace);
+
+                // Set smaller until it fits, rather than trimmed until it fits.
+                //
+                // AutoFit sizes the button from a measurement taken on a scratch
+                // surface, and the paint happens on the screen; the two need not
+                // agree to the pixel, and when they disagree the label lost its
+                // last letters -- "Reinforce policies" became "Reinforce poli…".
+                // A word cut off is a defect. A word set a quarter-point smaller
+                // is not, and it is still true at any DPI, in any language, and
+                // whatever the window has been resized to.
+                Font f = baseFont;
+                Font shrunk = null;
+                float size = baseFont.SizeInPoints;
+                while (size > 7.5f && NocturneDraw.Width(g, Text, f) > room)
+                {
+                    size -= 0.25f;
+                    if (shrunk != null) shrunk.Dispose();
+                    shrunk = new Font(baseFont.FontFamily, size, baseFont.Style, GraphicsUnit.Point);
+                    f = shrunk;
+                }
+
                 float textW = NocturneDraw.Width(g, Text, f);
-                float total = textW + (hasIcon ? iconSize + NocturneScale.S(7) : 0);
-                float x = (Width - total) / 2f;
+                float x = Math.Max(pad, (Width - (textW + iconSpace)) / 2f);
 
                 if (hasIcon)
                 {
                     NocturneIcons.Draw(g, _icon, (int)Math.Round(x), (Height - iconSize) / 2, iconSize, text);
-                    x += iconSize + NocturneScale.S(7);
+                    x += iconSpace;
                 }
-                // Given every pixel left in the button, not a box cut to the
-                // width just measured. AutoFit already sized the button to hold
-                // this string with padding either side, so the room is there --
-                // but boxing the text to measured+2 means any disagreement
-                // between measuring on a scratch surface and drawing on the
-                // screen, however small, lands as a trimmed word. "Reinforce
-                // policies" came out "Reinforce policie". Slack costs nothing;
-                // the ellipsis is meant for text that genuinely does not fit.
-                float room = Math.Max(0, Width - x - NocturneScale.S(4));
                 NocturneDraw.Text(g, Text, f, text,
-                    new RectangleF(x, 0, room, Height), NocturneDraw.Left);
+                    new RectangleF(x, 0, Math.Max(0, Width - x - pad), Height), NocturneDraw.Left);
+
+                if (shrunk != null) shrunk.Dispose();
             }
         }
     }

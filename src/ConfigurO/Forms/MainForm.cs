@@ -203,7 +203,8 @@ namespace ConfigurO
         {
             int applied = TweakRegistry.AppliedCount(OptionsHelper.CurrentOptions);
             _sidebar.FooterPrimary = string.Format(
-                I18n.Get("sidebarApplied", "{0} tweaks applied"), applied);
+                applied == 1 ? I18n.Get("sidebarAppliedOne", "{0} tweak applied")
+                             : I18n.Get("sidebarApplied", "{0} tweaks applied"), applied);
 
             // Report when policies were actually last reinforced rather than
             // always claiming "today" the way the design mock does.

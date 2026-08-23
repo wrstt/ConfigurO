@@ -242,6 +242,18 @@ namespace ConfigurO
             if (border != Color.Empty) NocturneTheme.DrawRounded(g, r, radius, border);
         }
 
+        /// <summary>
+        /// Whether focus rings should be drawn at all.
+        ///
+        /// A ring is an answer to "where does the keyboard go next", and it is
+        /// noise to anyone who is not asking. WinForms gives a control focus
+        /// when it is clicked and when a window opens, so the first button on a
+        /// screen wore a 2px accent ring from launch -- which on the dark theme
+        /// reads as a purple halo round an edge for no reason the user can see.
+        /// Turned on by the first Tab and off by the next click.
+        /// </summary>
+        internal static bool ShowFocusRings;
+
         /// <summary>A 2px accent focus ring, offset 2px outside the control.</summary>
         internal static void FocusRing(Graphics g, Rectangle r, int radius)
         {

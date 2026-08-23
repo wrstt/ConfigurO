@@ -4,6 +4,16 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [2.7]
+
+### Fixes
+- Korean and other non-Latin languages could display as empty boxes. The list of
+  fonts tried for each script was too short: the faces Windows prefers arrive
+  with optional language features, and a machine without them had nothing left
+  to fall back to. Every script now falls through to a widely available face.
+- When no font on the machine can draw a script, the log says so instead of the
+  text silently becoming boxes.
+
 ## [2.6]
 
 ### Fixes

@@ -22,7 +22,7 @@ REFS=(
   System.Deployment System.Configuration
 )
 ARGS=(-target:library -out:"$OUT/ConfigurO.dll" -langversion:latest -nostdlib+
-      -define:MONO_LINUX_CHECK -nowarn:0169,0414,0649,0067,1591,0162,0219,0618)
+      -define:MONO_LINUX_CHECK -nowarn:0169,0414,0067,1591,0162,0219,0618)
 for r in "${REFS[@]}"; do ARGS+=("-r:$MONO_LIB/$r.dll"); done
 ARGS+=("-r:$MONO_LIB/mscorlib.dll")
 ARGS+=("-r:src/ConfigurO/Newtonsoft.Json.dll")
@@ -35,6 +35,12 @@ ERRS=$(grep -c 'error CS' "$OUT/errors.txt" || true)
 WARNS=$(grep -c 'warning CS' "$OUT/errors.txt" || true)
 echo "errors: $ERRS   warnings: $WARNS"
 if [ "${1:-}" != "--quiet" ]; then
-  grep 'error CS' "$OUT/errors.txt" | head -60
+  grep -E 'error CS|warning CS' "$OUT/errors.txt" | head -60
 fi
-[ "$ERRS" -eq 0 ]
+
+# Warnings fail this script, because they fail the real build: MSBuild compiles
+# with /warnaserror+, so anything csc warns about stops the Windows build dead.
+# Reporting them here while still exiting zero is worse than not checking --
+# it prints "errors: 0", reads as green, and the failure only appears in CI
+# after a tag has been pushed. A dead field shipped exactly that way.
+[ "$ERRS" -eq 0 ] && [ "$WARNS" -eq 0 ]

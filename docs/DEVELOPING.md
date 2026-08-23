@@ -69,7 +69,12 @@ build/render-resources.sh   compile Resources.resx (needed once by the renderer)
 build/render.sh             paint the UI headlessly into build/render/out/*.png
 ```
 
-`check.sh` must report **0 errors**. `render.sh` produces dark and light sheets
+`check.sh` must report **0 errors and 0 warnings**, and fails on either. That is
+not fussiness: MSBuild compiles with `/warnaserror+`, so anything csc warns
+about stops the Windows build. The harness used to suppress several warnings and
+exit zero on the rest, which meant a clean local run could still fail in CI --
+and only after a tag had been pushed, since the release workflow is what builds
+on Windows. A field left unassigned shipped exactly that way. `render.sh` produces dark and light sheets
 of the shell, the control language, every screen and the first-run picker — the
 fastest way to see whether a change looks right. It forces the system font
 fallback, because libgdiplus can register a private font it cannot then

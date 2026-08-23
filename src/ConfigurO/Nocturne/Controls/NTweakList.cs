@@ -29,8 +29,6 @@ namespace ConfigurO
         {
             internal string Title;
             internal int Y, Height;
-            /// <summary>Bounds of the panel the group's rows sit in.</summary>
-            internal int CardTop, CardBottom;
             internal readonly List<Row> Rows = new List<Row>();
         }
 

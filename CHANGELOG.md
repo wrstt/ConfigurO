@@ -4,6 +4,17 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [2.1]
+
+### Security
+- Setup now verifies the .NET Framework installer it downloads before running
+  it. It checks that the file carries a valid Authenticode signature and that
+  the certificate names Microsoft Corporation; anything else is deleted and you
+  are pointed at Microsoft's download page instead. HTTPS attests to who was
+  contacted, not to what came back, and setup runs that file with administrator
+  rights — a network that tampers with the download should not be able to
+  choose what gets run.
+
 ## [2.0]
 
 Numbered 2.0 rather than 1.10 because the updater compares versions as decimal

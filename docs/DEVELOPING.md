@@ -103,6 +103,31 @@ Without this every render is in DejaVu or whatever the system offers, and any
 judgement about type size, weight or spacing is being made against the wrong
 face. Several rounds of spacing work were done that way and had to be redone.
 
+**A prefix with no .NET at all** is what the setup bootstrapper needs, and it is
+one command — the override is what stops `wineboot` installing Wine-Mono, which
+would otherwise satisfy the framework check:
+
+```
+WINEPREFIX=~/.wine-clean WINEDLLOVERRIDES="mscoree,mshtml=d" wineboot -u
+```
+
+`installer/bootstrap.cpp` builds here too, with mingw rather than the MSVC that
+CI uses — enough to exercise it, not what ships:
+
+```
+x86_64-w64-mingw32-windres installer/bootstrap.rc -O coff -o bootstrap.res
+x86_64-w64-mingw32-g++ -O1 -municode -DUNICODE -D_UNICODE -static -mwindows \
+    installer/bootstrap.cpp bootstrap.res -o Setup-test.exe \
+    -lurlmon -lwintrust -lcrypt32 -lshell32 -lole32 -ladvapi32 -luser32 -luuid
+```
+
+Setup talks entirely in message boxes and there is no `xdotool`, so drive it with
+a small native Win32 clicker built the same way: poll `FindWindowA(NULL,
+"ConfigurO Setup")`, `EnumChildWindows` to read the text, then `PostMessage`
+`WM_COMMAND` with `IDYES`/`IDOK`. It has to be native — the clean prefix has no
+runtime to run a managed one — and it has to live in the same prefix, because
+`FindWindow` does not cross wineservers.
+
 **Run it under Wine.** The harness paints controls; Wine runs the actual
 program, including the screens no harness can reach — the shell, the dialogs and
 the first-run picker, which needs a real window.

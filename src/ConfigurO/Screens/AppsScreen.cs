@@ -65,6 +65,7 @@ namespace ConfigurO
             _footer.Body.Controls.Add(_autoInstall);
 
             _download.Style = NButtonStyle.Primary;
+            _download.AutoWidth = true;
             _download.Text = I18n.Get("btnDownloadApps", "Download");
             _download.Icon = NocturneIcons.Download;
             _download.Click += (s, e) => StartDownloads();
@@ -419,7 +420,7 @@ namespace ConfigurO
             int footerH = NocturneScale.S(62);
             _footer.SetBounds(Pad, y, w, footerH);
 
-            int bw = NocturneScale.S(130);
+            int bw = Math.Max(NocturneScale.S(130), _download.Width);
             int icon = NocturneScale.S(32);
             int mid = (_footer.Body.Height - NocturneScale.S(34)) / 2;
             _download.SetBounds(_footer.Body.Width - bw, mid, bw, NocturneScale.S(34));

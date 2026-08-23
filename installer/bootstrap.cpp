@@ -227,10 +227,33 @@ static bool EnsureFramework()
     }
 
     if (code == 3010)
+    {
         Say(L"The .NET Framework was installed and Windows needs to restart.\n\n"
             L"Restart, then run this setup again to finish installing ConfigurO.", MB_ICONINFORMATION);
+        return false;
+    }
 
-    return code != 3010;
+    // Believe the registry, not the exit code. Microsoft's web installer
+    // returns 0 without installing anything when it decides it cannot proceed
+    // -- an edition it does not support, an architecture it does not carry, a
+    // reboot already pending. Taking 0 at face value put ConfigurO into
+    // Program Files, wrote a Start menu shortcut and launched it on a machine
+    // with no framework at all, so the first thing the user saw was Windows
+    // refusing to start it and a setup that had reported nothing wrong. This
+    // is the only check that can tell the difference.
+    DWORD installed = 0;
+    if (!NetRelease(installed) || installed < NET48)
+    {
+        Say(L"The .NET Framework installer finished without reporting an error, "
+            L"but the framework is still not present.\n\n"
+            L"ConfigurO has not been installed, because it could not run. "
+            L"Install the framework by hand from:\n"
+            L"https://dotnet.microsoft.com/download/dotnet-framework/net48\n\n"
+            L"then run this setup again.", MB_ICONERROR);
+        return false;
+    }
+
+    return true;
 }
 
 // ── ConfigurO itself ────────────────────────────────────────────────────

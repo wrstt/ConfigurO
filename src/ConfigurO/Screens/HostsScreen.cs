@@ -91,6 +91,7 @@ namespace ConfigurO
             _add.Body.Controls.Add(_addButton);
 
             _blockButton.Style = NButtonStyle.Ghost;
+            _blockButton.AutoWidth = true;
             _blockButton.Text = I18n.Get("btnBlock", "Block");
             _blockButton.Click += (s, e) => Add(true);
             _add.Body.Controls.Add(_blockButton);
@@ -293,7 +294,10 @@ namespace ConfigurO
             _domain.SetBounds(0, fieldH + NocturneScale.S(8), _add.Body.Width, fieldH);
 
             int by = fieldH * 2 + NocturneScale.S(16);
-            int blockW = NocturneScale.S(84);
+            // Half the row at most, so a long translation of "Block" cannot
+            // squeeze "Add" out of existence.
+            int blockW = Math.Min(_add.Body.Width / 2,
+                                  Math.Max(NocturneScale.S(84), _blockButton.Width));
             _addButton.SetBounds(0, by, _add.Body.Width - blockW - NocturneScale.S(8), NocturneScale.S(34));
             _blockButton.SetBounds(_add.Body.Width - blockW, by, blockW, NocturneScale.S(34));
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace ConfigurO
@@ -46,11 +47,43 @@ namespace ConfigurO
             set { _inner.Text = value; }
         }
 
+        // The hint has to be set on the inner edit control, not painted by the
+        // frame around it. The frame paints first and the edit control is an
+        // opaque child sitting exactly where the text goes, so anything drawn
+        // here was covered the moment the child painted -- for eight fields
+        // across four screens the hint has never once been visible, and all
+        // that ever showed was the descender of one glyph poking out below the
+        // child's bottom edge. EM_SETCUEBANNER hands it to the edit control
+        // itself, which is also what keeps it correct through focus, IME and
+        // right-to-left without any of it being reimplemented here.
+        const int EM_SETCUEBANNER = 0x1501;
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, string lParam);
+
         /// <summary>Hint shown in faint text while the field is empty.</summary>
         internal string Placeholder
         {
             get { return _placeholder; }
-            set { _placeholder = value ?? string.Empty; Invalidate(); }
+            set { _placeholder = value ?? string.Empty; ApplyPlaceholder(); Invalidate(); }
+        }
+
+        /// <summary>
+        /// Pushes the hint into the edit control. Safe to call before the
+        /// handle exists and safe to call twice; the handle is recreated
+        /// whenever the font changes, which drops the banner, so every path
+        /// that touches the font calls this again.
+        /// </summary>
+        void ApplyPlaceholder()
+        {
+            if (!_inner.IsHandleCreated) return;
+            try
+            {
+                // wParam 1 keeps the hint up while the field has focus and is
+                // still empty, rather than clearing it the moment it is clicked.
+                SendMessage(_inner.Handle, EM_SETCUEBANNER, (IntPtr)1, _placeholder);
+            }
+            catch (Exception ex) { Logger.LogError("NTextBox.ApplyPlaceholder", ex.Message, ex.StackTrace); }
         }
 
         /// <summary>Optional leading icon name from <see cref="NocturneIcons"/>.</summary>
@@ -62,11 +95,17 @@ namespace ConfigurO
 
         internal bool Monospace
         {
-            set { _inner.Font = value ? NocturneFonts.Code() : NocturneFonts.Row(); }
+            set { _inner.Font = value ? NocturneFonts.Code() : NocturneFonts.Row(); ApplyPlaceholder(); }
         }
 
         internal new void Focus() { _inner.Focus(); }
         internal void SelectAll() { _inner.SelectAll(); }
+
+        protected override void OnCreateControl()
+        {
+            base.OnCreateControl();
+            ApplyPlaceholder();
+        }
 
         protected override void OnThemeChanged()
         {
@@ -78,6 +117,7 @@ namespace ConfigurO
         {
             Height = NocturneScale.S(NocturneTheme.InputHeight);
             _inner.Font = NocturneFonts.Row();
+            ApplyPlaceholder();
         }
 
         protected override void OnLayout(LayoutEventArgs e)
@@ -122,12 +162,6 @@ namespace ConfigurO
                 NocturneIcons.Draw(g, _icon, NocturneScale.S(10), (Height - s) / 2, s, NocturneTheme.TextFaint);
             }
 
-            if (string.IsNullOrEmpty(_inner.Text) && !string.IsNullOrEmpty(_placeholder))
-            {
-                using (Font f = NocturneFonts.Row())
-                    NocturneDraw.Text(g, _placeholder, f, NocturneTheme.TextDim,
-                        new RectangleF(_inner.Left, 0, Math.Max(0, _inner.Width), Height), NocturneDraw.Left);
-            }
         }
     }
 }

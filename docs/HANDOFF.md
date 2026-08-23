@@ -6,7 +6,7 @@ right now* and what to do next.
 ## Where things stand
 
 - Repo **https://github.com/wrstt/ConfigurO**, private, default branch `main`.
-- Latest release **2.8**. `main` and the tag agree.
+- Latest release **2.9**. `main` and the tag agree.
 - Every release ships two assets: `ConfigurO-<v>.exe` (portable) and
   `ConfigurO-Setup-<v>.exe` (installs the .NET Framework first if absent).
 - `build/check.sh` reports 0 errors **and 0 warnings**, and now fails on either,
@@ -59,14 +59,28 @@ assemblies produces something real .NET Framework 4.8 will load. Recipe in
    `new Font("Noto Sans Devanagari")` with Tahoma, so the name check correctly
    rejects it. Nirmala UI is present on Windows 8+. Worth confirming on a
    Windows machine without Indic language support.
-3. **The setup bootstrapper's download-verify-install path has never run.** It
-   compiles, links, embeds the app and imports wintrust/crypt32 — all verified —
-   but needs a clean VM with no .NET Framework to exercise for real.
+3. ~~The setup bootstrapper's download-verify-install path has never run.~~
+   **Run for the first time in 2.9**, in a second Wine prefix built with no .NET
+   Framework and no Wine-Mono (`WINEDLLOVERRIDES="mscoree,mshtml=d"`, then
+   `wineboot -u`). Detection, the prompt, the download of Microsoft's real
+   1.4 MB web installer, the signature check and the launch all ran. It found a
+   real fault: the installer exited 0 without installing anything, setup believed
+   it, and ConfigurO was written to Program Files and launched on a machine with
+   no framework. Setup now re-reads the registry and refuses. Fixed and verified.
+
+   Two caveats on what that run proves. Wine's `wintrust` is not Windows'
+   — `TrustedMicrosoftBinary` returning true here says the code path executes,
+   not that the verdict is right, so signature rejection is still unexercised.
+   And the .NET installer will not actually install under Wine, so the success
+   path (framework genuinely arrives, setup continues) has still never run.
 4. **SmartScreen.** No code fix exists. Sectigo EV ≈ $280/yr, DigiCert ≈ $560/yr,
    one-year maximum from Feb 2026. EV needs a registered entity; SSL.com does a
    sole-proprietor EV with notary verification. Azure Trusted Signing ≈ $10/mo
    but builds reputation rather than granting it. Deferred deliberately.
-5. `docs/screenshots/` still shows the legacy interface.
+5. `docs/screenshots/` still shows the legacy interface. Now straightforward:
+   `sweep.sh`-style capture under Wine gets all ten screens in both themes. The
+   one caveat is that Wine has no DWM, so the captures have no rounded corners,
+   no shadow and no Mica — the window content is right, the frame is not.
 
 ## Traps, and the ones that cost the most
 
@@ -84,6 +98,19 @@ assemblies produces something real .NET Framework 4.8 will load. Recipe in
   `ControlStyles.Opaque`, so `OnPaintBackground` never runs, and WinForms'
   double buffer is shared between controls. This shipped, visible in the
   header, for the whole 2.x line. Rule 5 in `docs/DEVELOPING.md`.
+- **A control painted behind another control is not painted at all.** The input
+  hint was drawn on the `NTextBox` frame, underneath the real `TextBox` child
+  that sits exactly where the text goes. Eight fields, four screens, never once
+  visible, and the only symptom was one glyph's descender poking out below the
+  child. It is `EM_SETCUEBANNER` now. Before painting anything in a container,
+  check what child is going to cover it.
+- **A hardcoded control width is a bug in 27 languages.** "Flush DNS cache" at a
+  fixed 100px rendered "Flush DNS cac" in *English*. Measure the label.
+- **`build/check.sh`'s `-nowarn` list is not hiding CI failures.** It looks like
+  it should be — the csproj sets `TreatWarningsAsErrors` and no `NoWarn` — but
+  the real CI log shows csc reporting `0 Warning(s)` on the same tree where mcs
+  reports three. The suppressions compensate for mcs being stricter than csc.
+  Checked against the actual build log; do not "fix" it without doing the same.
 - **Text laid out by adding the previous box's height.** Five instances of one
   mistake — screen header, tweak row, sidebar footer, card header, about card —
   each producing lines that touched or overlapped. A line box is never exactly

@@ -143,8 +143,14 @@ namespace ConfigurO
             {
                 s.Lines.Add(new KeyValuePair<string, string>("GPU", g.Name));
                 s.Lines.Add(new KeyValuePair<string, string>("VRAM", g.Memory.ToString("GB")));
+                // The refresh rate is genuinely unknown on some drivers, over
+                // RDP and on headless sessions, where WMI reports 0. "@ 0 Hz"
+                // reads as a fault in the display rather than as a gap in what
+                // Windows was willing to say, so leave it off instead.
                 s.Lines.Add(new KeyValuePair<string, string>(I18n.Get("hwResolution", "Resolution"),
-                    string.Format("{0} × {1} @ {2} Hz", g.ResolutionX, g.ResolutionY, g.RefreshRate)));
+                    g.RefreshRate > 0
+                        ? string.Format("{0} × {1} @ {2} Hz", g.ResolutionX, g.ResolutionY, g.RefreshRate)
+                        : string.Format("{0} × {1}", g.ResolutionX, g.ResolutionY)));
             }
             return s;
         }

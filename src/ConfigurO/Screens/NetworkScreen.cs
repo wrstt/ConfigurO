@@ -50,6 +50,9 @@ namespace ConfigurO
 
         string _currentDns = "—";
         string _cacheState;
+
+        /// <summary>Height of the cache state line that sits above the button.</summary>
+        static int StateLineHeight { get { return NocturneScale.S(20); } }
         string _lastAddress;
         bool _pinging;
 
@@ -132,6 +135,9 @@ namespace ConfigurO
             _cacheCard.Title = I18n.Get("dnsCacheTitle", "DNS cache");
             _cacheCard.Icon = NocturneIcons.History;
             _flush.Style = NButtonStyle.Secondary;
+            // AutoWidth before Text, so the first measurement happens on the
+            // resolved string rather than on the English default.
+            _flush.AutoWidth = true;
             _flush.Text = I18n.Get("flushCacheB", "Flush");
             _flush.Icon = NocturneIcons.Refresh;
             _flush.Click += (s, e) => Flush();
@@ -404,10 +410,12 @@ namespace ConfigurO
         {
             Graphics g = e.Graphics;
             NocturneDraw.Prepare(g);
+            // Its own row above the button, so it gets the card's full width
+            // whatever the button's label costs.
             using (Font f = NocturneFonts.Tip())
                 NocturneDraw.Text(g, _cacheState, f, NocturneTheme.TextFaint,
-                    new RectangleF(0, 0, Math.Max(0, _cacheCard.Body.Width - NocturneScale.S(110)),
-                                   NocturneScale.S(34)), NocturneDraw.Left);
+                    new RectangleF(0, 0, _cacheCard.Body.Width, StateLineHeight),
+                    NocturneDraw.Left);
         }
 
         protected override void Relayout()
@@ -444,10 +452,18 @@ namespace ConfigurO
             _openAdapters.SetBounds(0, fieldH * 2 + NocturneScale.S(80), _dnsCard.Body.Width, NocturneScale.S(30));
 
             y += dnsH + gap;
-            int cacheH = NocturneScale.S(34) + NocturneScale.S(34) + NocturneScale.S(26);
+            // The state line and the button had to share one 320px-wide row.
+            // The button's label is "Flush DNS cache" -- not "Flush", which is
+            // only the code-level default -- so at a fixed 100px it rendered as
+            // "Flush DNS cac", and at its true width it covered the state line.
+            // Neither fits beside the other in any language, so they stack.
+            int cacheH = NocturneScale.S(34) + StateLineHeight + NocturneScale.S(8)
+                       + NocturneScale.S(34) + NocturneScale.S(26);
             _cacheCard.SetBounds(railX, y, railW, cacheH);
-            int flushW = NocturneScale.S(100);
-            _flush.SetBounds(_cacheCard.Body.Width - flushW, 0, flushW, NocturneScale.S(34));
+            int flushW = Math.Min(_cacheCard.Body.Width,
+                                  Math.Max(NocturneScale.S(100), _flush.Width));
+            _flush.SetBounds(_cacheCard.Body.Width - flushW, StateLineHeight + NocturneScale.S(8),
+                             flushW, NocturneScale.S(34));
 
             y += cacheH;
             Body.Height = Math.Max(pingerH, y) + NocturneScale.S(20);

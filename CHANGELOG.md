@@ -4,6 +4,27 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [2.9]
+
+### Fixes
+- **Setup no longer installs ConfigurO onto a PC that cannot run it.** Microsoft's
+  .NET Framework installer returns success without installing anything when it
+  decides it cannot proceed -- an edition it does not support, an architecture it
+  does not carry, a restart already pending. Setup took that at face value, copied
+  ConfigurO into Program Files, made a Start menu shortcut and launched it, so the
+  first thing you saw was Windows refusing to start it and a setup that had
+  reported nothing wrong. It now checks that the framework is actually present
+  and says so plainly if it is not.
+- Hint text in every input field is visible for the first time. The hints were
+  drawn on the frame behind the field rather than in it, so all eight of them --
+  on Hosts, Integrator, Network and the tweak search -- had never once appeared.
+- The "Flush DNS cache" button showed "Flush DNS cac". It and the line beside it
+  were sharing a 320px column that fits neither; they now sit one above the other.
+- Buttons that had a fixed width now measure their own label, so "Block",
+  "Download" and "Flush DNS cache" cannot be cut off in any language.
+- The Hardware screen no longer reports "@ 0 Hz" when Windows will not say what
+  the refresh rate is; it leaves the rate off instead.
+
 ## [2.8]
 
 ### Fixes

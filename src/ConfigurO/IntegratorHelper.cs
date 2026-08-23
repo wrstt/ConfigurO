@@ -113,9 +113,21 @@ namespace ConfigurO
 
         internal static bool TakeOwnershipExists()
         {
+            // Two null returns chained into one expression, on the path taken
+            // by every machine that does not have this shell entry -- which is
+            // most of them, since it is what this method exists to find out.
+            // OpenSubKey returns null when the key is absent and GetValue
+            // returns null when it has no default, so asking a question with a
+            // perfectly ordinary "no" answer threw, was caught, and logged an
+            // error every time the Integrator screen opened.
             try
             {
-                return Registry.ClassesRoot.OpenSubKey(@"*\shell\runas", false).GetValue("").ToString() == "Take Ownership";
+                using (RegistryKey key = Registry.ClassesRoot.OpenSubKey(@"*\shell\runas", false))
+                {
+                    if (key == null) return false;
+                    object value = key.GetValue(string.Empty);
+                    return value != null && value.ToString() == "Take Ownership";
+                }
             }
             catch (Exception ex)
             {

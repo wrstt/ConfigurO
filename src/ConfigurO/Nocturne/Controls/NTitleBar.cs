@@ -131,6 +131,44 @@ namespace ConfigurO
 
         static void Raise(EventHandler h) { if (h != null) h(null, EventArgs.Empty); }
 
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        static extern bool ReleaseCapture();
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+
+        const int WM_NCLBUTTONDOWN = 0x00A1;
+        const int HTCAPTION = 2;
+
+        /// <summary>
+        /// Hands a press on the bar to Windows as a caption drag.
+        ///
+        /// The shell answers WM_NCHITTEST with HTCAPTION over this band, which
+        /// is what would normally make the window draggable -- but that message
+        /// only ever reaches the form for parts of it no child window covers,
+        /// and this bar is a child window covering exactly that band. It ate
+        /// every press itself, so the window could not be moved at all: the
+        /// buttons worked and double-click maximised, because those are handled
+        /// here, and dragging was the one thing nothing implemented.
+        ///
+        /// Releasing capture and posting WM_NCLBUTTONDOWN gives the drag to
+        /// Windows rather than tracking the mouse by hand, so snapping, the
+        /// half-screen drop zones and drag-to-maximise all behave as they do for
+        /// any other window.
+        /// </summary>
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+            if (e.Button != MouseButtons.Left) return;
+            if (HitTest(e.Location) != Hit.Drag) return;
+
+            Form host = FindForm();
+            if (host == null || !host.IsHandleCreated) return;
+
+            ReleaseCapture();
+            SendMessage(host.Handle, WM_NCLBUTTONDOWN, (IntPtr)HTCAPTION, IntPtr.Zero);
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             Render(e);

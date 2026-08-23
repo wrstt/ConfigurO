@@ -304,7 +304,20 @@ namespace ConfigurO
         internal static Font SectionLabel()   { return Medium(8.25f); }   // 11px uppercase
         internal static Font Row()            { return Sans(10.125f); }   // 13.5px
         internal static Font RowMedium()      { return Medium(10.125f); }
-        internal static Font Tip()            { return Sans(9f); }        // 12px
+
+        /// <summary>
+        /// A list row's own name: 14.25px at weight 500.
+        ///
+        /// Both lines of a row used to be Regular, separated only by size and
+        /// colour -- 13.5 against 12, bright against faint. That is not enough
+        /// to read as a heading and its note; at a glance the pair blurs into
+        /// one soft block, which is most of why the list felt washed out.
+        /// Medium is the strongest weight the type rules permit and it is
+        /// exactly what this needs.
+        /// </summary>
+        internal static Font RowName()        { return Medium(10.6875f); } // 14.25px
+
+        internal static Font Tip()            { return Sans(9.375f); }    // 12.5px
         internal static Font Meta()           { return Sans(9.375f); }    // 12.5px
         internal static Font Small()          { return Sans(7.875f); }    // 10.5px
         internal static Font Tag()            { return Medium(7.5f); }    // 10px

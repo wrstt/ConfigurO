@@ -78,9 +78,9 @@ namespace ConfigurO
         // puts 13 above and 12 below, so the gap between rows is wider than the
         // gap within one and the eye groups them correctly.
         int GroupHeaderHeight { get { return NocturneScale.S(40); } }
-        int RowHeight { get { return NocturneScale.S(_showTips ? 64 : 42); } }
-        int NameTop { get { return NocturneScale.S(13); } }
-        int NoteTop { get { return NocturneScale.S(35); } }
+        int RowHeight { get { return NocturneScale.S(_showTips ? 60 : 42); } }
+        int NameTop { get { return NocturneScale.S(11); } }
+        int NoteTop { get { return NocturneScale.S(32); } }
 
         /// <summary>Text inset. 12 sat the labels almost on the pane's edge.</summary>
         int SidePad { get { return NocturneScale.S(20); } }
@@ -331,7 +331,7 @@ namespace ConfigurO
             int th = NocturneScale.S(NocturneTheme.ToggleHeight);
 
             using (Font section = NocturneFonts.SectionLabel())
-            using (Font name = NocturneFonts.Row())
+            using (Font name = NocturneFonts.RowName())
             using (Font tip = NocturneFonts.Tip())
             using (Font onLabel = NocturneFonts.Tip())
             {
@@ -394,10 +394,10 @@ namespace ConfigurO
                         if (_showTips)
                         {
                             NocturneDraw.Text(g, r.Def.ResolvedLabel, name, NocturneTheme.Text,
-                                new RectangleF(SidePad, r.Y + NameTop, textW, NocturneScale.S(19)),
+                                new RectangleF(SidePad, r.Y + NameTop, textW, NocturneScale.S(20)),
                                 NocturneDraw.Left);
-                            NocturneDraw.Text(g, r.Def.ResolvedSummary, tip, NocturneTheme.TextFaint,
-                                new RectangleF(SidePad, r.Y + NoteTop, textW, NocturneScale.S(17)),
+                            NocturneDraw.Text(g, r.Def.ResolvedSummary, tip, NocturneTheme.TextMuted,
+                                new RectangleF(SidePad, r.Y + NoteTop, textW, NocturneScale.S(18)),
                                 NocturneDraw.Left);
                         }
                         else

@@ -78,9 +78,9 @@ namespace ConfigurO
         // puts 13 above and 12 below, so the gap between rows is wider than the
         // gap within one and the eye groups them correctly.
         int GroupHeaderHeight { get { return NocturneScale.S(40); } }
-        int RowHeight { get { return NocturneScale.S(_showTips ? 60 : 42); } }
-        int NameTop { get { return NocturneScale.S(11); } }
-        int NoteTop { get { return NocturneScale.S(32); } }
+        int RowHeight { get { return NocturneScale.S(_showTips ? 64 : 46); } }
+        int NameTop { get { return NocturneScale.S(13); } }
+        int NoteTop { get { return NocturneScale.S(34); } }
 
         /// <summary>Text inset. 12 sat the labels almost on the pane's edge.</summary>
         int SidePad { get { return NocturneScale.S(20); } }
@@ -88,8 +88,8 @@ namespace ConfigurO
         /// <summary>Air between one group and the next section label.</summary>
         int GroupGap { get { return NocturneScale.S(32); } }
 
-        /// <summary>Padding inside the group panel, above the first row and below the last.</summary>
-        int CardPadY { get { return NocturneScale.S(8); } }
+        /// <summary>Vertical gap between one row's card and the next.</summary>
+        int CardGap { get { return NocturneScale.S(6); } }
 
         /// <summary>Reloads from <see cref="TweakRegistry"/> and re-applies the filter.</summary>
         internal void Load()
@@ -131,8 +131,6 @@ namespace ConfigurO
                 g.Y = y;
                 y += GroupHeaderHeight;
 
-                g.CardTop = y;
-                y += CardPadY;
                 foreach (Row r in g.Rows)
                 {
                     if (!Matches(r)) { r.Height = 0; continue; }
@@ -140,8 +138,6 @@ namespace ConfigurO
                     r.Height = RowHeight;
                     y += RowHeight;
                 }
-                y += CardPadY;
-                g.CardBottom = y;
                 g.Height = y - g.Y;
                 y += GroupGap;
             }
@@ -343,39 +339,32 @@ namespace ConfigurO
                     NocturneDraw.SectionLabel(g, grp.Title, section, SidePad,
                         grp.Y + NocturneScale.S(12), NocturneScale.S(18));
 
-                    // The group is a panel, and the rows live inside it.
-                    //
-                    // Without one, a row is a label on the left and a toggle
-                    // against the right edge with several hundred pixels of
-                    // nothing in between -- the wider the window, the more the
-                    // pair looks unrelated. Giving the group a surface makes
-                    // that span belong to something, which is how every settings
-                    // UI worth copying handles the same problem, and it separates
-                    // one section from the next without a page of rules.
-                    Rectangle card = new Rectangle(0, grp.CardTop, Width,
-                                                   Math.Max(0, grp.CardBottom - grp.CardTop));
-                    NocturneTheme.FillRounded(g, card, NocturneTheme.RadiusLg, NocturneTheme.Surface);
-                    NocturneTheme.DrawRounded(g, card, NocturneTheme.RadiusLg, NocturneTheme.Border);
+
 
                     foreach (Row r in grp.Rows)
                     {
                         if (r.Height == 0) continue;
                         if (r.Y + r.Height < clip.Top || r.Y > clip.Bottom) continue;
 
-                        if (r == _hover)
-                        {
-                            // Inset and rounded, rather than a band running the
-                            // full bleed of the pane. A square edge-to-edge
-                            // wash reads as a table selection; a card reads as
-                            // the row lifting, and it keeps the highlight
-                            // aligned with the text rather than with the window.
-                            int inset = NocturneScale.S(6);
-                            Rectangle hov = new Rectangle(inset, r.Y + NocturneScale.S(2),
-                                                          Math.Max(0, Width - inset * 2),
-                                                          r.Height - NocturneScale.S(4));
-                            NocturneTheme.FillRounded(g, hov, NocturneTheme.RadiusMd,
-                                NocturneTheme.Alpha(NocturneTheme.Text, 0.05));
-                        }
+                        // Every row is its own card.
+                        //
+                        // A row is a name on the left and a toggle against the
+                        // right edge, and on a wide window several hundred
+                        // pixels separate them. One panel behind the whole group
+                        // does not fix that: it gives the section a surface but
+                        // leaves each individual pair looking unrelated, so the
+                        // span still reads as a gap. Giving the row itself a
+                        // card makes the span belong to one object, and the
+                        // toggle plainly belongs to the name at the other end of
+                        // it. This is what Windows' own settings do, for exactly
+                        // this reason.
+                        Rectangle card = new Rectangle(
+                            0, r.Y, Width, Math.Max(0, r.Height - CardGap));
+
+                        NocturneTheme.FillRounded(g, card, NocturneTheme.RadiusMd,
+                            r == _hover ? NocturneTheme.SurfaceAlt : NocturneTheme.Surface);
+                        NocturneTheme.DrawRounded(g, card, NocturneTheme.RadiusMd,
+                            NocturneTheme.Border);
 
                         int toggleX = Width - SidePad - tw;
                         int textRight = toggleX - NocturneScale.S(12);
@@ -407,7 +396,8 @@ namespace ConfigurO
                         }
 
                         NocturneTogglePill.DrawAnimated(g,
-                            new Rectangle(toggleX, r.Y + (r.Height - th) / 2, tw - 1, th - 1), r.Anim);
+                            new Rectangle(toggleX, r.Y + (r.Height - CardGap - th) / 2, tw - 1, th - 1),
+                            r.Anim);
 
                         // No rule under the row. Eighty-four of them stacked is
                         // a page of horizontal lines, and the spacing above

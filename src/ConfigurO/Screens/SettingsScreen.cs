@@ -490,16 +490,19 @@ namespace ConfigurO
                 NocturneDraw.Text(g, "ConfigurO " + Program.GetCurrentVersionTostring(), f,
                     NocturneTheme.Text, new RectangleF(x, pad, w, NocturneScale.S(24)), NocturneDraw.Left);
 
+            // Three lines that each began exactly where the one above ended --
+            // 0, 24, 42 against boxes of 24 and 18 -- so the name, the tagline
+            // and the byline were drawn on top of one another.
             using (Font f = NocturneFonts.Tip())
             {
                 NocturneDraw.Text(g, I18n.Get("aboutTagline",
                         "Windows configuration, privacy and cleanup, in one window."),
                     f, NocturneTheme.TextMuted,
-                    new RectangleF(x, pad + NocturneScale.S(24), w, NocturneScale.S(18)), NocturneDraw.Left);
+                    new RectangleF(x, pad + NocturneScale.S(30), w, NocturneScale.S(18)), NocturneDraw.Left);
 
                 NocturneDraw.Text(g, "WRSTT · GPL-3.0 · " + UpdateHelper.Repository,
                     f, NocturneTheme.TextDim,
-                    new RectangleF(x, pad + NocturneScale.S(42), w, NocturneScale.S(18)), NocturneDraw.Left);
+                    new RectangleF(x, pad + NocturneScale.S(52), w, NocturneScale.S(18)), NocturneDraw.Left);
             }
         }
 
@@ -578,7 +581,7 @@ namespace ConfigurO
 
             y += restartH + gap;
             int linkH = NocturneScale.S(28);
-            int aboutH = NocturneScale.S(92) + linkH * 2 + NocturneScale.S(8);
+            int aboutH = NocturneScale.S(104) + linkH * 2 + NocturneScale.S(8);
             _aboutCard.SetBounds(rightX, y, colW, aboutH);
             LayoutLinks(linkH);
 

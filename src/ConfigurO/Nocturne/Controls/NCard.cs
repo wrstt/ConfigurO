@@ -49,13 +49,24 @@ namespace ConfigurO
         /// <summary>Fill the card with the alt surface instead of the standard one.</summary>
         internal bool Raised { get; set; }
 
+        /// <summary>
+        /// Air between a card's title and the line under it.
+        ///
+        /// There was none: the note's box started at exactly the pixel the
+        /// title's ended, so the two ran together and a card read as one clump
+        /// of text rather than as a heading with a note. Every card on every
+        /// screen is an NCard, so this was the same fault repeated everywhere
+        /// at once -- Settings, Network, Apps and the rest.
+        /// </summary>
+        int NoteGap { get { return NocturneScale.S(5); } }
+
         int HeaderHeight
         {
             get
             {
                 if (string.IsNullOrEmpty(_title)) return 0;
                 int h = NocturneScale.S(22);
-                if (!string.IsNullOrEmpty(_note)) h += NocturneScale.S(17);
+                if (!string.IsNullOrEmpty(_note)) h += NoteGap + NocturneScale.S(18);
                 return h + NocturneScale.S(8);
             }
         }
@@ -110,8 +121,9 @@ namespace ConfigurO
             {
                 using (Font f = NocturneFonts.Tip())
                     NocturneDraw.Text(g, _note, f, NocturneTheme.TextFaint,
-                        new RectangleF(p.Left, y + line, Math.Max(0, Width - p.Left - p.Right),
-                                       NocturneScale.S(17)), NocturneDraw.Left);
+                        new RectangleF(p.Left, y + line + NoteGap,
+                                       Math.Max(0, Width - p.Left - p.Right),
+                                       NocturneScale.S(18)), NocturneDraw.Left);
             }
         }
     }

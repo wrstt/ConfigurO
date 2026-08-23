@@ -80,6 +80,19 @@ fastest way to see whether a change looks right. It forces the system font
 fallback, because libgdiplus can register a private font it cannot then
 rasterise.
 
+**Render in the real typeface.** `render.sh` forces the system fallback chain,
+because libgdiplus can register a private font it cannot then rasterise. But the
+first entry in that chain is `"Inter"` — so installing the bundled faces on the
+build machine makes the harness render in the font the app actually ships:
+
+```
+cp src/ConfigurO/Resources/Fonts/*.ttf ~/.local/share/fonts/ && fc-cache -f
+```
+
+Without this every render is in DejaVu or whatever the system offers, and any
+judgement about type size, weight or spacing is being made against the wrong
+face. Several rounds of spacing work were done that way and had to be redone.
+
 **Know what these cannot tell you.** Both have hard blind spots, and each one
 has already let a real bug reach a release:
 

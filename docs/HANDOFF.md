@@ -6,7 +6,7 @@ right now* and what to do next.
 ## Where things stand
 
 - Repo **https://github.com/wrstt/ConfigurO**, private, default branch `main`.
-- Latest release **2.7**. `main` and the tag agree.
+- Latest release **2.8**. `main` and the tag agree.
 - Every release ships two assets: `ConfigurO-<v>.exe` (portable) and
   `ConfigurO-Setup-<v>.exe` (installs the .NET Framework first if absent).
 - `build/check.sh` reports 0 errors **and 0 warnings**, and now fails on either,
@@ -28,19 +28,33 @@ launch. `xdotool` is not installed.
 
 Two things Wine cannot answer: which fonts a Windows machine has (it resolves a
 missing name to Tahoma rather than failing), and anything DWM — no title bar
-chrome, no Mica, no rounded corners. It also reports itself as **Windows 7**, so
-the UWP screen is gated off and Win11-only tweaks are hidden.
+chrome, no Mica, no rounded corners. It reports itself as **Windows 7** by
+default, but that is only a registry value: set `ProductName` and `CurrentBuild`
+and the UWP screen and the Win11-only tweaks come back. The prefix here is
+already set to Windows 10 22H2.
+
+It can also be built for here without CI: `mcs` against Mono's 4.8 reference
+assemblies produces something real .NET Framework 4.8 will load. Recipe in
+`docs/DEVELOPING.md`.
 
 ## Open, and what is known about each
 
-1. **UWP and Apps header actions overlap each other and the title** on a
-   narrower window — reported with a screenshot. Cannot be reproduced under
-   Wine, because Wine reports Windows 7 and the UWP screen is correctly hidden.
-   `NScreen.OnLayout` lays actions right-to-left from `Width - Pad` and records
-   `_actionsLeft` for the title to truncate against, so the title should not be
-   overrun; the likely cause is a control drawing wider than its own bounds —
-   the "Include system apps" checkbox is the suspect. **Do not guess at this;
-   reproduce it on Windows at the reported size first.**
+1. ~~UWP and Apps header actions overlap each other and the title.~~ **Fixed in
+   2.8, reproduced and verified under Wine.** It was not a layout fault at all:
+   `ButtonBase` sets `ControlStyles.Opaque`, which suppresses
+   `OnPaintBackground`, and `MoonCheck.OnPaint` fills nothing — so the
+   checkbox's client area kept whatever WinForms' shared double buffer last
+   held, which is the sibling that painted just before it. "Select all" and the
+   Uninstall button's outline were being drawn *through* "Include system apps",
+   and the same on the Apps footer with "Refresh links" under "Install after
+   downloading". `MoonRadio` and `MoonToggle` had it too. Both checkboxes also
+   now measure themselves rather than using a hardcoded width, which was
+   clipping every translation longer than the English string.
+
+   Two things made it reproducible that the last session had ruled out: Wine's
+   Windows version is a registry value, so the UWP screen can be opened here;
+   and `mcs` can build a Wine-runnable exe locally, so the loop is seconds, not
+   a CI round trip. Both are written up in `docs/DEVELOPING.md`.
 2. **Nepali draws as boxes under Wine.** Wine-only: it answers
    `new Font("Noto Sans Devanagari")` with Tahoma, so the name check correctly
    rejects it. Nirmala UI is present on Windows 8+. Worth confirming on a
@@ -65,6 +79,11 @@ the UWP screen is gated off and Win11-only tweaks are hidden.
   process alive holding the single-instance mutex. Both fixed, and the error
   dialog now carries the exception type, the site and six stack frames. That
   dialog is what finally located the crash.
+- **A hand-painted `CheckBox`, `RadioButton` or `Button` that fills no
+  background shows the previous control's pixels.** `ButtonBase` sets
+  `ControlStyles.Opaque`, so `OnPaintBackground` never runs, and WinForms'
+  double buffer is shared between controls. This shipped, visible in the
+  header, for the whole 2.x line. Rule 5 in `docs/DEVELOPING.md`.
 - **Text laid out by adding the previous box's height.** Five instances of one
   mistake — screen header, tweak row, sidebar footer, card header, about card —
   each producing lines that touched or overlapped. A line box is never exactly

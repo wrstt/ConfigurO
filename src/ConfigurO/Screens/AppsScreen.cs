@@ -37,6 +37,9 @@ namespace ConfigurO
         string _downloadFolder;
         bool _loading, _busy;
 
+        /// <summary>Left edge of the footer's controls; the status line trims to it.</summary>
+        int _controlsLeft = int.MaxValue;
+
         internal override string Id { get { return ScreenId; } }
         internal override string Icon { get { return NocturneIcons.Apps; } }
         internal override string NavLabel { get { return I18n.Get("navApps", "Apps"); } }
@@ -59,7 +62,6 @@ namespace ConfigurO
 
             _autoInstall.Text = I18n.Get("appsAutoInstall", "Install after downloading");
             _autoInstall.Checked = true;
-            _autoInstall.Width = NocturneScale.S(220);
             _footer.Body.Controls.Add(_autoInstall);
 
             _download.Style = NButtonStyle.Primary;
@@ -371,9 +373,12 @@ namespace ConfigurO
 
             string line = string.Format(I18n.Get("appsFooter", "{0} selected · saved to {1}"),
                                         SelectedCount, _downloadFolder);
+            // Trimmed against where the controls actually start rather than a
+            // fixed reservation: the checkbox is as wide as its translation.
+            float right = Math.Min(_controlsLeft, _footer.Body.Width);
             using (Font f = NocturneFonts.Meta())
                 NocturneDraw.Text(g, line, f, NocturneTheme.TextMuted,
-                    new RectangleF(p.Left, 0, Math.Max(0, _footer.Width - p.Horizontal - NocturneScale.S(480)),
+                    new RectangleF(p.Left, 0, Math.Max(0, right - NocturneScale.S(12)),
                                    _footer.Height), NocturneDraw.Left);
         }
 
@@ -418,11 +423,13 @@ namespace ConfigurO
             int icon = NocturneScale.S(32);
             int mid = (_footer.Body.Height - NocturneScale.S(34)) / 2;
             _download.SetBounds(_footer.Body.Width - bw, mid, bw, NocturneScale.S(34));
-            _autoInstall.SetBounds(_footer.Body.Width - bw - NocturneScale.S(240),
-                                   (_footer.Body.Height - NocturneScale.S(20)) / 2,
-                                   NocturneScale.S(230), NocturneScale.S(20));
+            _autoInstall.AutoFit();
+            _autoInstall.SetBounds(_download.Left - NocturneScale.S(10) - _autoInstall.Width,
+                                   (_footer.Body.Height - _autoInstall.Height) / 2,
+                                   _autoInstall.Width, _autoInstall.Height);
             _openFolder.SetBounds(_autoInstall.Left - icon - NocturneScale.S(8), mid, icon, icon);
             _chooseFolder.SetBounds(_openFolder.Left - icon - NocturneScale.S(4), mid, icon, icon);
+            _controlsLeft = _chooseFolder.Left;
 
             Body.Height = y + footerH + NocturneScale.S(20);
         }

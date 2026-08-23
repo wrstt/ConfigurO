@@ -44,7 +44,17 @@ assets/logo/              the ConfigurO mark
    `UWPHelper`, `StartupHelper` and the i18n system predate the redesign and
    are widely depended on. Extend alongside them (as `Win11Tweaks` does)
    rather than restructuring them.
-5. **Text is drawn with GDI+, never `TextRenderer`.** The bundled Inter
+5. **A hand-painted control must paint its own background, or say who does.**
+   `ButtonBase` -- and so `CheckBox`, `RadioButton` and everything derived from
+   them -- sets `ControlStyles.Opaque` in its constructor, which suppresses
+   `OnPaintBackground` altogether. Override `OnPaint` without filling, and the
+   client area keeps whatever WinForms' shared double buffer last held, which
+   is the sibling control that painted just before: the UWP header's checkbox
+   showed "Select all" and the Uninstall outline through its own label for
+   several releases. `SetStyle(ControlStyles.Opaque, false)` restores the
+   transparent pull-through from the parent. `NControl` derives from `Control`,
+   which never sets it, so only the `Moon*` button-family controls are exposed.
+6. **Text is drawn with GDI+, never `TextRenderer`.** The bundled Inter
    faces live in a `PrivateFontCollection`; use `NocturneFonts` and dispose
    what it returns. Inter covers Latin, Greek and Cyrillic only, and GDI+ does
    not font-link a privately-registered face, so `NocturneFonts` swaps to a
@@ -52,7 +62,7 @@ assets/logo/              the ConfigurO mark
    constructing a `Font` directly. Measure through `NocturneDraw`, whose
    scratch surface carries the DPI you will draw at; a plain `Bitmap` is 96 DPI
    and understates every width on a scaled display.
-6. **Strings go through `I18n.Get(key, englishFallback)`.** It never throws on
+7. **Strings go through `I18n.Get(key, englishFallback)`.** It never throws on
    a missing key, which matters because new strings land before translations.
    All 658 keys currently resolve in all 28 languages; when you add one, add it
    to `Resources/i18n/EN.json` and to the other 27, or the fallback silently
@@ -108,6 +118,39 @@ DISPLAY=:77 import -window root shot.png
 
 Delete `drive_c/ProgramData/ConfigurO/ConfigurO.json` in the prefix to get the
 first-run picker back.
+
+**Wine's Windows version is a registry value, so version gating is testable.**
+Wine defaults to Windows 7, which correctly hides the UWP screen and every
+Win11-only tweak -- and made the UWP screen look unreachable here. It is not:
+`Utilities.GetOS` reads `ProductName` and `CurrentBuild`, so setting them opens
+those screens up.
+
+```
+wine reg add 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion' \
+     /v ProductName /t REG_SZ /d 'Microsoft Windows 10 Pro' /f
+wine reg add 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion' \
+     /v CurrentBuild /t REG_SZ /d '19045' /f      # >= 22000 reads as Windows 11
+```
+
+**A Wine-runnable build can be made here, without CI.** `mcs` compiles against
+Mono's 4.8 reference assemblies, whose assembly identities are the Microsoft
+ones, so the output loads on the real .NET Framework 4.8 in the prefix. That
+turns the fix-and-look loop from two minutes into ten seconds:
+
+```
+resgen2 src/ConfigurO/Forms/<Form>.resx ConfigurO.<Form>.resources   # once, all 8
+mcs -target:winexe -define:MONO_LINUX_CHECK ...                      # as check.sh
+    -resource:<each>.resources,<each>.resources
+    -resource:src/ConfigurO/Newtonsoft.Json.dll,ConfigurO.Newtonsoft.Json.dll
+```
+
+Every `.resx` has to be compiled and embedded under its `ConfigurO.<Name>.
+resources` manifest name or the form throws `MissingManifestResourceException`
+on construction, and Json.NET has to be embedded, not merely referenced --
+`Program.Main` loads it out of the manifest. PowerShell is stubbed by
+`build/psstub.cs`, so anything going through `UWPHelper` returns nothing. It is
+not the shipping binary; it is the real UI code in real WinForms and real GDI+,
+which is what layout and paint questions actually need.
 
 What it is good for: does the app start, does a screen paint, does a control
 respond, does a change land. It found the Korean fallback drawing .notdef boxes

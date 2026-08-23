@@ -107,6 +107,8 @@ namespace ConfigurO
                 b.AutoFit();
                 b.Height = NocturneScale.S(34);
             }
+            MoonCheck m = c as MoonCheck;
+            if (m != null) m.AutoFit();
             _actions.Add(c);
             Controls.Add(c);
             c.BringToFront();

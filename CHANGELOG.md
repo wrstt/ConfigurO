@@ -4,6 +4,21 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [2.8]
+
+### Fixes
+- Header controls on the UWP apps and Apps screens no longer draw over one
+  another. The "Include system apps" and "Install after downloading" checkboxes
+  painted no background of their own, and the WinForms base class they inherit
+  from suppresses the one the framework would otherwise paint, so each left the
+  shared drawing buffer holding whatever the neighbouring button had just drawn
+  into it -- "Select all" and the Uninstall outline showed through the label.
+  The toggles and radio buttons had the same flaw.
+- Those two checkboxes now size themselves to their label instead of to a fixed
+  width, so translations longer than the English string are no longer cut off
+  mid-word. The Apps status line trims against where the controls actually
+  start rather than a fixed reservation.
+
 ## [2.7]
 
 ### Fixes

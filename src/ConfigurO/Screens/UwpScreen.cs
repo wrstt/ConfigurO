@@ -39,7 +39,6 @@ namespace ConfigurO
             SubtitleText = I18n.Get("uwpLoading", "Reading installed packages…");
 
             _showAll.Text = I18n.Get("uwpShowAll", "Include system apps");
-            _showAll.Width = NocturneScale.S(190);
             _showAll.CheckedChanged += (s, e) => Load();
             AddAction(_showAll);
 

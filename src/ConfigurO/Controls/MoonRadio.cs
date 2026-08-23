@@ -17,6 +17,10 @@ namespace ConfigurO
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint |
                      ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
+            // ButtonBase turns Opaque on, which suppresses OnPaintBackground
+            // and leaves the client area holding the shared double buffer's
+            // last contents -- see MoonCheck.
+            SetStyle(ControlStyles.Opaque, false);
             BackColor = Color.Transparent;
             Cursor = Cursors.Hand;
             AutoSize = false;

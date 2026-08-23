@@ -18,6 +18,14 @@ namespace ConfigurO
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint |
                      ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
+            // ButtonBase turns Opaque on, which suppresses OnPaintBackground
+            // entirely -- and OnPaint below fills nothing, so the client area
+            // kept whatever the shared double buffer last held, which is the
+            // sibling that painted just before. That is what drew "Select all"
+            // and the Uninstall outline through "Include system apps" in the
+            // screen header. Clearing it lets the transparent background be
+            // pulled from the parent, the way every NControl already does.
+            SetStyle(ControlStyles.Opaque, false);
             BackColor = Color.Transparent;
             Cursor = Cursors.Hand;
             AutoSize = false;
@@ -29,6 +37,24 @@ namespace ConfigurO
         {
             get { return base.Text; }
             set { base.Text = value; }
+        }
+
+        /// <summary>
+        /// Sizes the control to the box plus its label, the way NButton.AutoFit
+        /// does. Nothing else measures a checkbox, so a caller that guesses a
+        /// width clips the label in every language whose translation is longer
+        /// than the English one -- and most of them are.
+        /// </summary>
+        internal void AutoFit()
+        {
+            int w = NocturneScale.S(NocturneTheme.CheckboxSize);
+            if (!string.IsNullOrEmpty(Text))
+                using (Graphics g = NocturneDraw.CreateMeasureGraphics())
+                using (Font f = NocturneFonts.Row())
+                    w += NocturneScale.S(8)
+                       + (int)Math.Ceiling(NocturneDraw.Width(g, Text, f)) + NocturneScale.S(2);
+            Width = w;
+            Height = Math.Max(Height, NocturneScale.S(20));
         }
 
         protected override void OnCheckedChanged(EventArgs e) { base.OnCheckedChanged(e); Invalidate(); }
@@ -83,12 +109,14 @@ namespace ConfigurO
 
             if (!string.IsNullOrEmpty(Text))
             {
+                // Drawn through NocturneDraw so the label is measured by
+                // AutoFit and painted here on identical metrics.
+                int left = s + NocturneScale.S(8);
                 using (Font f = NocturneFonts.Row())
-                using (SolidBrush b = new SolidBrush(Enabled ? NocturneTheme.Text : NocturneTheme.TextFaint))
-                {
-                    SizeF sz = g.MeasureString(Text, f);
-                    g.DrawString(Text, f, b, s + NocturneScale.S(8), (Height - sz.Height) / 2f);
-                }
+                    NocturneDraw.Text(g, Text, f,
+                        Enabled ? NocturneTheme.Text : NocturneTheme.TextFaint,
+                        new RectangleF(left, 0, Math.Max(0, Width - left), Height),
+                        NocturneDraw.Left);
             }
         }
     }

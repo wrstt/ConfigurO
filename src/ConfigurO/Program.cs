@@ -16,7 +16,7 @@ namespace ConfigurO
         /// version.txt, so keep it in step with CHANGELOG.md.
         /// </summary>
         internal const int Major = 2;
-        internal const int Minor = 1;
+        internal const int Minor = 2;
         internal const bool EXPERIMENTAL_BUILD = false;
 
         internal static string GetCurrentVersionTostring()

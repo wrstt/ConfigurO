@@ -4,6 +4,15 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [2.2]
+
+### Interface
+- Tweak names are set in medium weight at a slightly larger size, so a row reads
+  as a name with a note under it rather than as two lines of similar text.
+- Notes are a step brighter and slightly larger. They were the faintest grey in
+  the palette, which made them hard to read at all.
+- Rows are a little tighter, since the type now carries more of the structure.
+
 ## [2.1]
 
 ### Security

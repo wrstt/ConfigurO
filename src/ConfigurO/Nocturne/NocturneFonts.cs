@@ -44,12 +44,33 @@ namespace ConfigurO
         /// ships for that script instead; the bundled face is skipped entirely
         /// rather than half-used.
         /// </summary>
-        static readonly string[] ArabicFallback   = { "Segoe UI", "Tahoma", "Arial" };
-        static readonly string[] ChineseFallback  = { "Microsoft YaHei UI", "Microsoft YaHei", "SimSun" };
-        static readonly string[] TaiwanFallback   = { "Microsoft JhengHei UI", "Microsoft JhengHei", "MingLiU" };
-        static readonly string[] JapaneseFallback = { "Yu Gothic UI", "Meiryo UI", "Meiryo", "MS UI Gothic" };
-        static readonly string[] KoreanFallback   = { "Malgun Gothic", "Gulim" };
-        static readonly string[] IndicFallback    = { "Nirmala UI", "Mangal" };
+        // Each chain runs from the face Windows prefers for the script down to
+        // whatever else might carry it.
+        //
+        // The short versions assumed the Windows family would simply be there,
+        // and it is not always: Malgun Gothic arrives with Korean support and
+        // Nirmala UI with Indic, both of which are optional features. On an
+        // install without them -- an N edition, a Server SKU, a machine nobody
+        // added those languages to -- the chain ran out and every glyph came
+        // back .notdef. Running the app under Wine showed exactly that: Korean
+        // and Nepali drew as rows of boxes while every other script was fine,
+        // because those two chains were the only ones with nowhere left to go.
+        //
+        // Noto is on the end of each because it covers the script under a
+        // predictable name and is common on machines that have any non-Latin
+        // support at all.
+        static readonly string[] ArabicFallback   = { "Segoe UI", "Tahoma", "Arial",
+                                                      "Noto Sans Arabic", "Noto Naskh Arabic" };
+        static readonly string[] ChineseFallback  = { "Microsoft YaHei UI", "Microsoft YaHei", "SimSun",
+                                                      "Noto Sans SC", "Noto Sans CJK SC" };
+        static readonly string[] TaiwanFallback   = { "Microsoft JhengHei UI", "Microsoft JhengHei", "MingLiU",
+                                                      "PMingLiU", "Noto Sans TC", "Noto Sans CJK TC" };
+        static readonly string[] JapaneseFallback = { "Yu Gothic UI", "Meiryo UI", "Meiryo", "MS UI Gothic",
+                                                      "MS Gothic", "Noto Sans JP", "Noto Sans CJK JP" };
+        static readonly string[] KoreanFallback   = { "Malgun Gothic", "Gulim", "Dotum", "Batang",
+                                                      "Noto Sans KR", "Noto Sans CJK KR" };
+        static readonly string[] IndicFallback    = { "Nirmala UI", "Mangal", "Utsaah", "Aparajita",
+                                                      "Noto Sans Devanagari", "Noto Serif Devanagari" };
 
         /// <summary>
         /// The fallback chain for the language in use, or null when Inter can

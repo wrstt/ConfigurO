@@ -4,6 +4,18 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [2.4]
+
+### Interface
+- More room between a tweak's name and its description. The two lines were a
+  pixel apart, so a row read as one block of text rather than as a heading with
+  a note under it. Cards are taller and further apart to match.
+- The screen title and the count beneath it were overlapping.
+- "Reinforce policies" no longer loses its last letters. The button was sized to
+  hold the whole label but then drew the text into a box cut to the exact width
+  it had just measured, so the slightest disagreement between measuring and
+  drawing trimmed a word off the end.
+
 ## [2.3]
 
 ### Interface

@@ -6,88 +6,77 @@
 
 <p align="center">
   Windows configuration, privacy and cleanup — in one window.<br>
-  <sub>by <b>WRSTT</b> · Windows 7 – 11 · .NET Framework 4.8</sub>
+  <sub>by <b>WRSTT</b> · Windows 7–11 · .NET Framework 4.8</sub>
 </p>
 
 ---
 
-ConfigurO puts the settings Windows scatters across a dozen dialogs — telemetry,
-Recall, the taskbar, startup entries, the hosts file, DNS, UWP packages — behind
-one dark, dense, keyboard-friendly interface.
+> **ConfigurO is an attempt to continue the progress of the original Optimizer project while keeping it a full graphical Windows application.**
+>
+> Moving a tool like Optimizer primarily toward the command line does not make sense for many of the users it originally served. ConfigurO keeps the GUI-first approach while updating features, compatibility and functionality where possible.
+>
+> **This is an independent continuation/fork. Features are still being updated and there are no guarantees that everything is fully functional on every Windows version or configuration.**
 
-**Ten tools, one window:**
+ConfigurO brings Windows settings that are normally scattered across registry editors, policy menus, system dialogs and utilities into one dark, compact interface.
 
-| | |
-|---|---|
-| **Tweaks** | 84 registry, service and policy switches, grouped and searchable |
-| **Cleaner** | Measures then clears temp files, dumps, error reports and browser caches |
-| **Startup** | Enable, disable or remove anything that launches at sign-in |
-| **Hosts** | Edit entries, apply curated block lists, lock the file read-only |
-| **Apps** | Download and install 147 common apps straight from their vendors |
-| **Network** | Ping with live output, switch DNS provider, flush the resolver cache |
-| **UWP Apps** | List installed packages with their size and uninstall in bulk |
-| **Hardware** | CPU, memory, GPU, storage, board and network, copyable as a report |
-| **Integrator** | Desktop right-click entries, custom Run commands, ready-made menus |
-| **Settings** | 28 languages, behaviour, updates, troubleshooting |
+## Tools
+
+| Tool           | What it does                                                         |
+| -------------- | -------------------------------------------------------------------- |
+| **Tweaks**     | Registry, service and policy switches, grouped and searchable        |
+| **Cleaner**    | Measure and clear temporary files, dumps, reports and browser caches |
+| **Startup**    | Enable, disable or remove programs that launch at sign-in            |
+| **Hosts**      | Edit the hosts file, apply block lists and optionally lock it        |
+| **Apps**       | Download and install common applications directly from their vendors |
+| **Network**    | Ping, change DNS providers and flush the resolver cache              |
+| **UWP Apps**   | View installed Windows packages and uninstall them in bulk           |
+| **Hardware**   | View CPU, memory, GPU, storage, motherboard and network information  |
+| **Integrator** | Add desktop context-menu entries, Run commands and utility shortcuts |
+| **Settings**   | Language, application behaviour, updates and troubleshooting         |
 
 ## Install
 
-Grab `ConfigurO.exe` from [Releases](https://github.com/wrstt/ConfigurO/releases).
-It is a single file — no installer, nothing to unpack. It needs administrator
-rights, because most of what it does writes to `HKLM`, services or system policy.
+Download `ConfigurO.exe` from [Releases](https://github.com/wrstt/ConfigurO/releases).
+
+ConfigurO is distributed as a single executable with no installer required.
+
+Administrator privileges are required for features that modify system-wide registry keys, services, policies or protected files.
+
+## Command Line
+
+The GUI is the primary interface, but ConfigurO also supports command-line automation.
+
+See [docs/CONFS.md](docs/CONFS.md) and [docs/AUTOMATION.md](docs/AUTOMATION.md).
+
+```text
+ConfigurO.exe /config=template-windows11.json
+ConfigurO.exe /disable=uwp,apps
+ConfigurO.exe /repair
+```
 
 ## Build
 
-Requires Visual Studio 2022 (or MSBuild) with the .NET Framework 4.8
-targeting pack.
+Requires Visual Studio 2022 or MSBuild with the .NET Framework 4.8 targeting pack.
 
-```
+```text
 nuget restore ConfigurO.sln
 msbuild ConfigurO.sln /p:Configuration=Release
 ```
 
-The executable lands in `bin/Release/`.
+## Development
 
-## Command line
+The interface uses the **Nocturne** design system.
 
-ConfigurO can run without its window — see [docs/CONFS.md](docs/CONFS.md) for the
-full list and [docs/AUTOMATION.md](docs/AUTOMATION.md) for applying a whole
-configuration from a template.
+Theme tokens, colours, geometry and typography are centralized in:
 
-```
-ConfigurO.exe /config=template-windows11.json   apply a saved configuration
-ConfigurO.exe /disable=uwp,apps                 hide individual tools
-ConfigurO.exe /repair                           reset settings and support files
-```
+[`NocturneTheme.cs`](src/ConfigurO/Nocturne/NocturneTheme.cs)
 
-## Layout
-
-```
-ConfigurO.sln
-src/ConfigurO/            the application
-  Nocturne/               design system: tokens, type, icons, chrome, controls
-  Screens/                one UserControl per tool
-  Tweaks/                 the tweak catalogue and the runner that applies it
-  Controls/               the restyled Moon* control suite
-  Forms/                  the shell and the remaining dialogs
-  Resources/              i18n (28 languages), scripts, flags, fonts
-feed/                     app catalogue (feed.json) and icon pack
-templates/                silent-configuration templates
-docs/                     guides and screenshots
-assets/logo/              the ConfigurO mark
-build/                    Linux type-check and headless render harness
-```
-
-## Design
-
-The interface is **Nocturne** — a single accent, two modes, one control
-language. The tokens are defined once in
-[`NocturneTheme.cs`](src/ConfigurO/Nocturne/NocturneTheme.cs), which is the
-source of truth for colour, geometry and type; nothing in the UI hard-codes a
-colour. See [docs/DEVELOPING.md](docs/DEVELOPING.md).
+Additional development information is available in [docs/DEVELOPING.md](docs/DEVELOPING.md).
 
 ## License
 
-[GPL-3.0](LICENSE). ConfigurO began as a fork of the Optimizer project and keeps
-its licence. Bundled third-party assets are listed in
-[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+ConfigurO is licensed under [GPL-3.0](LICENSE).
+
+It began as a fork of the **Optimizer** project and retains its GPL licensing requirements.
+
+Bundled third-party assets and acknowledgements are listed in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).

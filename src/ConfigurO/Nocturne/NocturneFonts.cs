@@ -87,6 +87,18 @@ namespace ConfigurO
         }
 
         /// <summary>
+        /// True when the interface is set to one of the nine languages Inter
+        /// cannot draw, and so is being rendered through a script chain.
+        ///
+        /// Every one of those nine is a script GDI+ has to shape -- Devanagari
+        /// and the Arabic-derived ones form conjuncts and join, and the CJK
+        /// ones have no notion of the letter-spacing this is used to suppress.
+        /// Callers that would otherwise place glyphs individually ask this
+        /// first and hand the whole run to GDI+ instead.
+        /// </summary>
+        internal static bool UsingScriptFallback { get { return ScriptFallback() != null; } }
+
+        /// <summary>
         /// The chain for one specific language, whatever the app is currently
         /// set to. The first-run picker lists all 28 names in their own scripts
         /// at once, so it needs this per row rather than per app.
@@ -268,6 +280,49 @@ namespace ConfigurO
             }
         }
 
+        static FontFamily[] _installed;
+        static readonly object _installedGate = new object();
+
+        /// <summary>
+        /// The installed family with this exact name, or null.
+        ///
+        /// Looked up in the installed collection rather than by handing the
+        /// name to <c>new Font(string)</c> and checking what comes back.
+        /// That round trip goes through GDI+'s family resolution, which
+        /// substitutes silently and reports the substitute's name, so the only
+        /// way to tell "installed" from "substituted" was to compare names --
+        /// and a substitution that happens to be asked for by name is
+        /// indistinguishable from a hit. Asking the collection is a direct
+        /// question, and building the Font from the FontFamily it returns
+        /// skips the resolution step entirely.
+        ///
+        /// Cached: this runs on every paint, and enumerating a few hundred
+        /// families each time is not free. A font installed while the app is
+        /// running will not be seen until it restarts, which is the same as
+        /// before.
+        /// </summary>
+        static FontFamily Installed(string name)
+        {
+            if (_installed == null)
+                lock (_installedGate)
+                {
+                    if (_installed == null)
+                    {
+                        try { _installed = FontFamily.Families; }
+                        catch (Exception ex)
+                        {
+                            Logger.LogError("NocturneFonts.Installed", ex.Message, ex.StackTrace);
+                            _installed = new FontFamily[0];
+                        }
+                    }
+                }
+
+            foreach (FontFamily f in _installed)
+                if (f.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                    return f;
+            return null;
+        }
+
         static Font Make(FontFamily bundled, string[] fallback, float size, FontStyle style)
         {
             if (bundled != null)
@@ -277,13 +332,10 @@ namespace ConfigurO
             }
             foreach (string name in fallback)
             {
-                try
-                {
-                    Font f = new Font(name, size, style, GraphicsUnit.Point);
-                    if (f.Name.Equals(name, StringComparison.OrdinalIgnoreCase)) return f;
-                    f.Dispose();
-                }
-                catch (ArgumentException) { }
+                FontFamily family = Installed(name);
+                if (family == null) continue;
+                try { return new Font(family, size, style, GraphicsUnit.Point); }
+                catch (ArgumentException) { /* family lacks that style -- try the next */ }
             }
             // Nothing in the chain was available, so this is the shell's own UI
             // font -- which very likely cannot draw the script that asked for a

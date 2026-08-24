@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
+using System.Globalization;
 using System.Text;
 
 namespace ConfigurO
@@ -189,14 +191,40 @@ namespace ConfigurO
             {
                 StringFormat fmt = TopLeft;
                 float baseline = y + (height - f.GetHeight(g)) / 2f;
-                foreach (char ch in s)
+
+                // Tracking means placing each unit yourself, and placing each
+                // unit yourself means GDI+ never sees the run. Devanagari came
+                // out as its own letters with the halants left standing --
+                // "का र ् य" where it should read "कार्य" -- because every
+                // conjunct was handed over one code unit at a time. The
+                // Arabic-derived scripts lose their joining the same way, and
+                // any surrogate pair anywhere is split down the middle. So:
+                // one call, no tracking, whenever the run has to be shaped.
+                if (NocturneFonts.UsingScriptFallback)
                 {
-                    string glyph = ch.ToString();
-                    g.DrawString(glyph, f, b, x, baseline, fmt);
-                    x += g.MeasureString(glyph, f, int.MaxValue,
+                    g.DrawString(s, f, b, x, baseline, fmt);
+                    return;
+                }
+
+                foreach (string unit in TextElements(s))
+                {
+                    g.DrawString(unit, f, b, x, baseline, fmt);
+                    x += g.MeasureString(unit, f, int.MaxValue,
                                          StringFormat.GenericTypographic).Width + tracking;
                 }
             }
+        }
+
+        /// <summary>
+        /// Splits into user-perceived characters rather than UTF-16 units, so
+        /// a surrogate pair or a base plus its combining marks stays in one
+        /// piece. <see cref="TrackedText"/> and <see cref="TrackedWidth"/> both
+        /// walk this, which is what keeps them agreeing.
+        /// </summary>
+        static IEnumerable<string> TextElements(string s)
+        {
+            TextElementEnumerator e = StringInfo.GetTextElementEnumerator(s);
+            while (e.MoveNext()) yield return (string)e.Current;
         }
 
         /// <summary>
@@ -214,9 +242,15 @@ namespace ConfigurO
         internal static float TrackedWidth(Graphics g, string s, Font f, float tracking)
         {
             if (string.IsNullOrEmpty(s)) return 0f;
+
+            // Measured the way TrackedText draws it, or the caller lays the
+            // next thing out against a width that was never used.
+            if (NocturneFonts.UsingScriptFallback)
+                return g.MeasureString(s, f, int.MaxValue, StringFormat.GenericTypographic).Width;
+
             float w = 0f;
-            foreach (char ch in s)
-                w += g.MeasureString(ch.ToString(), f, int.MaxValue,
+            foreach (string unit in TextElements(s))
+                w += g.MeasureString(unit, f, int.MaxValue,
                                      StringFormat.GenericTypographic).Width + tracking;
             return w;
         }

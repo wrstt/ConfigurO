@@ -16,7 +16,7 @@ namespace ConfigurO
         /// version.txt, so keep it in step with CHANGELOG.md.
         /// </summary>
         internal const int Major = 3;
-        internal const int Minor = 0;
+        internal const int Minor = 1;
         internal const bool EXPERIMENTAL_BUILD = false;
 
         internal static string GetCurrentVersionTostring()
@@ -58,7 +58,13 @@ namespace ConfigurO
         /// <summary>Registry release number for .NET Framework 4.8.</summary>
         const int NET_48_RELEASE = 528040;
 
-        const string MUTEX_GUID = @"{DEADMOON-0EFC7B8A-D1FC-467F-B4B1-0117C643FE19-CONFIGURO}";
+        // Named for this app and nothing else. The old name carried the
+        // upstream project's marker, which meant the single-instance guard --
+        // one of the few strings that has to stay stable for the life of the
+        // product -- was still spelled after a program this is no longer a
+        // copy of. Changing it means a 3.0 and a 3.1 could briefly run at the
+        // same time during an upgrade; that is a one-release cost.
+        const string MUTEX_GUID = @"{CONFIGURO-0EFC7B8A-D1FC-467F-B4B1-0117C643FE19}";
         internal static Mutex MUTEX;
         static bool _notRunning;
 

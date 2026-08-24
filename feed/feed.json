@@ -3,1176 +3,1029 @@
     "Title": "Chrome",
     "Group": "Web Browsers",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/chrome.png",
-    "Link": "https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B96806E3D-7496-9303-FEC0-8299CB4E05AF%7D%26lang%3Den%26browser%3D3%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dstable-arch_x86-statsdef_1%26installdataindex%3Dempty/chrome/install/ChromeStandaloneSetup.exe",
-    "Link64": "https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B96806E3D-7496-9303-FEC0-8299CB4E05AF%7D%26lang%3Den%26browser%3D3%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26installdataindex%3Dempty/chrome/install/ChromeStandaloneSetup64.exe",
-    "Tag": "cChrome"
+    "Link": "https://dl.google.com/chrome/install/latest/chrome_installer.exe",
+    "Link64": "https://dl.google.com/chrome/install/latest/chrome_installer.exe"
   },
   {
     "Title": "Opera",
     "Group": "Web Browsers",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/opera.png",
-    "Link": "https://download3.operacdn.com/pub/opera/desktop/81.0.4196.54/win/Opera_81.0.4196.54_Setup.exe",
-    "Link64": "https://download3.operacdn.com/pub/opera/desktop/81.0.4196.54/win/Opera_81.0.4196.54_Setup_x64.exe",
-    "Tag": "cOpera"
+    "Link": "https://get.geo.opera.com/pub/opera/desktop/135.0.5973.41/win/Opera_135.0.5973.41_Setup.exe",
+    "Link64": "https://get.geo.opera.com/pub/opera/desktop/135.0.5973.41/win/Opera_135.0.5973.41_Setup.exe"
   },
   {
     "Title": "Firefox",
     "Group": "Web Browsers",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/firefox.png",
-    "Link": "http://download.mozilla.org/?product=firefox-latest&os=Win&lang=en-US",
-    "Link64": "http://download.mozilla.org/?product=firefox-latest&os=Win64&lang=en-US",
-    "Tag": "cFirefox"
+    "Link": "https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=en-US",
+    "Link64": "https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=en-US"
   },
   {
     "Title": "Edge",
     "Group": "Web Browsers",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/edge.png",
-    "Link": "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/8ec6e43b-be55-4fcb-b3ec-0e4eed142103/MicrosoftEdgeEnterpriseX86.msi",
-    "Link64": "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/d209ad46-3748-45ee-9a0f-826275ced29c/MicrosoftEdgeEnterpriseX64.msi",
-    "Tag": "cEdge"
+    "Link": "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/96110464-4aaf-49c1-bbdb-dbf189f4b91f/MicrosoftEdgeEnterpriseX86.msi",
+    "Link64": "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/998bcf3d-e044-426d-9e9b-61da81399306/MicrosoftEdgeEnterpriseX64.msi"
   },
   {
     "Title": "Brave",
     "Group": "Web Browsers",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/brave.png",
-    "Link": "https://referrals.brave.com/latest/BraveBrowserSetup32.exe",
-    "Link64": "https://referrals.brave.com/latest/BraveBrowserSetup.exe",
-    "Tag": "cBrave"
+    "Link": "https://laptop-updates.brave.com/latest/winx64",
+    "Link64": "https://laptop-updates.brave.com/latest/winx64"
   },
   {
     "Title": "Vivaldi",
     "Group": "Web Browsers",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/vivaldi.png",
-    "Link": "https://downloads.vivaldi.com/stable/Vivaldi.4.3.2439.65.exe",
-    "Link64": "https://downloads.vivaldi.com/stable/Vivaldi.4.3.2439.65.x64.exe",
-    "Tag": "cVivaldi"
+    "Link": "",
+    "Link64": ""
   },
   {
     "Title": "Zoom",
     "Group": "Messaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/zoom.png",
-    "Link": "https://zoom.us/client/latest/ZoomInstaller.exe",
-    "Link64": "https://zoom.us/client/latest/ZoomInstaller.exe",
-    "Tag": "cZoom"
+    "Link": "https://zoom.us/client/latest/ZoomInstallerFull.exe?archType=x64",
+    "Link64": "https://zoom.us/client/latest/ZoomInstallerFull.exe?archType=x64"
   },
   {
     "Title": "Discord",
     "Group": "Messaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/discord.png",
-    "Link": "https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/DiscordSetup.exe",
-    "Link64": "https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/DiscordSetup.exe",
-    "Tag": "cDiscord"
+    "Link": "https://discord.com/api/download?platform=win",
+    "Link64": "https://discord.com/api/download?platform=win"
   },
   {
     "Title": "Teams",
     "Group": "Messaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/teams.png",
     "Link": "https://go.microsoft.com/fwlink/?linkid=2243204",
-    "Link64": "https://go.microsoft.com/fwlink/?linkid=2243204",
-    "Tag": "cMSTeams"
+    "Link64": "https://go.microsoft.com/fwlink/?linkid=2243204"
   },
   {
     "Title": "Telegram",
     "Group": "Messaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/telegram.png",
-    "Link": "https://telegram.org/dl/desktop/win",
-    "Link64": "https://telegram.org/dl/desktop/win64",
-    "Tag": "cTelegram"
+    "Link": "https://telegram.org/dl/desktop/win64",
+    "Link64": "https://telegram.org/dl/desktop/win64"
   },
   {
     "Title": "Pidgin",
     "Group": "Messaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/pidgin.png",
     "Link": "https://downloads.sourceforge.net/project/pidgin/Pidgin/2.14.14/pidgin-2.14.14-offline.exe",
-    "Link64": "https://downloads.sourceforge.net/project/pidgin/Pidgin/2.14.14/pidgin-2.14.14-offline.exe",
-    "Tag": ""
+    "Link64": "https://downloads.sourceforge.net/project/pidgin/Pidgin/2.14.14/pidgin-2.14.14-offline.exe"
   },
   {
     "Title": "Thunderbird",
     "Group": "Messaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/thunderbird.png",
-    "Link": "http://download.mozilla.org/?product=thunderbird-latest&os=Win&lang=en-US",
-    "Link64": "http://download.mozilla.org/?product=thunderbird-latest&os=Win64&lang=en-US",
-    "Tag": "cThunderbird"
+    "Link": "https://download.mozilla.org/?product=thunderbird-latest-ssl&os=win64&lang=en-US",
+    "Link64": "https://download.mozilla.org/?product=thunderbird-latest-ssl&os=win64&lang=en-US"
   },
   {
     "Title": "Trillian",
     "Group": "Messaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/trillian.png",
     "Link": "",
-    "Link64": "",
-    "Tag": ""
+    "Link64": ""
   },
   {
     "Title": "iTunes",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/itunes.png",
-    "Link": "https://secure-appldnld.apple.com/itunes12/001-50021-20201019-A1CAB6C2-1239-11EB-AE89-F95946985FC9/iTunesSetup.exe",
-    "Link64": "https://secure-appldnld.apple.com/itunes12/001-50023-20201019-A1CA6082-1239-11EB-990E-FA5946985FC9/iTunes64Setup.exe",
-    "Tag": "ciTunes"
+    "Link": "https://www.apple.com/itunes/download/win64",
+    "Link64": "https://www.apple.com/itunes/download/win64"
   },
   {
     "Title": "VLC",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/vlc.png",
-    "Link": "https://get.videolan.org/vlc/3.0.16/win32/vlc-3.0.16-win32.exe",
-    "Link64": "https://get.videolan.org/vlc/3.0.16/win64/vlc-3.0.16-win64.exe",
-    "Tag": "cVLC"
+    "Link": "https://get.videolan.org/vlc/last/win64/vlc-3.0.23-win64.exe",
+    "Link64": "https://get.videolan.org/vlc/last/win64/vlc-3.0.23-win64.exe"
   },
   {
     "Title": "AIMP",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/aimp.png",
     "Link": "https://www.aimp.ru/?do=download.file&id=4",
-    "Link64": "https://www.aimp.ru/?do=download.file&id=3",
-    "Tag": ""
+    "Link64": "https://www.aimp.ru/?do=download.file&id=3"
   },
   {
     "Title": "foobar2000",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/foobar.png",
     "Link": "https://www.foobar2000.org/downloads/foobar2000_v2.25.10.exe",
-    "Link64": "https://www.foobar2000.org/downloads/foobar2000-x64_v2.25.10.exe",
-    "Tag": "cFoobar"
+    "Link64": "https://www.foobar2000.org/downloads/foobar2000-x64_v2.25.10.exe"
   },
   {
     "Title": "Winamp",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/winamp.png",
-    "Link": "https://download.nullsoft.com/winamp/misc/winamp58_3660_beta_full_en-us.exe",
-    "Link64": "https://download.nullsoft.com/winamp/misc/winamp58_3660_beta_full_en-us.exe",
-    "Tag": "cWinamp"
+    "Link": "",
+    "Link64": ""
   },
   {
     "Title": "MusicBee",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/musicbee.png",
     "Link": "",
-    "Link64": "",
-    "Tag": ""
+    "Link64": ""
   },
   {
     "Title": "Audacity",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/audacity.png",
-    "Link": "https://github.com/audacity/audacity/releases/download/Audacity-3.1.3/audacity-win-3.1.3-32bit.exe",
-    "Link64": "https://github.com/audacity/audacity/releases/download/Audacity-3.1.3/audacity-win-3.1.3-64bit.exe",
-    "Tag": "cAudacity"
+    "Link": "https://github.com/audacity/audacity/releases/download/Audacity-3.7.8/audacity-win-3.7.8-64bit.exe",
+    "Link64": "https://github.com/audacity/audacity/releases/download/Audacity-3.7.8/audacity-win-3.7.8-64bit.exe"
   },
   {
     "Title": "K-Lite Codecs",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/klite.png",
-    "Link": "https://files2.codecguide.com/K-Lite_Codec_Pack_1653_Mega.exe",
-    "Link64": "https://files2.codecguide.com/K-Lite_Codec_Pack_1653_Mega.exe",
-    "Tag": "cCodecs"
+    "Link": "",
+    "Link64": ""
   },
   {
     "Title": "GOM",
     "Group": "Media",
     "Image": "",
     "Link": "",
-    "Link64": "",
-    "Tag": ""
+    "Link64": ""
   },
   {
     "Title": "Spotify",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/spotify.png",
     "Link": "https://download.scdn.co/SpotifySetup.exe",
-    "Link64": "https://download.scdn.co/SpotifySetup.exe",
-    "Tag": "cSpotify"
+    "Link64": "https://download.scdn.co/SpotifySetup.exe"
   },
   {
     "Title": "CCCP",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/cccp.png",
     "Link": "",
-    "Link64": "",
-    "Tag": ""
+    "Link64": ""
   },
   {
     "Title": "MediaMonkey",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/mediamonkey.png",
     "Link": "https://www.mediamonkey.com/MediaMonkey-2024_Setup.exe",
-    "Link64": "https://www.mediamonkey.com/MediaMonkey-2024_Setup.exe",
-    "Tag": ""
+    "Link64": "https://www.mediamonkey.com/MediaMonkey-2024_Setup.exe"
   },
   {
     "Title": "HandBrake",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/handbrake.png",
     "Link": "https://github.com/HandBrake/HandBrake/releases/download/1.11.2/HandBrake-1.11.2-x86_64-Win_GUI.exe",
-    "Link64": "https://github.com/HandBrake/HandBrake/releases/download/1.11.2/HandBrake-1.11.2-x86_64-Win_GUI.exe",
-    "Tag": ""
+    "Link64": "https://github.com/HandBrake/HandBrake/releases/download/1.11.2/HandBrake-1.11.2-x86_64-Win_GUI.exe"
   },
   {
     "Title": "OBS Studio",
     "Group": "Media",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/obs.png",
-    "Link": "https://github.com/obsproject/obs-studio/releases/download/27.1.3/OBS-Studio-27.1.3-Full-Installer-x86.exe",
-    "Link64": "https://github.com/obsproject/obs-studio/releases/download/27.1.3/OBS-Studio-27.1.3-Full-Installer-x64.exe",
-    "Tag": "cOBS"
+    "Link": "https://github.com/obsproject/obs-studio/releases/download/32.2.2/OBS-Studio-32.2.2-Windows-x64-Installer.exe",
+    "Link64": "https://github.com/obsproject/obs-studio/releases/download/32.2.2/OBS-Studio-32.2.2-Windows-x64-Installer.exe"
   },
   {
     "Title": ".NET 4.8.1",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://go.microsoft.com/fwlink/?linkid=2203304",
-    "Link64": "https://go.microsoft.com/fwlink/?linkid=2203304",
-    "Tag": ""
+    "Link64": "https://go.microsoft.com/fwlink/?linkid=2203304"
   },
   {
     "Title": ".NET Desktop Runtime x64 8",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x64.exe",
-    "Link64": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x64.exe"
   },
   {
     "Title": ".NET Desktop Runtime arm64 8",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-arm64.exe",
-    "Link64": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x64.exe"
   },
   {
     "Title": ".NET Desktop Runtime 8",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x86.exe",
-    "Link64": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/8.0/windowsdesktop-runtime-win-x64.exe"
   },
   {
     "Title": ".NET Desktop Runtime x64 9",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x64.exe",
-    "Link64": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x64.exe"
   },
   {
     "Title": ".NET Desktop Runtime arm64 9",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-arm64.exe",
-    "Link64": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x64.exe"
   },
   {
     "Title": ".NET Desktop Runtime 9",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x86.exe",
-    "Link64": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/9.0/windowsdesktop-runtime-win-x64.exe"
   },
   {
     "Title": ".NET Desktop Runtime x64 10",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe",
-    "Link64": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe"
   },
   {
     "Title": ".NET Desktop Runtime arm64 10",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-arm64.exe",
-    "Link64": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe"
   },
   {
     "Title": ".NET Desktop Runtime 10",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x86.exe",
-    "Link64": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe"
   },
   {
     "Title": "ASP.NET Core Runtime x64 8",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x64.exe",
-    "Link64": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x64.exe"
   },
   {
     "Title": "ASP.NET Core Runtime arm64 8",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-arm64.exe",
-    "Link64": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x64.exe"
   },
   {
     "Title": "ASP.NET Core Runtime 8",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x86.exe",
-    "Link64": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/8.0/aspnetcore-runtime-win-x64.exe"
   },
   {
     "Title": "ASP.NET Core Runtime x64 9",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x64.exe",
-    "Link64": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x64.exe"
   },
   {
     "Title": "ASP.NET Core Runtime arm64 9",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-arm64.exe",
-    "Link64": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x64.exe"
   },
   {
     "Title": "ASP.NET Core Runtime 9",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x86.exe",
-    "Link64": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/9.0/aspnetcore-runtime-win-x64.exe"
   },
   {
     "Title": "ASP.NET Core Runtime x64 10",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x64.exe",
-    "Link64": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x64.exe"
   },
   {
     "Title": "ASP.NET Core Runtime arm64 10",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-arm64.exe",
-    "Link64": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x64.exe"
   },
   {
     "Title": "ASP.NET Core Runtime 10",
     "Group": ".NET",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/netfw.png",
     "Link": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x86.exe",
-    "Link64": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/dotnet/10.0/aspnetcore-runtime-win-x64.exe"
   },
   {
     "Title": "Java (AdoptOpenJDK) x64 8",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jre/hotspot/normal/eclipse",
-    "Link64": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jre/hotspot/normal/eclipse",
-    "Tag": ""
+    "Link64": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jre/hotspot/normal/eclipse"
   },
   {
     "Title": "Java (AdoptOpenJDK) 8",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x86/jre/hotspot/normal/eclipse",
-    "Link64": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jre/hotspot/normal/eclipse",
-    "Tag": ""
+    "Link64": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jre/hotspot/normal/eclipse"
   },
   {
     "Title": "Java (AdoptOpenJDK) x64 11",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://api.adoptium.net/v3/installer/latest/11/ga/windows/x64/jre/hotspot/normal/eclipse",
-    "Link64": "https://api.adoptium.net/v3/installer/latest/11/ga/windows/x64/jre/hotspot/normal/eclipse",
-    "Tag": ""
+    "Link64": "https://api.adoptium.net/v3/installer/latest/11/ga/windows/x64/jre/hotspot/normal/eclipse"
   },
   {
     "Title": "Java (AdoptOpenJDK) x64 17",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://api.adoptium.net/v3/installer/latest/17/ga/windows/x64/jre/hotspot/normal/eclipse",
-    "Link64": "https://api.adoptium.net/v3/installer/latest/17/ga/windows/x64/jre/hotspot/normal/eclipse",
-    "Tag": ""
+    "Link64": "https://api.adoptium.net/v3/installer/latest/17/ga/windows/x64/jre/hotspot/normal/eclipse"
   },
   {
     "Title": "Java (AdoptOpenJDK) x64 21",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://api.adoptium.net/v3/installer/latest/21/ga/windows/x64/jre/hotspot/normal/eclipse",
-    "Link64": "https://api.adoptium.net/v3/installer/latest/21/ga/windows/x64/jre/hotspot/normal/eclipse",
-    "Tag": ""
+    "Link64": "https://api.adoptium.net/v3/installer/latest/21/ga/windows/x64/jre/hotspot/normal/eclipse"
   },
   {
     "Title": "Java (AdoptOpenJDK) x64 25",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://api.adoptium.net/v3/installer/latest/25/ga/windows/x64/jre/hotspot/normal/eclipse",
-    "Link64": "https://api.adoptium.net/v3/installer/latest/25/ga/windows/x64/jre/hotspot/normal/eclipse",
-    "Tag": ""
+    "Link64": "https://api.adoptium.net/v3/installer/latest/25/ga/windows/x64/jre/hotspot/normal/eclipse"
   },
   {
     "Title": "JDK (AdoptOpenJDK) x64 8",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jdk/hotspot/normal/eclipse",
-    "Link64": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jdk/hotspot/normal/eclipse",
-    "Tag": ""
+    "Link64": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jdk/hotspot/normal/eclipse"
   },
   {
     "Title": "JDK (AdoptOpenJDK) 8",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x86/jdk/hotspot/normal/eclipse",
-    "Link64": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jdk/hotspot/normal/eclipse",
-    "Tag": ""
+    "Link64": "https://api.adoptium.net/v3/installer/latest/8/ga/windows/x64/jdk/hotspot/normal/eclipse"
   },
   {
     "Title": "JDK (AdoptOpenJDK) x64 11",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://api.adoptium.net/v3/installer/latest/11/ga/windows/x64/jdk/hotspot/normal/eclipse",
-    "Link64": "https://api.adoptium.net/v3/installer/latest/11/ga/windows/x64/jdk/hotspot/normal/eclipse",
-    "Tag": ""
+    "Link64": "https://api.adoptium.net/v3/installer/latest/11/ga/windows/x64/jdk/hotspot/normal/eclipse"
   },
   {
     "Title": "JDK (AdoptOpenJDK) x64 17",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://api.adoptium.net/v3/installer/latest/17/ga/windows/x64/jdk/hotspot/normal/eclipse",
-    "Link64": "https://api.adoptium.net/v3/installer/latest/17/ga/windows/x64/jdk/hotspot/normal/eclipse",
-    "Tag": ""
+    "Link64": "https://api.adoptium.net/v3/installer/latest/17/ga/windows/x64/jdk/hotspot/normal/eclipse"
   },
   {
     "Title": "JDK (AdoptOpenJDK) x64 21",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://api.adoptium.net/v3/installer/latest/21/ga/windows/x64/jdk/hotspot/normal/eclipse",
-    "Link64": "https://api.adoptium.net/v3/installer/latest/21/ga/windows/x64/jdk/hotspot/normal/eclipse",
-    "Tag": ""
+    "Link64": "https://api.adoptium.net/v3/installer/latest/21/ga/windows/x64/jdk/hotspot/normal/eclipse"
   },
   {
     "Title": "JDK (AdoptOpenJDK) x64 25",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://api.adoptium.net/v3/installer/latest/25/ga/windows/x64/jdk/hotspot/normal/eclipse",
-    "Link64": "https://api.adoptium.net/v3/installer/latest/25/ga/windows/x64/jdk/hotspot/normal/eclipse",
-    "Tag": ""
+    "Link64": "https://api.adoptium.net/v3/installer/latest/25/ga/windows/x64/jdk/hotspot/normal/eclipse"
   },
   {
     "Title": "JDK (Amazon Corretto) x64 8",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jdk.msi",
-    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jdk.msi",
-    "Tag": ""
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jdk.msi"
   },
   {
     "Title": "JDK (Amazon Corretto) 8",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://corretto.aws/downloads/latest/amazon-corretto-8-x86-windows-jdk.msi",
-    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jdk.msi",
-    "Tag": ""
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jdk.msi"
   },
   {
     "Title": "JDK (Amazon Corretto) x64 11",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-windows-jdk.msi",
-    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-windows-jdk.msi",
-    "Tag": ""
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-windows-jdk.msi"
   },
   {
     "Title": "JDK (Amazon Corretto) x64 17",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://corretto.aws/downloads/latest/amazon-corretto-17-x64-windows-jdk.msi",
-    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-17-x64-windows-jdk.msi",
-    "Tag": ""
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-17-x64-windows-jdk.msi"
   },
   {
     "Title": "JDK (Amazon Corretto) x64 21",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://corretto.aws/downloads/latest/amazon-corretto-21-x64-windows-jdk.msi",
-    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-21-x64-windows-jdk.msi",
-    "Tag": ""
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-21-x64-windows-jdk.msi"
   },
   {
     "Title": "JDK (Amazon Corretto) x64 25",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://corretto.aws/downloads/latest/amazon-corretto-25-x64-windows-jdk.msi",
-    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-25-x64-windows-jdk.msi",
-    "Tag": ""
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-25-x64-windows-jdk.msi"
   },
   {
     "Title": "JRE (Amazon Corretto) x64 8",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jre.msi",
-    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jre.msi",
-    "Tag": ""
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jre.msi"
   },
   {
     "Title": "JRE (Amazon Corretto) 8",
     "Group": "Java",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/java.png",
     "Link": "https://corretto.aws/downloads/latest/amazon-corretto-8-x86-windows-jre.msi",
-    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jre.msi",
-    "Tag": ""
+    "Link64": "https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jre.msi"
   },
   {
     "Title": "Krita",
     "Group": "Imaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/krita.png",
     "Link": "https://download.kde.org/stable/krita/6.0.3/krita-x64-6.0.3-setup.exe",
-    "Link64": "https://download.kde.org/stable/krita/6.0.3/krita-x64-6.0.3-setup.exe",
-    "Tag": ""
+    "Link64": "https://download.kde.org/stable/krita/6.0.3/krita-x64-6.0.3-setup.exe"
   },
   {
     "Title": "Blender",
     "Group": "Imaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/blender.png",
-    "Link": "",
-    "Link64": "https://mirror.clarkson.edu/blender/release/Blender2.93/blender-2.93.6-windows-x64.msi",
-    "Tag": "cBlender"
+    "Link": "https://download.blender.org/release/Blender5.2/blender-5.2.0-windows-x64.msi",
+    "Link64": "https://download.blender.org/release/Blender5.2/blender-5.2.0-windows-x64.msi"
   },
   {
     "Title": "Paint.NET",
     "Group": "Imaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/paintnet.png",
     "Link": "",
-    "Link64": "",
-    "Tag": ""
+    "Link64": ""
   },
   {
     "Title": "GIMP",
     "Group": "Imaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/gimp.png",
-    "Link": "https://gemmei.ftp.acc.umu.se/pub/gimp/gimp/v2.10/windows/gimp-2.10.28-setup.exe",
-    "Link64": "https://gemmei.ftp.acc.umu.se/pub/gimp/gimp/v2.10/windows/gimp-2.10.28-setup.exe",
-    "Tag": "cGIMP"
+    "Link": "https://download.gimp.org/gimp/v3.0/windows/gimp-3.0.8-setup.exe",
+    "Link64": "https://download.gimp.org/gimp/v3.0/windows/gimp-3.0.8-setup.exe"
   },
   {
     "Title": "IrfanView",
     "Group": "Imaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/irfanview.png",
     "Link": "",
-    "Link64": "",
-    "Tag": "cIrfan"
+    "Link64": ""
   },
   {
     "Title": "XnView",
     "Group": "Imaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/xnview.png",
     "Link": "https://download.xnview.com/XnView-win-full.exe",
-    "Link64": "https://download.xnview.com/XnView-win-full.exe",
-    "Tag": ""
+    "Link64": "https://download.xnview.com/XnView-win-full.exe"
   },
   {
     "Title": "Inkscape",
     "Group": "Imaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/inkscape.png",
     "Link": "https://inkscape.org/gallery/item/59502/inkscape-1.4.4_2026-05-05_dcaf3e7-x64.signed.exe",
-    "Link64": "https://inkscape.org/gallery/item/59502/inkscape-1.4.4_2026-05-05_dcaf3e7-x64.signed.exe",
-    "Tag": ""
+    "Link64": "https://inkscape.org/gallery/item/59502/inkscape-1.4.4_2026-05-05_dcaf3e7-x64.signed.exe"
   },
   {
     "Title": "FastStone",
     "Group": "Imaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/faststone.png",
     "Link": "https://www.faststone.org/DN/FSViewerSetup85.exe",
-    "Link64": "https://www.faststone.org/DN/FSViewerSetup85.exe",
-    "Tag": ""
+    "Link64": "https://www.faststone.org/DN/FSViewerSetup85.exe"
   },
   {
     "Title": "Greenshot",
     "Group": "Imaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/greenshot.png",
     "Link": "https://github.com/greenshot/greenshot/releases/download/v1.3.315/Greenshot-INSTALLER-1.3.315-RELEASE.exe",
-    "Link64": "https://github.com/greenshot/greenshot/releases/download/v1.3.315/Greenshot-INSTALLER-1.3.315-RELEASE.exe",
-    "Tag": ""
+    "Link64": "https://github.com/greenshot/greenshot/releases/download/v1.3.315/Greenshot-INSTALLER-1.3.315-RELEASE.exe"
   },
   {
     "Title": "ShareX",
     "Group": "Imaging",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/sharex.png",
-    "Link": "https://github.com/ShareX/ShareX/releases/download/v13.7.0/ShareX-13.7.0-setup.exe",
-    "Link64": "https://github.com/ShareX/ShareX/releases/download/v13.7.0/ShareX-13.7.0-setup.exe",
-    "Tag": "cShareX"
+    "Link": "https://github.com/ShareX/ShareX/releases/download/v21.0.0/ShareX-21.0.0-setup-x64.exe",
+    "Link64": "https://github.com/ShareX/ShareX/releases/download/v21.0.0/ShareX-21.0.0-setup-x64.exe"
   },
   {
     "Title": "Foxit Reader",
     "Group": "Documents",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/foxit.png",
-    "Link": "https://cdn01.foxitsoftware.com/pub/foxit/reader/desktop/win/11.x/11.1/en_us/FoxitPDFReader111_Setup.exe",
-    "Link64": "https://cdn01.foxitsoftware.com/pub/foxit/reader/desktop/win/11.x/11.1/en_us/FoxitPDFReader111_Setup.exe",
-    "Tag": "cFoxit"
+    "Link": "https://www.foxit.com/downloads/latest.html?product=Foxit-Reader&platform=Windows",
+    "Link64": "https://www.foxit.com/downloads/latest.html?product=Foxit-Reader&platform=Windows"
   },
   {
     "Title": "LibreOffice",
     "Group": "Documents",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/libreoffice.png",
     "Link": "https://download.documentfoundation.org/libreoffice/stable/26.2.5/win/x86/LibreOffice_26.2.5_Win_x86.msi",
-    "Link64": "https://download.documentfoundation.org/libreoffice/stable/26.2.5/win/x86_64/LibreOffice_26.2.5_Win_x86-64.msi",
-    "Tag": "cLibreOffice"
+    "Link64": "https://download.documentfoundation.org/libreoffice/stable/26.2.5/win/x86_64/LibreOffice_26.2.5_Win_x86-64.msi"
   },
   {
     "Title": "SumatraPDF",
     "Group": "Documents",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/sumatrapdf.png",
     "Link": "https://www.sumatrapdfreader.org/dl/rel/3.5.2/SumatraPDF-3.5.2-64-install.exe",
-    "Link64": "https://www.sumatrapdfreader.org/dl/rel/3.5.2/SumatraPDF-3.5.2-64-install.exe",
-    "Tag": "cSumatra"
+    "Link64": "https://www.sumatrapdfreader.org/dl/rel/3.5.2/SumatraPDF-3.5.2-64-install.exe"
   },
   {
     "Title": "CutePDF",
     "Group": "Documents",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/cutepdf.png",
     "Link": "https://www.cutepdf.com/download/CuteWriter.exe",
-    "Link64": "https://www.cutepdf.com/download/CuteWriter.exe",
-    "Tag": ""
+    "Link64": "https://www.cutepdf.com/download/CuteWriter.exe"
   },
   {
     "Title": "OpenOffice",
     "Group": "Documents",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/openoffice.png",
     "Link": "https://downloads.sourceforge.net/project/openofficeorg.mirror/4.1.15/binaries/en-US/Apache_OpenOffice_4.1.15_Win_x86_install_en-US.exe",
-    "Link64": "https://downloads.sourceforge.net/project/openofficeorg.mirror/4.1.15/binaries/en-US/Apache_OpenOffice_4.1.15_Win_x86_install_en-US.exe",
-    "Tag": ""
+    "Link64": "https://downloads.sourceforge.net/project/openofficeorg.mirror/4.1.15/binaries/en-US/Apache_OpenOffice_4.1.15_Win_x86_install_en-US.exe"
   },
   {
     "Title": "Malwarebytes",
     "Group": "Security",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/malwarebytes.png",
     "Link": "https://data-cdn.mbamupdates.com/web/mb4-setup-consumer/MBSetup.exe",
-    "Link64": "https://data-cdn.mbamupdates.com/web/mb4-setup-consumer/MBSetup.exe",
-    "Tag": "cMalwarebytes"
+    "Link64": "https://data-cdn.mbamupdates.com/web/mb4-setup-consumer/MBSetup.exe"
   },
   {
     "Title": "Avast",
     "Group": "Security",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/avast.png",
     "Link": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN/installertype_ONLINE/build_RELEASE/cookie_mmm_avn_998_999_a1t_04/avast_free_antivirus_setup_online.exe",
-    "Link64": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN/installertype_ONLINE/build_RELEASE/cookie_mmm_avn_998_999_a1t_04/avast_free_antivirus_setup_online.exe",
-    "Tag": ""
+    "Link64": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN/installertype_ONLINE/build_RELEASE/cookie_mmm_avn_998_999_a1t_04/avast_free_antivirus_setup_online.exe"
   },
   {
     "Title": "AVG",
     "Group": "Security",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/avg.png",
     "Link": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN_AVG/installertype_ONLINE/build_RELEASE/avg_antivirus_free_setup.exe",
-    "Link64": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN_AVG/installertype_ONLINE/build_RELEASE/avg_antivirus_free_setup.exe",
-    "Tag": ""
+    "Link64": "https://bits.avcdn.net/productfamily_ANTIVIRUS/insttype_FREE/platform_WIN_AVG/installertype_ONLINE/build_RELEASE/avg_antivirus_free_setup.exe"
   },
   {
     "Title": "Spybot 2",
     "Group": "Security",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/spybot.png",
     "Link": "https://updates2.safer-networking.org/spybot1/spybotsd-2.9.85.5.exe",
-    "Link64": "https://updates2.safer-networking.org/spybot1/spybotsd-2.9.85.5.exe",
-    "Tag": ""
+    "Link64": "https://updates2.safer-networking.org/spybot1/spybotsd-2.9.85.5.exe"
   },
   {
     "Title": "Avira",
     "Group": "Security",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/avira.png",
     "Link": "https://package.avira.com/package/oeavira/win/int/avira_en_av.exe",
-    "Link64": "https://package.avira.com/package/oeavira/win/int/avira_en_av.exe",
-    "Tag": ""
+    "Link64": "https://package.avira.com/package/oeavira/win/int/avira_en_av.exe"
   },
   {
     "Title": "SUPERAntiSpyware",
     "Group": "Security",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/superantispyware.png",
     "Link": "https://secure.superantispyware.com/SUPERAntiSpyware.exe",
-    "Link64": "https://secure.superantispyware.com/SUPERAntiSpyware.exe",
-    "Tag": ""
+    "Link64": "https://secure.superantispyware.com/SUPERAntiSpyware.exe"
   },
   {
     "Title": "7-Zip",
     "Group": "Compression",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/7zip.png",
     "Link": "https://www.7-zip.org/a/7z2301.exe",
-    "Link64": "https://www.7-zip.org/a/7z2301-x64.exe",
-    "Tag": "c7zip"
+    "Link64": "https://www.7-zip.org/a/7z2301-x64.exe"
   },
   {
     "Title": "PeaZip",
     "Group": "Compression",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/peazip.png",
-    "Link": "https://github.com/peazip/PeaZip/releases/download/8.3.0/peazip-8.3.0.WINDOWS.exe",
-    "Link64": "https://github.com/peazip/PeaZip/releases/download/8.3.0/peazip-8.3.0.WIN64.exe",
-    "Tag": "cPeaZip"
+    "Link": "https://github.com/peazip/PeaZip/releases/download/11.2.0/peazip-11.2.0.WIN64.exe",
+    "Link64": "https://github.com/peazip/PeaZip/releases/download/11.2.0/peazip-11.2.0.WIN64.exe"
   },
   {
     "Title": "WinRAR",
     "Group": "Compression",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/winrar.png",
-    "Link": "https://www.rarlab.com/rar/wrar602.exe",
-    "Link64": "https://www.rarlab.com/rar/winrar-x64-602.exe",
-    "Tag": "cWinRar"
+    "Link": "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-711.exe",
+    "Link64": "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-711.exe"
   },
   {
     "Title": "qBittorrent",
     "Group": "File Sharing",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/qbittorrent.png",
     "Link": "https://downloads.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-5.1.2/qbittorrent_5.1.2_x64_setup.exe",
-    "Link64": "https://downloads.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-5.1.2/qbittorrent_5.1.2_x64_setup.exe",
-    "Tag": "cQB"
+    "Link64": "https://downloads.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-5.1.2/qbittorrent_5.1.2_x64_setup.exe"
   },
   {
     "Title": "Evernote",
     "Group": "Other",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/evernote.png",
-    "Link": "https://cdn1.evernote.com/boron/win/builds/Evernote-10.25.6-win-ddl-ga-3073-setup.exe",
-    "Link64": "https://cdn1.evernote.com/boron/win/builds/Evernote-10.25.6-win-ddl-ga-3073-setup.exe",
-    "Tag": "cEvernote"
+    "Link": "https://win.desktop.evernote.com/builds/Evernote-latest.exe",
+    "Link64": "https://win.desktop.evernote.com/builds/Evernote-latest.exe"
   },
   {
     "Title": "Google Earth",
     "Group": "Other",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/googleearth.png",
     "Link": "https://dl.google.com/earth/client/advanced/current/GoogleEarthProWin-x64.exe",
-    "Link64": "https://dl.google.com/earth/client/advanced/current/GoogleEarthProWin-x64.exe",
-    "Tag": ""
+    "Link64": "https://dl.google.com/earth/client/advanced/current/GoogleEarthProWin-x64.exe"
   },
   {
     "Title": "Steam",
     "Group": "Other",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/steam.png",
     "Link": "https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe",
-    "Link64": "https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe",
-    "Tag": "cSteam"
+    "Link64": "https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe"
   },
   {
     "Title": "Epic Games Launcher",
     "Group": "Other",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/epic.png",
-    "Link": "https://epicgames-download1.akamaized.net/Builds/UnrealEngineLauncher/Installers/Win32/EpicInstaller-10.19.2.msi?launcherfilename=EpicInstaller-10.19.2.msi",
-    "Link64": "https://epicgames-download1.akamaized.net/Builds/UnrealEngineLauncher/Installers/Win32/EpicInstaller-10.19.2.msi?launcherfilename=EpicInstaller-10.19.2.msi",
-    "Tag": "cEpicStore"
+    "Link": "https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi",
+    "Link64": "https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi"
   },
   {
     "Title": "KeePass 2",
     "Group": "Other",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/keepass.png",
     "Link": "https://downloads.sourceforge.net/keepass/KeePass-2.59-Setup.exe",
-    "Link64": "https://downloads.sourceforge.net/keepass/KeePass-2.59-Setup.exe",
-    "Tag": ""
+    "Link64": "https://downloads.sourceforge.net/keepass/KeePass-2.59-Setup.exe"
   },
   {
     "Title": "Everything",
     "Group": "Other",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/everything.png",
-    "Link": "https://www.voidtools.com/Everything-1.4.1.1023.x86-Setup.exe",
-    "Link64": "https://www.voidtools.com/Everything-1.4.1.1023.x64-Setup.exe",
-    "Tag": "cEverything"
+    "Link": "https://www.voidtools.com/Everything-1.4.1.1026.x64-Setup.exe",
+    "Link64": "https://www.voidtools.com/Everything-1.4.1.1026.x64-Setup.exe"
   },
   {
     "Title": "NV Access",
     "Group": "Other",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/nvaccess.png",
     "Link": "https://www.nvaccess.org/files/nvda/releases/2026.1.1/nvda_2026.1.1.exe",
-    "Link64": "https://www.nvaccess.org/files/nvda/releases/2026.1.1/nvda_2026.1.1.exe",
-    "Tag": ""
+    "Link64": "https://www.nvaccess.org/files/nvda/releases/2026.1.1/nvda_2026.1.1.exe"
   },
   {
     "Title": "Dropbox",
     "Group": "Online Storage",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/dropbox.png",
     "Link": "https://www.dropbox.com/download?plat=win",
-    "Link64": "https://www.dropbox.com/download?plat=win",
-    "Tag": ""
+    "Link64": "https://www.dropbox.com/download?plat=win"
   },
   {
     "Title": "Google Drive for Desktop",
     "Group": "Online Storage",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/googledrive.png",
     "Link": "https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe",
-    "Link64": "https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe",
-    "Tag": ""
+    "Link64": "https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe"
   },
   {
     "Title": "OneDrive",
     "Group": "Online Storage",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/onedrive.png",
-    "Link": "https://oneclient.sfx.ms/Win/Prod/21.002.0104.0005/OneDriveSetup.exe",
-    "Link64": "https://oneclient.sfx.ms/Win/Prod/21.002.0104.0005/OneDriveSetup.exe",
-    "Tag": "cOneDrive"
+    "Link": "https://go.microsoft.com/fwlink/p/?LinkID=2182910",
+    "Link64": "https://go.microsoft.com/fwlink/p/?LinkID=2182910"
   },
   {
     "Title": "SugarSync",
     "Group": "Online Storage",
     "Image": "",
     "Link": "",
-    "Link64": "",
-    "Tag": ""
+    "Link64": ""
   },
   {
     "Title": "VC Redist x64 2015+",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://aka.ms/vs/17/release/vc_redist.x64.exe",
-    "Link64": "https://aka.ms/vs/17/release/vc_redist.x64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/vs/17/release/vc_redist.x64.exe"
   },
   {
     "Title": "VC Redist x86 2015+",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://aka.ms/vs/17/release/vc_redist.x86.exe",
-    "Link64": "https://aka.ms/vs/17/release/vc_redist.x86.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/vs/17/release/vc_redist.x86.exe"
   },
   {
     "Title": "VC Redist arm64 2015+",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://aka.ms/vs/17/release/vc_redist.arm64.exe",
-    "Link64": "https://aka.ms/vs/17/release/vc_redist.arm64.exe",
-    "Tag": ""
+    "Link64": "https://aka.ms/vs/17/release/vc_redist.arm64.exe"
   },
   {
     "Title": "VC Redist x64 2013",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe",
-    "Link64": "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe",
-    "Tag": ""
+    "Link64": "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe"
   },
   {
     "Title": "VC Redist x86 2013",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe",
-    "Link64": "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe",
-    "Tag": ""
+    "Link64": "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe"
   },
   {
     "Title": "VC Redist x64 2012",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe",
-    "Link64": "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe",
-    "Tag": ""
+    "Link64": "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe"
   },
   {
     "Title": "VC Redist x86 2012",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe",
-    "Link64": "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe",
-    "Tag": ""
+    "Link64": "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe"
   },
   {
     "Title": "VC Redist x64 2010",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://download.microsoft.com/download/3/2/2/3224B87F-CFA0-4E70-BDA3-3DE650EFEBA5/vcredist_x64.exe",
-    "Link64": "https://download.microsoft.com/download/3/2/2/3224B87F-CFA0-4E70-BDA3-3DE650EFEBA5/vcredist_x64.exe",
-    "Tag": ""
+    "Link64": "https://download.microsoft.com/download/3/2/2/3224B87F-CFA0-4E70-BDA3-3DE650EFEBA5/vcredist_x64.exe"
   },
   {
     "Title": "VC Redist x86 2010",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe",
-    "Link64": "https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe",
-    "Tag": ""
+    "Link64": "https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe"
   },
   {
     "Title": "VC Redist x64 2008",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe",
-    "Link64": "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe",
-    "Tag": ""
+    "Link64": "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe"
   },
   {
     "Title": "VC Redist x86 2008",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe",
-    "Link64": "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe",
-    "Tag": ""
+    "Link64": "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe"
   },
   {
     "Title": "VC Redist x64 2005",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x64.EXE",
-    "Link64": "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x64.EXE",
-    "Tag": ""
+    "Link64": "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x64.EXE"
   },
   {
     "Title": "VC Redist x86 2005",
     "Group": "VC++ Redistributables",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/visualcpp.png",
     "Link": "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.EXE",
-    "Link64": "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.EXE",
-    "Tag": ""
+    "Link64": "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.EXE"
   },
   {
     "Title": "Python x64 3",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/python.png",
     "Link": "https://www.python.org/ftp/python/3.14.7/python-3.14.7-amd64.exe",
-    "Link64": "https://www.python.org/ftp/python/3.14.7/python-3.14.7-amd64.exe",
-    "Tag": ""
+    "Link64": "https://www.python.org/ftp/python/3.14.7/python-3.14.7-amd64.exe"
   },
   {
     "Title": "Python arm64 3",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/python.png",
     "Link": "https://www.python.org/ftp/python/3.14.7/python-3.14.7-arm64.exe",
-    "Link64": "https://www.python.org/ftp/python/3.14.7/python-3.14.7-arm64.exe",
-    "Tag": ""
+    "Link64": "https://www.python.org/ftp/python/3.14.7/python-3.14.7-arm64.exe"
   },
   {
     "Title": "Python 3",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/python.png",
     "Link": "https://www.python.org/ftp/python/3.14.7/python-3.14.7.exe",
-    "Link64": "https://www.python.org/ftp/python/3.14.7/python-3.14.7.exe",
-    "Tag": "cPython3"
+    "Link64": "https://www.python.org/ftp/python/3.14.7/python-3.14.7.exe"
   },
   {
     "Title": "Git",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/git.png",
     "Link": "https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.5/Git-2.55.0.5-64-bit.exe",
-    "Link64": "https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.5/Git-2.55.0.5-64-bit.exe",
-    "Tag": ""
+    "Link64": "https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.5/Git-2.55.0.5-64-bit.exe"
   },
   {
     "Title": "FileZilla",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/filezilla.png",
     "Link": "",
-    "Link64": "",
-    "Tag": "cFileZilla"
+    "Link64": ""
   },
   {
     "Title": "Notepad++",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/notepadpp.png",
-    "Link": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.4/npp.8.4.Installer.exe",
-    "Link64": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.4/npp.8.4.Installer.x64.exe",
-    "Tag": "cNPP"
+    "Link": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.9.8/npp.8.9.8.Installer.x64.exe",
+    "Link64": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.9.8/npp.8.9.8.Installer.x64.exe"
   },
   {
     "Title": "WinSCP",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/winscp.png",
     "Link": "https://downloads.sourceforge.net/project/winscp/WinSCP/6.5.6/WinSCP-6.5.6-Setup.exe",
-    "Link64": "https://downloads.sourceforge.net/project/winscp/WinSCP/6.5.6/WinSCP-6.5.6-Setup.exe",
-    "Tag": "cWinScp"
+    "Link64": "https://downloads.sourceforge.net/project/winscp/WinSCP/6.5.6/WinSCP-6.5.6-Setup.exe"
   },
   {
     "Title": "PuTTY",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/putty.png",
     "Link": "https://the.earth.li/~sgtatham/putty/latest/w32/putty-0.85-installer.msi",
-    "Link64": "https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.85-installer.msi",
-    "Tag": "cPutty"
+    "Link64": "https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.85-installer.msi"
   },
   {
     "Title": "WinMerge",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/winmerge.png",
     "Link": "https://github.com/WinMerge/winmerge/releases/download/v2.16.58/WinMerge-2.16.58-Setup.exe",
-    "Link64": "https://github.com/WinMerge/winmerge/releases/download/v2.16.58/WinMerge-2.16.58-x64-Setup.exe",
-    "Tag": ""
+    "Link64": "https://github.com/WinMerge/winmerge/releases/download/v2.16.58/WinMerge-2.16.58-x64-Setup.exe"
   },
   {
     "Title": "Eclipse",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/eclipse.png",
     "Link": "",
-    "Link64": "https://ftp.snt.utwente.nl/pub/software/eclipse/oomph/epp/2021-09/R/eclipse-inst-jre-win64.exe",
-    "Tag": "cEclipse"
+    "Link64": ""
   },
   {
     "Title": "Visual Studio Code",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/vscode.png",
     "Link": "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user",
-    "Link64": "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user",
-    "Tag": "cVSCode"
+    "Link64": "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user"
   },
   {
     "Title": "Cursor",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/cursor.png",
     "Link": "https://downloads.cursor.com/production/2fdd31c9f33f7fbe501f2d57772dc5bf64b63621/win32/x64/user-setup/CursorUserSetup-x64-3.17.8.exe",
-    "Link64": "https://downloads.cursor.com/production/2fdd31c9f33f7fbe501f2d57772dc5bf64b63621/win32/x64/user-setup/CursorUserSetup-x64-3.17.8.exe",
-    "Tag": ""
+    "Link64": "https://downloads.cursor.com/production/2fdd31c9f33f7fbe501f2d57772dc5bf64b63621/win32/x64/user-setup/CursorUserSetup-x64-3.17.8.exe"
   },
   {
     "Title": "GitHub Desktop",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/github.png",
     "Link": "https://central.github.com/deployments/desktop/desktop/latest/win32",
-    "Link64": "https://central.github.com/deployments/desktop/desktop/latest/win32",
-    "Tag": "cGitHub"
+    "Link64": "https://central.github.com/deployments/desktop/desktop/latest/win32"
   },
   {
     "Title": "Node.js",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/nodejs.png",
-    "Link": "https://nodejs.org/dist/v16.13.0/node-v16.13.0-x86.msi",
-    "Link64": "https://nodejs.org/dist/v16.13.0/node-v16.13.0-x64.msi",
-    "Tag": "cNode"
+    "Link": "https://nodejs.org/dist/latest/node-v26.7.0-x64.msi",
+    "Link64": "https://nodejs.org/dist/latest/node-v26.7.0-x64.msi"
   },
   {
     "Title": "Sublime Text",
     "Group": "Developer Tools",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/sublimetext.png",
-    "Link": "https://download.sublimetext.com/Sublime%20Text%20Build%203211%20Setup.exe",
-    "Link64": "https://download.sublimetext.com/Sublime%20Text%20Build%203211%20x64%20Setup.exe",
-    "Tag": "cSublimeText"
+    "Link": "",
+    "Link64": ""
   },
   {
     "Title": "AnyDesk",
     "Group": "Utilities",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/anydesk.png",
     "Link": "https://download.anydesk.com/AnyDesk.exe",
-    "Link64": "https://download.anydesk.com/AnyDesk.exe",
-    "Tag": "cAnyDesk"
+    "Link64": "https://download.anydesk.com/AnyDesk.exe"
   },
   {
     "Title": "TeamViewer 15",
     "Group": "Utilities",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/teamviewer.png",
-    "Link": "https://download.teamviewer.com/download/TeamViewer_Setup.exe",
-    "Link64": "https://download.teamviewer.com/download/TeamViewer_Setup.exe",
-    "Tag": "cTV"
+    "Link": "https://download.teamviewer.com/download/TeamViewer_Setup_x64.exe",
+    "Link64": "https://download.teamviewer.com/download/TeamViewer_Setup_x64.exe"
   },
   {
     "Title": "ImgBurn",
     "Group": "Utilities",
     "Image": "",
     "Link": "https://download.imgburn.com/SetupImgBurn_2.5.8.0.exe",
-    "Link64": "https://download.imgburn.com/SetupImgBurn_2.5.8.0.exe",
-    "Tag": ""
+    "Link64": "https://download.imgburn.com/SetupImgBurn_2.5.8.0.exe"
   },
   {
     "Title": "RealVNC Server",
     "Group": "Utilities",
     "Image": "",
     "Link": "https://downloads.realvnc.com/download/file/vnc.files/VNC-Server-7.18.0-Windows.exe",
-    "Link64": "https://downloads.realvnc.com/download/file/vnc.files/VNC-Server-7.18.0-Windows.exe",
-    "Tag": ""
+    "Link64": "https://downloads.realvnc.com/download/file/vnc.files/VNC-Server-7.18.0-Windows.exe"
   },
   {
     "Title": "RealVNC Viewer",
     "Group": "Utilities",
     "Image": "",
     "Link": "",
-    "Link64": "",
-    "Tag": ""
+    "Link64": ""
   },
   {
     "Title": "TightVNC",
     "Group": "Utilities",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/tightvnc.png",
     "Link": "https://www.tightvnc.com/download/2.8.85/tightvnc-2.8.85-gpl-setup-32bit.msi",
-    "Link64": "https://www.tightvnc.com/download/2.8.85/tightvnc-2.8.85-gpl-setup-64bit.msi",
-    "Tag": ""
+    "Link64": "https://www.tightvnc.com/download/2.8.85/tightvnc-2.8.85-gpl-setup-64bit.msi"
   },
   {
     "Title": "TeraCopy",
     "Group": "Utilities",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/teracopy.png",
     "Link": "https://codesector.com/files/teracopy.exe",
-    "Link64": "https://codesector.com/files/teracopy.exe",
-    "Tag": ""
+    "Link64": "https://codesector.com/files/teracopy.exe"
   },
   {
     "Title": "CDBurnerXP",
     "Group": "Utilities",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/cdburnerxp.png",
     "Link": "",
-    "Link64": "",
-    "Tag": ""
+    "Link64": ""
   },
   {
     "Title": "Revo Uninstaller",
     "Group": "Utilities",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/revo.png",
     "Link": "https://download.revouninstaller.com/download/revosetup.exe",
-    "Link64": "https://download.revouninstaller.com/download/revosetup.exe",
-    "Tag": "cRevo"
+    "Link64": "https://download.revouninstaller.com/download/revosetup.exe"
   },
   {
     "Title": "Launchy",
     "Group": "Utilities",
     "Image": "",
     "Link": "https://www.launchy.net/downloads/win/Launchy2.5.exe",
-    "Link64": "https://www.launchy.net/downloads/win/Launchy2.5.exe",
-    "Tag": ""
+    "Link64": "https://www.launchy.net/downloads/win/Launchy2.5.exe"
   },
   {
     "Title": "WinDirStat",
     "Group": "Utilities",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/windirstat.png",
     "Link": "https://github.com/windirstat/windirstat/releases/download/release/v2.8.0/WinDirStat-x86.msi",
-    "Link64": "https://github.com/windirstat/windirstat/releases/download/release/v2.8.0/WinDirStat-x64.msi",
-    "Tag": ""
+    "Link64": "https://github.com/windirstat/windirstat/releases/download/release/v2.8.0/WinDirStat-x64.msi"
   },
   {
     "Title": "WizTree",
     "Group": "Utilities",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/wiztree.png",
     "Link": "https://diskanalyzer.com/files/wiztree_4_32_setup.exe",
-    "Link64": "https://diskanalyzer.com/files/wiztree_4_32_setup.exe",
-    "Tag": ""
+    "Link64": "https://diskanalyzer.com/files/wiztree_4_32_setup.exe"
   },
   {
     "Title": "Glary",
     "Group": "Utilities",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/glary.png",
     "Link": "https://download.glarysoft.com/gu5setup.exe",
-    "Link64": "https://download.glarysoft.com/gu5setup.exe",
-    "Tag": ""
+    "Link64": "https://download.glarysoft.com/gu5setup.exe"
   },
   {
     "Title": "InfraRecorder",
     "Group": "Utilities",
     "Image": "",
     "Link": "https://downloads.sourceforge.net/project/infrarecorder/InfraRecorder/0.53/ir053.exe",
-    "Link64": "https://downloads.sourceforge.net/project/infrarecorder/InfraRecorder/0.53/ir053.exe",
-    "Tag": ""
+    "Link64": "https://downloads.sourceforge.net/project/infrarecorder/InfraRecorder/0.53/ir053.exe"
   },
   {
     "Title": "Open-Shell",
     "Group": "Utilities",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/openshell.png",
-    "Link": "https://github.com/Open-Shell/Open-Shell-Menu/releases/download/v4.4.160/OpenShellSetup_4_4_160.exe",
-    "Link64": "https://github.com/Open-Shell/Open-Shell-Menu/releases/download/v4.4.160/OpenShellSetup_4_4_160.exe",
-    "Tag": "cOpenShell"
+    "Link": "https://github.com/Open-Shell/Open-Shell-Menu/releases/download/v4.4.198/OpenShellSetup_4_4_198.exe",
+    "Link64": "https://github.com/Open-Shell/Open-Shell-Menu/releases/download/v4.4.198/OpenShellSetup_4_4_198.exe"
   },
   {
     "Title": "CCleaner",
     "Group": "Utilities",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/ccleaner.png",
     "Link": "https://download.ccleaner.com/ccsetup.exe",
-    "Link64": "https://download.ccleaner.com/ccsetup.exe",
-    "Tag": ""
+    "Link64": "https://download.ccleaner.com/ccsetup.exe"
   },
   {
     "Title": "Rufus",
     "Group": "Utilities",
     "Image": "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/rufus.png",
-    "Link": "https://github.com/pbatard/rufus/releases/download/v3.18/rufus-3.18.exe",
-    "Link64": "https://github.com/pbatard/rufus/releases/download/v3.18/rufus-3.18.exe",
-    "Tag": "cRufus"
+    "Link": "https://github.com/pbatard/rufus/releases/download/v4.15/rufus-4.15.exe",
+    "Link64": "https://github.com/pbatard/rufus/releases/download/v4.15/rufus-4.15.exe"
   }
 ]

@@ -4,6 +4,26 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [3.1]
+
+### Fixes
+- **A quarter of the app catalogue was still served links by the archived
+  project this was forked from.** 38 of the 147 entries had no link of their own
+  and silently fell back to that feed, which was frozen in January 2026 with
+  links pinned to 2021 builds — Opera 81, Blender 2.93, OBS 27, Rufus 3.18,
+  32-bit Node 16. Two had rotted: Epic's installer 404s, and VLC's `.exe` URL
+  answers 200 with an HTML page, which the app would have saved under the `.exe`
+  name in the URL and then run. All 38 are now resolved here, and every emitted
+  link is verified to serve a real Windows installer.
+
+### Housekeeping
+- The feed generator no longer contacts the upstream repository at all, and the
+  `Tag` field it existed to copy — which nothing ever read — is gone.
+- The single-instance guard is named after this app rather than the one it was
+  forked from. Two versions may briefly run at once across this one upgrade.
+- Attribution is unchanged and stays where it belongs, in
+  `THIRD-PARTY-NOTICES.md` and the README.
+
 ## [3.0]
 
 ### Fixes

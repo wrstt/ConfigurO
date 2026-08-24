@@ -5,30 +5,34 @@ Generate feed/feed.json -- the ConfigurO app-downloader catalogue.
 CATALOG below is the catalogue: 15 categories, ~130 entries. This script emits
 it and fills in download links from three sources:
 
-  1. the upstream Optimizer feed, matched on title (real, maintained links);
-  2. documented vendor endpoints for the runtime families that `appDefs`
+  1. documented vendor endpoints for the runtime families that `appDefs`
      enumerates by version (.NET via aka.ms, VC++ 2015+ via aka.ms,
      Adoptium via its v3 installer API, Corretto via corretto.aws/latest);
-  3. RESOLVERS -- publishers that expose a machine-readable index (the GitHub
+  2. RESOLVERS -- publishers that expose a machine-readable index (the GitHub
      releases API, python.org's ftp listing, KDE's stable tree, Cursor's
-     download API, AIMP's download page). These are re-resolved on every run,
-     so regenerating the feed picks up new versions;
-  4. VENDOR -- publishers with a stable, versionless download endpoint, or a
+     download API, AIMP's download page, and the plain directory listings VLC,
+     Node, GIMP, Blender and Opera publish). These are re-resolved on every
+     run, so regenerating the feed picks up new versions;
+  3. VENDOR -- publishers with a stable, versionless download endpoint, or a
      pinned installer where that is the only thing they publish;
-  5. nothing -- entries with no trustworthy link are emitted with empty
+  4. nothing -- entries with no trustworthy link are emitted with empty
      Link/Link64 and the UI marks them unavailable rather than guessing.
+
+Nothing is inherited from the feed this project was forked from. That feed was
+archived in January 2026 and its links had been pinned to 2021 builds ever
+since; 38 of these entries were still taking their only link from it, two of
+which had rotted to a 404 and an HTML page. Every link is now resolved here.
 
 Every emitted link is expected to end in .exe or .msi: the app names the
 downloaded file from the URL it was given and then runs it, so a .zip would be
 saved as an .exe and executed. `--check` probes every link and reports.
 
-Usage: tools/build_feed.py [upstream-feed.json] [--check]
+Usage: tools/build_feed.py [--check]
 """
 import json, os, re, sys, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ICON_BASE = "https://raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/"
-UPSTREAM = "https://raw.githubusercontent.com/hellzerg/optimizer/master/feed.json"
 
 NET_V = ['x64 8', 'arm64 8', '8', 'x64 9', 'arm64 9', '9', 'x64 10', 'arm64 10', '10']
 JAVA_V = ['x64 8', '8', 'x64 11', 'x64 17', 'x64 21', 'x64 25']
@@ -74,36 +78,34 @@ def norm(t):
     return re.sub(r'[^a-z0-9]', '', t.lower())
 
 
-# The upstream feed uses full product names where appDefs uses short ones.
-ALIASES = {
-    'Chrome': 'Google Chrome',
-    'Firefox': 'Mozilla Firefox',
-    'Edge': 'Microsoft Edge',
-    'Teams': 'Microsoft Teams',
-    'Thunderbird': 'Mozilla Thunderbird',
-    'Zoom': 'Google Zoom',
-    'iTunes': 'Apple iTunes',
-    'VLC': 'VLC Media Player',
-    'foobar2000': 'Foobar2000',
-    'K-Lite Codecs': 'K-Lite Codec Pack',
-    'Epic Games Launcher': 'Epic Games',
-    'Visual Studio Code': 'VS Code',
-    'GitHub Desktop': 'GitHub',
-    'TeamViewer 15': 'TeamViewer',
-    'Python 3': 'Python 3',
-    'Node.js': 'NodeJS',
-    'Open-Shell': 'OpenShell',
-    'qBittorrent': 'qBitTorrent',
-    '7-Zip': '7-zip',
-    'PuTTY': 'Putty',
-}
-
 
 # ---------------------------------------------------------------------------
 # Publishers with a stable endpoint. Verified with --check on 2026-08-22.
 # (32-bit, 64-bit); a lone value means the publisher ships one build for both.
 # ---------------------------------------------------------------------------
 VENDOR = {
+    # ── Stable publisher endpoints that replaced links inherited from the
+    # upstream feed. Each was fetched and confirmed to serve a PE or MSI.
+    'Chrome':             'https://dl.google.com/chrome/install/latest/chrome_installer.exe',
+    'Firefox':            'https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=en-US',
+    'Thunderbird':        'https://download.mozilla.org/?product=thunderbird-latest-ssl&os=win64&lang=en-US',
+    'Brave':              'https://laptop-updates.brave.com/latest/winx64',
+    'Zoom':               'https://zoom.us/client/latest/ZoomInstallerFull.exe?archType=x64',
+    'Discord':            'https://discord.com/api/download?platform=win',
+    'Telegram':           'https://telegram.org/dl/desktop/win64',
+    'Spotify':            'https://download.scdn.co/SpotifySetup.exe',
+    'Steam':              'https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe',
+    'AnyDesk':            'https://download.anydesk.com/AnyDesk.exe',
+    'TeamViewer 15':      'https://download.teamviewer.com/download/TeamViewer_Setup_x64.exe',
+    'Revo Uninstaller':   'https://download.revouninstaller.com/download/revosetup.exe',
+    'Malwarebytes':       'https://data-cdn.mbamupdates.com/web/mb4-setup-consumer/MBSetup.exe',
+    'OneDrive':           'https://go.microsoft.com/fwlink/p/?LinkID=2182910',
+    'Epic Games Launcher':'https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi',
+    'Everything':         'https://www.voidtools.com/Everything-1.4.1.1026.x64-Setup.exe',
+    'iTunes':             'https://www.apple.com/itunes/download/win64',
+    'Foxit Reader':       'https://www.foxit.com/downloads/latest.html?product=Foxit-Reader&platform=Windows',
+    'WinRAR':             'https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-711.exe',
+    'Evernote':           'https://win.desktop.evernote.com/builds/Evernote-latest.exe',
     # Messaging
     'Pidgin':                   'https://downloads.sourceforge.net/project/pidgin/Pidgin/2.14.14/pidgin-2.14.14-offline.exe',
     # Media
@@ -154,6 +156,11 @@ VENDOR = {
 # Publishers with no link we would trust. Listed so `--check` can tell a
 # deliberate blank from a regression, and so the reason survives in the repo.
 NO_LINK = {
+    'Vivaldi':       'the stable listing answers a direct request with 403',
+    'Sublime Text':  'the download endpoint is a template with the build number substituted in',
+    'Eclipse':       'the installer is published only through a mirror-redirect page',
+    'K-Lite Codecs': 'codecguide.com serves its download page from script, with no file URL in the markup',
+    'Winamp':        'no installer is published at a fixed URL since the 5.9 relaunch',
     'Trillian':      'downloads are gated behind a JS form; no stable file URL',
     'MusicBee':      'distributed through mega.nz and the Microsoft Store only',
     'GOM':           'only the Korean installer is published at a fixed URL',
@@ -333,7 +340,82 @@ def _libreoffice_latest():
 
 
 # title -> callable returning (link32, link64), or a dict of several titles.
+def _dir_latest(index_url, file_rx, file_base=None):
+    """Newest file matching `file_rx` in a directory listing. `file_base`
+    defaults to `index_url`, and is separate for listings whose hrefs are
+    absolute paths rather than bare names."""
+    page = _get(index_url)
+    names = sorted(set(re.findall(file_rx, page)))
+    if not names:
+        return ('', '')
+    url = (file_base or index_url) + names[-1].rsplit('/', 1)[-1]
+    return (url, url)
+
+
+def _versioned_dir_latest(root, dir_rx, file_rx):
+    """Two-hop listing: pick the highest-numbered directory under `root`, then
+    the newest matching file inside it. Opera and Blender both publish this
+    way, with one directory per release and no 'latest' alias."""
+    def key(v):
+        parts = [int(n) for n in re.findall(r'\d+', v)]
+        return parts or [0]
+
+    dirs = sorted(set(re.findall(dir_rx, _get(root))), key=key)
+    for d in reversed(dirs[-5:]):          # newest first, a few back if empty
+        files = sorted(set(re.findall(file_rx, _get(root + d + '/'))))
+        if files:
+            url = root + d + '/' + files[-1]
+            return (url, url)
+    return ('', '')
+
+
+def _opera_latest():
+    def key(v):
+        return [int(n) for n in re.findall(r'\d+', v)] or [0]
+    root = 'https://get.geo.opera.com/pub/opera/desktop/'
+    dirs = sorted({v for v in re.findall(r'href="([\d.]+)/"', _get(root)) if key(v) != [0]}, key=key)
+    for d in reversed(dirs[-5:]):
+        files = re.findall(r'href="(Opera_[^"]*_Setup\.exe)"', _get(root + d + '/win/'))
+        if files:
+            url = root + d + '/win/' + files[0]
+            return (url, url)
+    return ('', '')
+
+
 RESOLVERS = {
+    # Entries below the divider replaced links inherited from the upstream feed.
+    'Audacity':   lambda: _github_latest('audacity/audacity',
+                                         r'audacity-win-[\d.]+-64bit\.exe$',
+                                         r'audacity-win-[\d.]+-64bit\.exe$'),
+    'OBS Studio': lambda: _github_latest('obsproject/obs-studio',
+                                         r'OBS-Studio-[\d.]+-Windows-x64-Installer\.exe$',
+                                         r'OBS-Studio-[\d.]+-Windows-x64-Installer\.exe$'),
+    'ShareX':     lambda: _github_latest('ShareX/ShareX',
+                                         r'ShareX-[\d.]+-setup-x64\.exe$',
+                                         r'ShareX-[\d.]+-setup-x64\.exe$'),
+    'PeaZip':     lambda: _github_latest('peazip/PeaZip',
+                                         r'peazip-[\d.]+\.WIN64\.exe$',
+                                         r'peazip-[\d.]+\.WIN64\.exe$'),
+    'Notepad++':  lambda: _github_latest('notepad-plus-plus/notepad-plus-plus',
+                                         r'npp\.[\d.]+\.Installer\.x64\.exe$',
+                                         r'npp\.[\d.]+\.Installer\.x64\.exe$'),
+    'Open-Shell': lambda: _github_latest('Open-Shell/Open-Shell-Menu',
+                                         r'OpenShellSetup_[\d_]+\.exe$',
+                                         r'OpenShellSetup_[\d_]+\.exe$'),
+    'Rufus':      lambda: _github_latest('pbatard/rufus',
+                                         r'rufus-[\d.]+\.exe$',
+                                         r'rufus-[\d.]+\.exe$'),
+    'VLC':        lambda: _dir_latest('https://get.videolan.org/vlc/last/win64/',
+                                      r'href="(vlc-[\d.]+-win64\.exe)"'),
+    'Node.js':    lambda: _dir_latest('https://nodejs.org/dist/latest/',
+                                      r'href="([^"]*node-v[\d.]+-x64\.msi)"',
+                                      'https://nodejs.org/dist/latest/'),
+    'GIMP':       lambda: _dir_latest('https://download.gimp.org/gimp/v3.0/windows/',
+                                      r'href="(gimp-[\d.]+-setup\.exe)"'),
+    'Blender':    lambda: _versioned_dir_latest('https://download.blender.org/release/',
+                                                r'href="(Blender[\d.]+)/"',
+                                                r'href="(blender-[\d.]+-windows-x64\.msi)"'),
+    'Opera':      _opera_latest,
     'HandBrake':  lambda: _github_latest('HandBrake/HandBrake',
                                          r'HandBrake-[\d.]+-x86_64-Win_GUI\.exe$',
                                          r'HandBrake-[\d.]+-x86_64-Win_GUI\.exe$'),
@@ -485,33 +567,19 @@ def check(entries):
 
 
 def main():
-    args = [a for a in sys.argv[1:] if a != '--check']
     do_check = '--check' in sys.argv[1:]
-    src = args[0] if args else None
-    if src:
-        upstream = json.load(open(src))
-    else:
-        with urllib.request.urlopen(UPSTREAM, timeout=60) as r:
-            upstream = json.loads(r.read().decode('utf-8'))
-    by_title = {norm(a['Title']): a for a in upstream}
 
     cache = {}
     out, linked, unlinked = [], 0, []
     for group, items in CATALOG.items():
         for title, icon in items:
-            up = by_title.get(norm(ALIASES.get(title, title)))
             link = link64 = ''
-            # Tag is metadata the upstream feed maintains well; the links it
-            # carries are years stale, so anything we resolve ourselves wins.
-            tag = up.get('Tag', '') if up else ''
             if title not in NO_LINK:
                 a, b = vendor_links(title)
                 if not a:
                     a, b = resolve(title, cache)
                 if a:
                     link, link64 = a, b
-                elif up:
-                    link, link64 = up.get('Link', ''), up.get('Link64', '')
             if link or link64:
                 linked += 1
             else:
@@ -522,7 +590,6 @@ def main():
                 'Image': ICON_BASE + icon + '.png' if icon else '',
                 'Link': link,
                 'Link64': link64 or link,
-                'Tag': tag,
             })
 
     # python.org is one listing for three entries; resolve it once.

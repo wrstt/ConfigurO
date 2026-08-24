@@ -64,24 +64,34 @@ Icons live in `feed/icons/` as PNGs with a transparent background, up to
 `raw.githubusercontent.com/wrstt/ConfigurO/main/feed/icons/`. `feed/icons.zip`
 is the offline cache the app falls back to; regenerate it after adding one.
 
-## The upstream feed
+## The upstream feed, and why there isn't one any more
 
-`build_feed.py` still reads the Optimizer feed, but **only** for its `Tag`
-values. Its download links are years out of date — a check in August 2026 found
-17 of them dead, including one that served a macOS `.pkg` — so nothing it says
-about links is trusted any more.
+`build_feed.py` no longer reads anything from the project this was forked from.
+Until 3.1 it did, and the note that used to sit here said dropping it "would
+change no output" because `Tag` was the only field taken from it. That was
+wrong, and wrong in the direction that matters.
 
-That feed is now **frozen**. `hellzerg/optimizer` was archived on 2026-01-20
-and is read-only. It still serves — 106 entries, fetched and checked in August
-2026 — so `build_feed.py` keeps working and nothing needs changing today. But it
-will never gain an entry again, which means `RESOLVERS`/`VENDOR` are no longer a
-stopgap covering for a lagging upstream. They are the only thing keeping the
-catalogue current, and nothing else will ever fix a link that rots.
+`Tag` was indeed the only field read *deliberately*. But the link-resolution
+loop ended in `elif up:` — a silent last resort that took the upstream `Link`
+whenever our own resolvers and vendor endpoints came up empty. **38 of the 147
+entries were reaching that branch**, so more than a quarter of the catalogue was
+still being served links from a repository archived on 2026-01-20 and pinned to
+2021 builds: Opera 81, Blender 2.93, OBS 27, Rufus 3.18, Node 16 (32-bit),
+Sublime Text build 3211. Two had rotted outright — Epic's installer 404s, and
+VLC's `.exe` URL answers 200 with an HTML page, which the app would have saved
+as `vlc-3.0.16-win32.exe` and executed.
 
-Worth knowing before spending any effort on it: `Tag` is the sole field taken
-from upstream, and **nothing reads it**. It is deserialised into `AppInfo.Tag`
-and never consumed — it was Optimizer's silent-install switch, and this app
-downloads and runs installers interactively instead. An entry that matches
-nothing upstream simply gets `''`. So the upstream fetch is already inert, and
-dropping `UPSTREAM` altogether would change no output; it is kept only so the
-provenance of the catalogue stays visible.
+All 38 were replaced with endpoints resolved here: 20 stable publisher URLs in
+`VENDOR`, 12 in `RESOLVERS` (seven GitHub releases, plus directory listings for
+VLC, Node, GIMP, Blender and Opera), and five moved to `NO_LINK` with a reason.
+`--check` now reports 141 links probed, 0 bad.
+
+The catalogue therefore has no upstream. `RESOLVERS` and `VENDOR` are not a
+stopgap covering for a lagging source — they are the only thing keeping it
+current, and nothing else will ever fix a link that rots. Run `--check` after
+regenerating, always: the app names the downloaded file from its URL and then
+runs it, so a wrong file is executed rather than rejected.
+
+Provenance stays recorded in [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md),
+which is where it belongs. That is an attribution obligation under GPL-3.0 and
+is not affected by any of this.

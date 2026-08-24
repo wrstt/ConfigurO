@@ -6,7 +6,7 @@ right now* and what to do next.
 ## Where things stand
 
 - Repo **https://github.com/wrstt/ConfigurO**, private, default branch `main`.
-- Latest release **2.9**. `main` and the tag agree.
+- Latest release **3.0**. `main` and the tag agree.
 - Every release ships two assets: `ConfigurO-<v>.exe` (portable) and
   `ConfigurO-Setup-<v>.exe` (installs the .NET Framework first if absent).
 - `build/check.sh` reports 0 errors **and 0 warnings**, and now fails on either,
@@ -55,10 +55,19 @@ assemblies produces something real .NET Framework 4.8 will load. Recipe in
    Windows version is a registry value, so the UWP screen can be opened here;
    and `mcs` can build a Wine-runnable exe locally, so the loop is seconds, not
    a CI round trip. Both are written up in `docs/DEVELOPING.md`.
-2. **Nepali draws as boxes under Wine.** Wine-only: it answers
-   `new Font("Noto Sans Devanagari")` with Tahoma, so the name check correctly
-   rejects it. Nirmala UI is present on Windows 8+. Worth confirming on a
-   Windows machine without Indic language support.
+2. ~~Nepali draws as boxes under Wine.~~ **Fixed in 3.0, and it was not
+   Wine-only.** Installing Noto Sans Devanagari into the prefix and running it
+   showed the real fault: the family is listed in `InstalledFontCollection`,
+   and `new Font("Noto Sans Devanagari").Name` still returns `"Tahoma"` — as
+   does `new Font("Arial")`. The chain was rejecting fonts that were installed,
+   because the only signal it had was a name that GDI+ rewrites. It looks the
+   family up in the installed collection now, and all nine script languages
+   render. That also exposed the tracked section labels destroying Devanagari
+   conjuncts and Arabic joining, fixed alongside.
+
+   The name-comparison check was not wrong on Windows, but it was the *only*
+   check, and it cannot distinguish a hit from a substitution that happens to
+   be named what you asked for.
 3. ~~The setup bootstrapper's download-verify-install path has never run.~~
    **Run for the first time in 2.9**, in a second Wine prefix built with no .NET
    Framework and no Wine-Mono (`WINEDLLOVERRIDES="mscoree,mshtml=d"`, then
@@ -77,10 +86,20 @@ assemblies produces something real .NET Framework 4.8 will load. Recipe in
    one-year maximum from Feb 2026. EV needs a registered entity; SSL.com does a
    sole-proprietor EV with notary verification. Azure Trusted Signing ≈ $10/mo
    but builds reputation rather than granting it. Deferred deliberately.
-5. `docs/screenshots/` still shows the legacy interface. Now straightforward:
-   `sweep.sh`-style capture under Wine gets all ten screens in both themes. The
-   one caveat is that Wine has no DWM, so the captures have no rounded corners,
-   no shadow and no Mica — the window content is right, the frame is not.
+5. ~~`docs/screenshots/` still shows the legacy interface.~~ **Regenerated in
+   3.0** — all ten screens, the light mode and the first-run picker, captured
+   under Wine off the 3.0 build. Caveat worth keeping in mind if they are
+   redone: Wine has no DWM, so there are no rounded corners, no shadow and no
+   Mica. The window content is right; the frame is not. The Apps screen needs
+   `feed/feed.json` and `feed/icons.zip` copied into
+   `drive_c/ProgramData/ConfigurO/Feed/` first, or it screenshots as an error —
+   the feed is fetched anonymously and the repository is private.
+
+6. **The interface does not mirror for right-to-left languages.** Arabic,
+   Persian, Urdu and Kurdish render correctly now but are still laid out
+   left-to-right, so the sidebar stays on the left and every row reads from the
+   wrong edge. Nothing is broken; it is simply not implemented. It is a real
+   piece of work — every `Relayout` and every `NocturneDraw.Left` — not a flag.
 
 ## Traps, and the ones that cost the most
 
@@ -98,6 +117,17 @@ assemblies produces something real .NET Framework 4.8 will load. Recipe in
   `ControlStyles.Opaque`, so `OnPaintBackground` never runs, and WinForms'
   double buffer is shared between controls. This shipped, visible in the
   header, for the whole 2.x line. Rule 5 in `docs/DEVELOPING.md`.
+- **`new Font(name)` is not a question about what is installed.** GDI+ answers
+  with a substitute and reports the substitute's name, so comparing names is
+  the only tell — and it cannot see a substitution that is named what you
+  asked for. Ask `InstalledFontCollection` / `FontFamily.Families` instead, and
+  build the `Font` from the `FontFamily`. Under this Wine every single name
+  resolves to Tahoma, `"Arial"` included, so the name check can never be
+  exercised here in either direction; font *presence* still can be.
+- **Letter spacing means drawing each character yourself, which means no
+  shaping.** Devanagari conjuncts and Arabic joining both need GDI+ to see the
+  whole run. Anything that positions glyphs individually has to stop doing it
+  for those scripts.
 - **A control painted behind another control is not painted at all.** The input
   hint was drawn on the `NTextBox` frame, underneath the real `TextBox` child
   that sits exactly where the text goes. Eight fields, four screens, never once

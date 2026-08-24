@@ -315,8 +315,8 @@ cannot express a patch release (see above).
   publisher ships only a `.zip`, gates downloads behind a form,
   hotlink-protects the file, or has shut down. A 16px favicon blown up to a
   tile reads as broken rather than as absent, which is why those stay blank.
-- `docs/screenshots/` still shows the legacy interface. Regenerate once the app
-  runs.
+- `docs/screenshots/` is current as of 3.0. Regenerating means capturing under
+  Wine, which has no DWM: no rounded corners, no shadow, no Mica.
 - The `## [1.0]` changelog section describes work that `ConfigurO-1.0.exe` does
   not contain, because it was written after that tag was cut. `## [1.1]` says
   which parts shipped for the first time in 1.1.

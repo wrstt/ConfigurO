@@ -4,6 +4,27 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [3.0]
+
+### Fixes
+- **The nine languages that need a non-Latin face now get one.** The fallback
+  chain asked for each candidate font by name and compared the name that came
+  back, because GDI+ substitutes silently. That could not tell a real font from
+  a substitute, and it rejected fonts that were installed. It now asks the
+  installed font collection directly. Nepali was the reported case; Arabic,
+  Persian, Urdu, Kurdish, Chinese, Taiwanese, Japanese and Korean all went
+  through the same path.
+- **Section labels no longer break the scripts that need shaping.** They are
+  drawn with letter spacing, which meant placing each character separately, which
+  meant Devanagari conjuncts never formed and the Arabic-derived scripts lost
+  their joining. Those languages are now drawn as whole runs. In every other
+  language the spacing is unchanged, except that a character made of more than
+  one code unit is no longer split in half.
+
+### Documentation
+- `docs/screenshots/` shows the current interface instead of the one from before
+  the redesign.
+
 ## [2.9]
 
 ### Fixes

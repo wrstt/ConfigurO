@@ -19,6 +19,15 @@ heading for the running version to decide what to show, so keep the
   `GetDpiForMonitor` on 8.1 and `GetDeviceCaps` before that. Win32 always knew;
   nothing was asking it. Verified against the bare executable with no config
   file present: 96/1.00 before, 144/1.50 after.
+- **Maximising cut eleven pixels of interface off every edge.** Restoring
+  `WS_THICKFRAME` in 3.2 brought back Aero Snap, and with it the way Windows
+  maximises a window with a resize border: to the monitor plus the border, on
+  the understanding that the overhang is non-client and never seen. This window
+  has no non-client area, so the overhang was interface. Measured on a
+  2560x1528 work area, the client came out 2582x1550. `WM_GETMINMAXINFO` could
+  not correct it -- `ptMaxSize` is ignored on that path once the window has a
+  thick frame -- so the client rectangle is now pinned to the work area in
+  `WM_NCCALCSIZE`, where it is actually decided. Only 3.2 was affected.
 - **80 of the 139 app icons were drawn as logos in a black box.** They had been
   flattened onto an opaque black background with no alpha channel, which is
   invisible against a black page and a hard black square against the app's

@@ -76,6 +76,12 @@ namespace ConfigurO
         static extern bool GetMonitorInfo(IntPtr hMonitor, ref MONITORINFO lpmi);
 
         [DllImport("user32.dll")]
+        static extern bool IsZoomed(IntPtr hWnd);
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct NCCALCSIZE_PARAMS { public RECT rgrc0, rgrc1, rgrc2; public IntPtr lppos; }
+
+        [DllImport("user32.dll")]
         static extern bool ReleaseCapture();
 
         [DllImport("user32.dll")]
@@ -308,7 +314,12 @@ namespace ConfigurO
             {
                 case WM_NCCALCSIZE:
                     // Client area == window area: no system caption, no frame.
-                    if (m.WParam != IntPtr.Zero) { m.Result = IntPtr.Zero; return; }
+                    if (m.WParam != IntPtr.Zero)
+                    {
+                        PinMaximisedClient(ref m);
+                        m.Result = IntPtr.Zero;
+                        return;
+                    }
                     break;
 
                 case WM_NCHITTEST:
@@ -403,6 +414,45 @@ namespace ConfigurO
         /// because Windows sizes it to the whole monitor rather than the work
         /// area once the frame is gone.
         /// </summary>
+        /// <summary>
+        /// Holds the client area to the work area while maximised.
+        ///
+        /// A window with WS_THICKFRAME is maximised by Windows to the monitor
+        /// *plus* the resize border -- eleven pixels a side at 150% -- on the
+        /// understanding that the overhang is non-client and therefore never
+        /// seen. This window has no non-client area, because WM_NCCALCSIZE
+        /// above hands the whole thing to the client, so that overhang was
+        /// eleven pixels of actual interface pushed off every edge of the
+        /// screen. Measured: client 2582x1550 against a 2560x1528 work area.
+        ///
+        /// WM_GETMINMAXINFO cannot fix it. ptMaxSize is ignored on the
+        /// maximise path once the window has a thick frame -- clamping there
+        /// changed nothing at all, with or without the frame styles. The size
+        /// has to be corrected here, where the client rectangle is decided.
+        ///
+        /// The window rectangle stays oversized and that is fine: the extra
+        /// ring is non-client, nothing paints it, and DWM composites it away.
+        ///
+        /// IsZoomed rather than WindowState, because WinForms still reports
+        /// Normal while the maximise that triggered this message is in flight.
+        /// </summary>
+        void PinMaximisedClient(ref Message m)
+        {
+            if (!IsZoomed(Handle)) return;
+
+            IntPtr monitor = MonitorFromWindow(Handle, MONITOR_DEFAULTTONEAREST);
+            if (monitor == IntPtr.Zero) return;
+
+            MONITORINFO mi = new MONITORINFO();
+            mi.cbSize = Marshal.SizeOf(typeof(MONITORINFO));
+            if (!GetMonitorInfo(monitor, ref mi)) return;
+
+            NCCALCSIZE_PARAMS p =
+                (NCCALCSIZE_PARAMS)Marshal.PtrToStructure(m.LParam, typeof(NCCALCSIZE_PARAMS));
+            p.rgrc0 = mi.rcWork;
+            Marshal.StructureToPtr(p, m.LParam, false);
+        }
+
         void ClampToWorkArea(ref Message m)
         {
             MINMAXINFO info = (MINMAXINFO)Marshal.PtrToStructure(m.LParam, typeof(MINMAXINFO));

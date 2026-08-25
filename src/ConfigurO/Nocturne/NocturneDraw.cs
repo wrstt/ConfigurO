@@ -291,12 +291,15 @@ namespace ConfigurO
         /// <summary>A 2px accent focus ring, offset 2px outside the control.</summary>
         internal static void FocusRing(Graphics g, Rectangle r, int radius)
         {
-            Rectangle ring = Rectangle.Inflate(r, NocturneScale.S(2), NocturneScale.S(2));
-            using (GraphicsPath p = NocturneTheme.RoundedRect(
-                       new Rectangle(ring.X, ring.Y, ring.Width - 1, ring.Height - 1),
-                       radius + NocturneScale.S(2)))
-            using (Pen pen = new Pen(NocturneTheme.Accent, NocturneScale.S(2)))
-                g.DrawPath(pen, p);
+            // Through DrawRounded so the ring gets the same half-pen inset as
+            // every other outline. It matters here only at scales where S(2)
+            // comes out odd -- an even pen width centred on an integer
+            // coordinate already lands on whole pixels -- but a focus ring
+            // that sharpens and softens as the display scale changes is worse
+            // than one that is simply always right.
+            int w = NocturneScale.S(2);
+            NocturneTheme.DrawRounded(g, Rectangle.Inflate(r, w, w),
+                                      radius + w, NocturneTheme.Accent, w);
         }
     }
 }

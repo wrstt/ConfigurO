@@ -28,7 +28,7 @@ namespace ConfigurO
     /// </summary>
     internal sealed class NButton : NControl, IButtonControl
     {
-        bool _hover, _pressed;
+        bool _pressed;
         string _icon;
         NButtonStyle _style = NButtonStyle.Secondary;
         bool _active;
@@ -113,8 +113,15 @@ namespace ConfigurO
             get { return IconSize > 0 ? NocturneScale.S(IconSize) : NocturneScale.S(15); }
         }
 
-        protected override void OnMouseEnter(EventArgs e) { _hover = true; Invalidate(); base.OnMouseEnter(e); }
-        protected override void OnMouseLeave(EventArgs e) { _hover = _pressed = false; Invalidate(); base.OnMouseLeave(e); }
+        // Enter is handled entirely by NControl, which eases HoverAmount.
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            // NControl unwinds the easing; this clears the logical flag the
+            // keyboard path guards on.
+            _pressed = false;
+            base.OnMouseLeave(e);
+        }
+
         protected override void OnMouseDown(MouseEventArgs e)
         {
             // Clicking is not navigating: a ring here answers a question nobody
@@ -126,7 +133,7 @@ namespace ConfigurO
             }
             _pressed = true; Focus(); Invalidate(); base.OnMouseDown(e);
         }
-        protected override void OnMouseUp(MouseEventArgs e) { _pressed = false; Invalidate(); base.OnMouseUp(e); }
+        protected override void OnMouseUp(MouseEventArgs e) { _pressed = false; base.OnMouseUp(e); }
         protected override void OnGotFocus(EventArgs e) { Invalidate(); base.OnGotFocus(e); }
         protected override void OnLostFocus(EventArgs e) { Invalidate(); base.OnLostFocus(e); }
 
@@ -140,7 +147,7 @@ namespace ConfigurO
             if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter)
             {
                 _pressed = true;
-                Invalidate();
+                SetPressed(true);
                 e.Handled = true;
             }
             base.OnKeyDown(e);
@@ -151,7 +158,7 @@ namespace ConfigurO
             if (_pressed && (e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter))
             {
                 _pressed = false;
-                Invalidate();
+                SetPressed(false);
                 PerformClick();
                 e.Handled = true;
             }
@@ -191,9 +198,31 @@ namespace ConfigurO
             else                  { border = NocturneTheme.Divider; text = NocturneTheme.Text; }
 
             if (!Enabled) { border = NocturneTheme.Border; text = NocturneTheme.TextDim; }
-            else if (_pressed) fill = _style == NButtonStyle.Secondary ? NocturneTheme.Border : NocturneTheme.PressedAccent;
-            else if (_hover)   fill = _style == NButtonStyle.Secondary || _style == NButtonStyle.Icon
-                                      ? NocturneTheme.HoverFill : NocturneTheme.HoverAccent;
+            else
+            {
+                // Hover and press used to be two discrete fills swapped in by
+                // an if/else. They are now one colour faded up from nothing,
+                // so the button arrives and leaves instead of blinking.
+                //
+                // Alpha-blended rather than mixed against a ground colour
+                // because these controls are transparent-backed: the parent
+                // has already painted whatever sits behind, and at amount 0
+                // there must be nothing here at all.
+                Color hoverFill = _style == NButtonStyle.Secondary || _style == NButtonStyle.Icon
+                                ? NocturneTheme.HoverFill : NocturneTheme.HoverAccent;
+                Color pressFill = _style == NButtonStyle.Secondary
+                                ? NocturneTheme.Border : NocturneTheme.PressedAccent;
+
+                float h = HoverAmount, p = PressAmount;
+                float amount = Math.Max(h, p);
+                if (amount > 0.004f)
+                {
+                    // Press wins as it comes in, so a click deepens the hover
+                    // tint rather than replacing it and jumping.
+                    Color blended = p > 0f ? NocturneTheme.Mix(pressFill, hoverFill, p) : hoverFill;
+                    fill = NocturneTheme.Alpha(blended, amount);
+                }
+            }
 
             NocturneDraw.Card(g, r, fill, border, radius);
             if (Focused && Enabled && NocturneDraw.ShowFocusRings)

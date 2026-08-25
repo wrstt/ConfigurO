@@ -21,7 +21,7 @@ namespace ConfigurO
             Tile
         }
 
-        bool _hover, _selected;
+        bool _selected;
 
         internal NSelectCard()
         {
@@ -61,8 +61,7 @@ namespace ConfigurO
             if (h != null) h(this, EventArgs.Empty);
         }
 
-        protected override void OnMouseEnter(EventArgs e) { _hover = true; Invalidate(); base.OnMouseEnter(e); }
-        protected override void OnMouseLeave(EventArgs e) { _hover = false; Invalidate(); base.OnMouseLeave(e); }
+        // Hover easing is NControl's; nothing to override.
         protected override void OnClick(EventArgs e) { Focus(); Selected = !Selected; base.OnClick(e); }
 
         protected override bool IsInputKey(Keys keyData)
@@ -90,7 +89,12 @@ namespace ConfigurO
             NocturneDraw.Prepare(g);
 
             Rectangle r = new Rectangle(0, 0, Width, Height);
-            Color border = _selected || _hover ? NocturneTheme.Accent700 : NocturneTheme.Border;
+            // Selection is a state and lands at once; hover is a response and
+            // fades. Mixing rather than swapping is what stops the card edge
+            // flicking between two colours as the pointer crosses a grid.
+            Color border = _selected
+                         ? NocturneTheme.Accent700
+                         : NocturneTheme.Mix(NocturneTheme.Accent700, NocturneTheme.Border, HoverAmount);
             Color fill = _selected ? NocturneTheme.SelectedFill : Color.Empty;
 
             NocturneDraw.Card(g, r, fill, border, NocturneTheme.RadiusMd);
@@ -202,7 +206,7 @@ namespace ConfigurO
                 }
                 else
                 {
-                    using (Pen pen = new Pen(NocturneTheme.Neutral600)) g.DrawPath(pen, p);
+                    NocturneTheme.DrawRounded(g, r, radius, NocturneTheme.Neutral600);
                 }
             }
 

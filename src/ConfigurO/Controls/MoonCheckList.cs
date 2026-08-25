@@ -45,7 +45,7 @@ namespace ConfigurO
                 }
                 else
                 {
-                    using (Pen pen = new Pen(NocturneTheme.Neutral600)) g.DrawPath(pen, p);
+                    NocturneTheme.DrawRounded(g, box, NocturneScale.S(4), NocturneTheme.Neutral600);
                 }
             }
 

@@ -29,6 +29,11 @@ namespace ConfigurO
     {
         // ── Win32 ───────────────────────────────────────────────────────
         const int WM_NCCALCSIZE = 0x0083;
+
+        // Window styles, re-applied in CreateParams.
+        const int WS_CAPTION = 0x00C00000, WS_SYSMENU = 0x00080000;
+        const int WS_THICKFRAME = 0x00040000;
+        const int WS_MINIMIZEBOX = 0x00020000, WS_MAXIMIZEBOX = 0x00010000;
         const int WM_NCHITTEST = 0x0084;
         const int WM_GETMINMAXINFO = 0x0024;
         const int WM_DPICHANGED = 0x02E0;
@@ -95,6 +100,41 @@ namespace ConfigurO
 
             NocturneTheme.Changed += OnThemeChanged;
             NocturneWheelRouter.Install();
+        }
+
+        /// <summary>
+        /// Puts back the frame style bits FormBorderStyle.None strips.
+        ///
+        /// The window still draws its own chrome -- WM_NCCALCSIZE below keeps
+        /// the client area covering the whole window, so none of these are
+        /// ever painted by Windows. What they do is tell the shell what kind
+        /// of window this is, and without them it is treated as a fixed panel:
+        ///
+        ///   WS_THICKFRAME   Aero Snap and the Windows 11 Snap Layouts flyout,
+        ///                   both of which ignore a window that is not sizable.
+        ///   WS_MINIMIZEBOX  the minimise and restore animations, and the
+        ///                   taskbar click-to-minimise behaviour.
+        ///   WS_MAXIMIZEBOX  Win+Up, and double-click-to-maximise.
+        ///   WS_SYSMENU      the Alt+Space window menu and the taskbar
+        ///                   right-click menu.
+        ///
+        /// The rounded corners, drop shadow and DWM border are NOT among them:
+        /// Windows 11 gives those to any top-level window, with or without a
+        /// frame. Those come from DwmChrome.
+        ///
+        /// Maximising stays correct because WM_GETMINMAXINFO is answered with
+        /// the monitor work area -- see ClampToWorkArea. Without that, a window
+        /// with a thick frame maximises to the monitor plus the frame width and
+        /// hides the taskbar.
+        /// </summary>
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.Style |= WS_CAPTION | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU;
+                return cp;
+            }
         }
 
         /// <summary>
@@ -400,8 +440,8 @@ namespace ConfigurO
             // Windows 11 rounds and outlines the window for us; older versions
             // get a hairline so the app still reads as a distinct surface.
             if (WindowsRelease.SupportsRoundedCorners || WindowState == FormWindowState.Maximized) return;
-            using (Pen p = new Pen(NocturneTheme.Neutral500))
-                e.Graphics.DrawRectangle(p, 0, 0, Width - 1, Height - 1);
+            NocturneTheme.DrawRounded(e.Graphics, new Rectangle(0, 0, Width, Height),
+                                      0, NocturneTheme.Neutral500);
         }
 
         /// <summary>Shows a transient confirmation. Overridden by the main shell.</summary>

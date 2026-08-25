@@ -19,7 +19,6 @@ namespace ConfigurO
         readonly TextBox _inner = new TextBox();
         string _placeholder = string.Empty;
         string _icon;
-        bool _hover;
 
         internal NTextBox()
         {
@@ -130,8 +129,7 @@ namespace ConfigurO
                              Math.Max(0, Width - pad * 2 - iconSpace), h);
         }
 
-        protected override void OnMouseEnter(EventArgs e) { _hover = true; Invalidate(); base.OnMouseEnter(e); }
-        protected override void OnMouseLeave(EventArgs e) { _hover = false; Invalidate(); base.OnMouseLeave(e); }
+        // Hover easing is NPanel's; nothing to override.
         protected override void OnMouseDown(MouseEventArgs e) { _inner.Focus(); base.OnMouseDown(e); }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -149,9 +147,11 @@ namespace ConfigurO
 
             bool focused = _inner.Focused;
             Rectangle r = new Rectangle(0, 0, Width, Height);
-            Color border = focused ? NocturneTheme.Accent
-                         : _hover ? NocturneTheme.BorderStrong
-                         : NocturneTheme.Divider;
+            // Focus is binary and immediate. Hover walks the edge from the
+            // resting divider up to BorderStrong and back.
+            Color border = focused
+                         ? NocturneTheme.Accent
+                         : NocturneTheme.Mix(NocturneTheme.BorderStrong, NocturneTheme.Divider, HoverAmount);
 
             NocturneDraw.Card(g, r, NocturneTheme.Surface, border, NocturneTheme.RadiusMd);
             if (focused) NocturneDraw.FocusRing(g, new Rectangle(0, 0, Width - 1, Height - 1), NocturneTheme.RadiusMd);

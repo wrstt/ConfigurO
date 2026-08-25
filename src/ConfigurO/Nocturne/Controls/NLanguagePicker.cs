@@ -201,8 +201,7 @@ namespace ConfigurO
                 g.DrawImage(entry.Flag, flag);
                 // Japan, and any other flag with a white field, has no edge of
                 // its own against a light surface.
-                using (Pen edge = new Pen(NocturneTheme.Border))
-                    g.DrawRectangle(edge, flag.X, flag.Y, flag.Width - 1, flag.Height - 1);
+                NocturneTheme.DrawRounded(g, flag, 0, NocturneTheme.Border);
 
                 int tx = fx + flagW + pad;
                 // Each name is written in its own script, so the face has to be

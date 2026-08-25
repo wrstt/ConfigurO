@@ -63,8 +63,7 @@ namespace ConfigurO
                 Color edge = Focused ? NocturneTheme.Accent
                            : _hover ? NocturneTheme.BorderStrong
                            : NocturneTheme.Divider;
-                using (GraphicsPath p = NocturneTheme.RoundedRect(r, NocturneTheme.RadiusMd))
-                using (Pen pen = new Pen(edge)) g.DrawPath(pen, p);
+                NocturneTheme.DrawRounded(g, r, NocturneTheme.RadiusMd, edge);
 
                 NocturneIcons.Draw(g, NocturneIcons.Caret,
                     Width - NocturneScale.S(24), (Height - NocturneScale.S(16)) / 2,

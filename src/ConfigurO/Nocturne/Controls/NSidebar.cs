@@ -143,8 +143,11 @@ namespace ConfigurO
             using (SolidBrush b = new SolidBrush(NocturneTheme.Bg))
                 g.FillRectangle(b, ClientRectangle);
 
-            using (Pen p = new Pen(NocturneTheme.Border))
-                g.DrawLine(p, Width - 1, 0, Width - 1, Height);
+            // Filled, not stroked: under PixelOffsetMode.HighQuality a 1px pen on
+            // an integer coordinate straddles two columns at partial strength,
+            // while a 1px fill lands on exactly one. See NocturneTheme.DrawRounded.
+            using (SolidBrush b = new SolidBrush(NocturneTheme.Border))
+                g.FillRectangle(b, Width - 1, 0, 1, Height);
 
             List<NNavItem> v = VisibleItems();
             int y = TopPad;

@@ -60,7 +60,11 @@ namespace ConfigurO
                 if (panel == null || !panel.CanScroll) return false;
 
                 int delta = unchecked((short)((long)m.WParam >> 16));
-                panel.ScrollBy(-(int)(delta / 120f * NocturneScale.S(54)));
+                // The step size lives in NScrollPanel; this only reports how
+                // far the wheel turned. It used to compute the pixel distance
+                // too, which meant two copies of the same constant and a
+                // routed wheel that could scroll differently from a focused one.
+                panel.ScrollByNotches(-delta / 120f);
                 return true;   // handled; do not let it reach the focused control
             }
             catch (Exception ex)

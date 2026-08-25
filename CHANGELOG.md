@@ -4,6 +4,32 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [3.3]
+
+### Fixes
+- **The whole interface has been rendering at 1.0 scale since 1.0.** The
+  Per-Monitor-V2 switches Windows Forms needs live in `App.config`, and the
+  release ships a single executable with no `ConfigurO.exe.config` beside it.
+  Run that way -- which is how everyone runs it -- `Control.DeviceDpi` answers
+  96 on every machine, so the layout was computed at 100% and drawn two-thirds
+  size on a 150% display. Not blurry: the manifest still makes the process
+  Per-Monitor-V2 aware, so the window was measured at exactly the size it asked
+  for. Just small and dense, which reads as an older build rather than as a
+  fault. Scale now comes from `GetDpiForWindow`, falling back to
+  `GetDpiForMonitor` on 8.1 and `GetDeviceCaps` before that. Win32 always knew;
+  nothing was asking it. Verified against the bare executable with no config
+  file present: 96/1.00 before, 144/1.50 after.
+- **80 of the 139 app icons were drawn as logos in a black box.** They had been
+  flattened onto an opaque black background with no alpha channel, which is
+  invisible against a black page and a hard black square against the app's
+  `#232532` cards. Alpha is restored by flooding inward from the border, so
+  only black actually connected to the outside is removed and a dark detail
+  inside a mark survives -- Opera keeps its counter, 7-Zip keeps its grey
+  field, Vivaldi keeps its red tile. The one-pixel fringe where each logo was
+  antialiased against the black is un-premultiplied so the edges stay smooth
+  instead of leaving a halo. No black-matted icon remains; the five still
+  without an alpha channel are square by design.
+
 ## [3.2]
 
 ### Fixes

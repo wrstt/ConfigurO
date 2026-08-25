@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace ConfigurO
@@ -37,6 +38,79 @@ namespace ConfigurO
         {
             if (dpi <= 0) dpi = 96;
             Factor = dpi / Base;
+        }
+
+        // ── Asking the system, not the framework ────────────────────────
+        const int LOGPIXELSX = 88;
+        const int MDT_EFFECTIVE_DPI = 0;
+        const int MONITOR_DEFAULTTONEAREST = 2;
+
+        [DllImport("user32.dll")] static extern uint GetDpiForWindow(IntPtr hwnd);
+        [DllImport("user32.dll")] static extern IntPtr MonitorFromWindow(IntPtr hwnd, int flags);
+        [DllImport("user32.dll")] static extern IntPtr GetDC(IntPtr hwnd);
+        [DllImport("user32.dll")] static extern int ReleaseDC(IntPtr hwnd, IntPtr hdc);
+        [DllImport("gdi32.dll")] static extern int GetDeviceCaps(IntPtr hdc, int index);
+        [DllImport("shcore.dll")] static extern int GetDpiForMonitor(IntPtr monitor, int type, out uint x, out uint y);
+
+        /// <summary>
+        /// The DPI of the display <paramref name="hwnd"/> is on, straight from
+        /// Win32.
+        ///
+        /// Deliberately not Control.DeviceDpi. WinForms on .NET Framework only
+        /// reports a real DPI when the DpiAwareness switches in App.config are
+        /// present, and those live in ConfigurO.exe.config -- a file the
+        /// release does not ship, because the app is distributed as one
+        /// executable. Run that way, DeviceDpi answers 96 on every machine,
+        /// the whole interface lays out at 1.0, and on a 150% display it comes
+        /// out two-thirds of the size it was drawn at. It is crisp, because
+        /// the manifest still makes the process Per-Monitor-V2 aware at the
+        /// Win32 level -- it is simply small, which reads as an older, denser
+        /// build of the app rather than as a bug.
+        ///
+        /// Win32 has always known the right answer; nothing was asking it.
+        /// Every version since 1.0 shipped this way.
+        ///
+        /// Falls back the way the API history goes: GetDpiForWindow is
+        /// Windows 10 1607, GetDpiForMonitor is 8.1, and GetDeviceCaps is the
+        /// system-wide value that works everywhere else.
+        /// </summary>
+        internal static int DpiOf(IntPtr hwnd)
+        {
+            if (hwnd != IntPtr.Zero)
+            {
+                try
+                {
+                    uint d = GetDpiForWindow(hwnd);
+                    if (d > 0) return (int)d;
+                }
+                catch (EntryPointNotFoundException) { }   // pre-1607
+                catch (DllNotFoundException) { }
+
+                try
+                {
+                    IntPtr monitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+                    uint x, y;
+                    if (monitor != IntPtr.Zero &&
+                        GetDpiForMonitor(monitor, MDT_EFFECTIVE_DPI, out x, out y) == 0 && x > 0)
+                        return (int)x;
+                }
+                catch (EntryPointNotFoundException) { }   // pre-8.1
+                catch (DllNotFoundException) { }
+            }
+
+            try
+            {
+                IntPtr dc = GetDC(IntPtr.Zero);
+                if (dc != IntPtr.Zero)
+                {
+                    int d = GetDeviceCaps(dc, LOGPIXELSX);
+                    ReleaseDC(IntPtr.Zero, dc);
+                    if (d > 0) return d;
+                }
+            }
+            catch (DllNotFoundException) { }
+
+            return 96;
         }
 
         /// <summary>Scales a design-token pixel value to the current display.</summary>

@@ -195,8 +195,9 @@ namespace ConfigurO
             // was computed at 96 DPI. Now that the target display is known,
             // rescale before the first paint.
             int previous = (int)Math.Round(NocturneScale.Factor * 96f);
-            NocturneScale.SetDpi(DeviceDpi);
-            if (DeviceDpi != previous)
+            int dpi = NocturneScale.DpiOf(Handle);
+            NocturneScale.SetDpi(dpi);
+            if (dpi != previous)
             {
                 MinimumSize = NocturneScale.S(NocturneTheme.WindowMinimumSize);
                 if (WindowState == FormWindowState.Normal)

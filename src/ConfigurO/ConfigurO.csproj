@@ -384,8 +384,6 @@
     <None Include="Resources\Flags\iran.png" />
     <None Include="Resources\Flags\japan.png" />
     <None Include="Resources\Flags\ukraine.png" />
-    <None Include="Resources\Assets\logo.png" />
-    <None Include="Resources\Assets\banner.png" />
     <None Include="Resources\Flags\dutch.png" />
     <None Include="Resources\Flags\romania.png" />
     <None Include="Resources\Flags\hungary.png" />

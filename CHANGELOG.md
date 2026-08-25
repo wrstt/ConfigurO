@@ -4,6 +4,25 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [3.4]
+
+### Interface
+- **The splash screen was the forked project's artwork.** It was a PictureBox
+  stretching a raster banner -- a white checkmark and light streaks, their mark
+  and their identity, on a form that then tinted it with an accent it was never
+  drawn for. It is now painted from `NocturneBrand`, which is this app's own
+  glyph and already vector, so it is sharp at any scale and follows the theme.
+  The two orbits of the lockup turn while the app loads: there is no progress
+  to report during startup, so it says "working" and nothing more.
+
+### Housekeeping
+- **Removed every remaining image inherited from the forked project.** The
+  splash banner, a marketing banner showing that application's own window and
+  wordmark, its purple "DOWNLOAD" button and its flag strip. The last three
+  were referenced by nothing at all. Also dropped a 128x128 two-colour
+  placeholder that had sat unused in the resources since the redesign. The app
+  now ships no artwork it did not draw itself.
+
 ## [3.3]
 
 ### Fixes

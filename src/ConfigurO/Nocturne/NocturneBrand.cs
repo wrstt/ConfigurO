@@ -55,6 +55,18 @@ namespace ConfigurO
         /// </summary>
         internal static void DrawFull(Graphics g, Rectangle bounds)
         {
+            DrawFull(g, bounds, 0f);
+        }
+
+        /// <summary>
+        /// The lockup with the orbits turned by <paramref name="orbitSpin"/>
+        /// degrees. The glyph itself stays put -- it is the mark, and a mark
+        /// that spins is a logo doing a trick. Only the orbits move, and they
+        /// counter-rotate at different rates so the pair reads as motion
+        /// rather than as one rigid thing being rotated.
+        /// </summary>
+        internal static void DrawFull(Graphics g, Rectangle bounds, float orbitSpin)
+        {
             int size = Math.Min(bounds.Width, bounds.Height);
             if (size <= 0) return;
 
@@ -67,7 +79,7 @@ namespace ConfigurO
             g.ScaleTransform(scale, scale);
             g.TranslateTransform(-Cx, -Cy);
 
-            DrawOrbits(g);
+            DrawOrbits(g, orbitSpin);
             DrawGlow(g);
             DrawRing(g);
             DrawTiles(g);
@@ -76,10 +88,10 @@ namespace ConfigurO
             g.SmoothingMode = oldSmooth;
         }
 
-        static void DrawOrbits(Graphics g)
+        static void DrawOrbits(Graphics g, float spin)
         {
-            DrawOrbit(g, -24f, 52f, 18.5f, NocturneTheme.Accent700, 1.4f);
-            DrawOrbit(g, 28f, 44f, 14f, NocturneTheme.Accent800, 1.2f);
+            DrawOrbit(g, -24f + spin, 52f, 18.5f, NocturneTheme.Accent700, 1.4f);
+            DrawOrbit(g, 28f - spin * 0.62f, 44f, 14f, NocturneTheme.Accent800, 1.2f);
         }
 
         static void DrawOrbit(Graphics g, float angle, float rx, float ry, Color c, float width)

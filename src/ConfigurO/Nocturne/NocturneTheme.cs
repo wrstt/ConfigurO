@@ -165,6 +165,27 @@ namespace ConfigurO
             return p;
         }
 
+        /// <summary>
+        /// Sub-pixel flavour of <see cref="RoundedRect(Rectangle,int)"/>, for
+        /// stroked paths that have to sit on a half-pixel centreline.
+        /// </summary>
+        internal static GraphicsPath RoundedRect(RectangleF r, float radius)
+        {
+            GraphicsPath p = new GraphicsPath();
+            if (radius <= 0f || r.Width <= 0f || r.Height <= 0f)
+            {
+                p.AddRectangle(r);
+                return p;
+            }
+            float d = Math.Min(radius * 2f, Math.Min(r.Width, r.Height));
+            p.AddArc(r.X, r.Y, d, d, 180, 90);
+            p.AddArc(r.Right - d, r.Y, d, d, 270, 90);
+            p.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
+            p.AddArc(r.X, r.Bottom - d, d, d, 90, 90);
+            p.CloseFigure();
+            return p;
+        }
+
         internal static void FillRounded(Graphics g, Rectangle r, int radius, Color fill)
         {
             using (GraphicsPath p = RoundedRect(r, radius))
@@ -172,11 +193,37 @@ namespace ConfigurO
                 g.FillPath(b, p);
         }
 
-        /// <summary>Draws a 1px hairline inset by half a pixel so it stays crisp.</summary>
+        /// <summary>
+        /// A hairline whose outer edge lands on <paramref name="r"/>.
+        ///
+        /// The centreline is inset by half the pen width, in floating point,
+        /// and that half pixel is the whole point. NocturneDraw.Prepare sets
+        /// PixelOffsetMode.HighQuality, which puts sample points on pixel
+        /// *corners* -- so a 1px pen run along an integer coordinate straddles
+        /// two pixel rows and GDI+ resolves it by painting both at roughly
+        /// two-thirds strength. Measured on Windows: a #3F424D line on #161826
+        /// came back as two rows of #2B2D3A instead of one row of #3F424D.
+        /// Every card, input, button, tag and table outline in the app is
+        /// drawn through here, so the whole interface read as soft.
+        ///
+        /// The integer -1 inset this replaces is the same idea done in whole
+        /// pixels, which lands the centreline on the boundary rather than in
+        /// the middle of a pixel and so does not avoid the split. It is
+        /// invisible under libgdiplus, where the UI was reviewed.
+        ///
+        /// The corner radius is pulled in by the same half pixel so the
+        /// stroke's outer edge follows the fill beneath it.
+        /// </summary>
         internal static void DrawRounded(Graphics g, Rectangle r, int radius, Color stroke, float width = 1f)
         {
-            Rectangle rr = new Rectangle(r.X, r.Y, Math.Max(0, r.Width - 1), Math.Max(0, r.Height - 1));
-            using (GraphicsPath p = RoundedRect(rr, radius))
+            if (r.Width <= 0 || r.Height <= 0) return;
+
+            float half = width / 2f;
+            RectangleF rr = new RectangleF(
+                r.X + half, r.Y + half,
+                Math.Max(0f, r.Width - width), Math.Max(0f, r.Height - width));
+
+            using (GraphicsPath p = RoundedRect(rr, Math.Max(0f, radius - half)))
             using (Pen pen = new Pen(stroke, width))
                 g.DrawPath(pen, p);
         }

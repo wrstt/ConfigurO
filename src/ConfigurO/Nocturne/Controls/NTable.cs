@@ -373,9 +373,8 @@ namespace ConfigurO
                 using (SolidBrush b = new SolidBrush(
                            NocturneTheme.Mix(NocturneTheme.ToggleOn, NocturneTheme.ToggleOff, k)))
                     g.FillPath(b, p);
-                using (Pen pen = new Pen(
-                           NocturneTheme.Mix(NocturneTheme.Accent, NocturneTheme.ToggleOffEdge, k)))
-                    g.DrawPath(pen, p);
+                NocturneTheme.DrawRounded(g, pill, (pill.Height + 1) / 2,
+                    NocturneTheme.Mix(NocturneTheme.Accent, NocturneTheme.ToggleOffEdge, k));
             }
 
             float travel = pill.Width + 1 - pad * 2 - knob;

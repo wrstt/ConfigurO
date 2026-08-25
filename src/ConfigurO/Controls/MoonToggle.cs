@@ -104,15 +104,12 @@ namespace ConfigurO
             using (GraphicsPath p = NocturneTheme.RoundedRect(pill, h / 2))
             {
                 using (SolidBrush b = new SolidBrush(fill)) g.FillPath(b, p);
-                using (Pen pen = new Pen(edge)) g.DrawPath(pen, p);
+                NocturneTheme.DrawRounded(g, pill, h / 2, edge);
             }
 
             if (Focused)
             {
-                Rectangle ring = Rectangle.Inflate(pill, NocturneScale.S(2), NocturneScale.S(2));
-                using (GraphicsPath p = NocturneTheme.RoundedRect(ring, ring.Height / 2))
-                using (Pen pen = new Pen(NocturneTheme.Accent, NocturneScale.S(2)))
-                    g.DrawPath(pen, p);
+                NocturneDraw.FocusRing(g, pill, pill.Height / 2);
             }
 
             float knobX = left + pad + _position * (w - knob - pad * 2);

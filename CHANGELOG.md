@@ -4,6 +4,56 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [3.2]
+
+### Fixes
+- **Every outlined surface in the app was drawn blurred.** Cards, buttons,
+  inputs, tags, toggles, checkboxes, table rows, the sidebar rule and the
+  window's own edge all reach the screen through one hairline helper, and that
+  helper inset its path by a whole pixel before stroking it. The app paints
+  under `PixelOffsetMode.HighQuality`, which puts sample points on pixel
+  *corners*, so a 1px pen running along an integer coordinate straddles two
+  rows and GDI+ resolves it by painting both at roughly two-thirds strength.
+  Measured on Windows: a `#3F424D` edge on `#161826` came back as two rows of
+  `#2B2D3A` instead of one row of `#3F424D`. The stroke now sits on a
+  half-pixel centreline, with the corner radius pulled in to match so its outer
+  edge still follows the fill beneath it. Verified in the shipping binary at
+  150% scale — the edge is one column, at the exact token colour.
+  This could not be seen where the interface was being reviewed: libgdiplus
+  does not reproduce the split, so on Linux the borders had always looked
+  correct.
+- **Aero Snap, Snap Layouts, the Alt+Space window menu and the minimise
+  animation all did nothing.** The shell is a borderless window, and
+  `FormBorderStyle.None` strips `WS_THICKFRAME`, `WS_MINIMIZEBOX`,
+  `WS_MAXIMIZEBOX` and `WS_SYSMENU` — the style bits Windows reads to decide
+  what kind of window it is looking at. Measured, the window was reporting
+  `0x16010000`: no thick frame, no system menu. They are restored in
+  `CreateParams`; the window still draws all of its own chrome, and maximise
+  stays inside the work area because `WM_GETMINMAXINFO` was already answered
+  correctly. The rounded corners, shadow and DWM border were never affected —
+  Windows 11 gives those to any top-level window.
+
+### Interface
+- **The mouse wheel moved content in 54px jumps.** Scrolling now eases toward a
+  target at roughly 66fps instead of teleporting once per notch, and a fast
+  flick compounds into one long glide rather than each notch restarting from
+  wherever the last one reached. The panel composites its children so moving
+  them does not tear. Dragging the scrollbar thumb stays 1:1 — that is direct
+  manipulation and should not lag behind the pointer.
+- **Hover and press now arrive and leave instead of switching on.** Every
+  interactive surface in the app repainted its hover state instantly; only the
+  toggle knob had ever animated. That curve — 150ms, ease-out — is now a
+  reusable value in `NAnim`, and `NControl` and `NPanel` drive one for hover
+  and one for press, so painters read a float rather than a bool. Buttons,
+  selectable cards and text inputs use it: a button fades its fill up from
+  nothing and deepens rather than jumping when pressed, and a card edge mixes
+  toward the accent rather than flicking between two colours as the pointer
+  crosses a grid. Anyone who has turned animation off in Windows gets none of
+  it — `SPI_GETCLIENTAREAANIMATION` is honoured.
+- The wheel router no longer keeps its own copy of the scroll distance, so a
+  routed wheel and a focused one can no longer disagree about how far a notch
+  goes.
+
 ## [3.1]
 
 ### Fixes

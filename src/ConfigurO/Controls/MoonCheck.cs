@@ -80,7 +80,7 @@ namespace ConfigurO
                 else
                 {
                     Color edge = _hover ? NocturneTheme.Accent : NocturneTheme.Neutral600;
-                    using (Pen pen = new Pen(edge)) g.DrawPath(pen, p);
+                    NocturneTheme.DrawRounded(g, box, radius, edge);
                 }
             }
 
@@ -101,10 +101,7 @@ namespace ConfigurO
 
             if (Focused)
             {
-                Rectangle ring = Rectangle.Inflate(box, NocturneScale.S(2), NocturneScale.S(2));
-                using (GraphicsPath p = NocturneTheme.RoundedRect(ring, radius + NocturneScale.S(2)))
-                using (Pen pen = new Pen(NocturneTheme.Accent, NocturneScale.S(2)))
-                    g.DrawPath(pen, p);
+                NocturneDraw.FocusRing(g, box, radius);
             }
 
             if (!string.IsNullOrEmpty(Text))

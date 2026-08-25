@@ -242,7 +242,7 @@ namespace ConfigurO
                     TitleBar == null ? "absent" : "present",
                     TitleBar == null ? "-" : TitleBar.Bounds.ToString(),
                     TitleBar == null ? 0 : TitleBar.Height,
-                    DeviceDpi,
+                    NocturneScale.DpiOf(Handle),
                     NocturneScale.Factor.ToString("0.00",
                         System.Globalization.CultureInfo.InvariantCulture),
                     NocturneFonts.Bundled));

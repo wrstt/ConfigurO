@@ -30,6 +30,15 @@ namespace ConfigurO
             _banner.ActionClicked += (s, e) => OnBannerAction();
             Controls.Add(_scroll);
             Controls.Add(_banner);
+
+            _busy.Tick += (s, e) =>
+            {
+                _busyPhase = (_busyPhase + 0.008f) % 1f;
+                // Only the shuttle moves, so only the shuttle is repainted.
+                // Invalidating the screen would repaint a header and a body
+                // that have not changed, sixty times a second.
+                Invalidate(BusyBounds());
+            };
         }
 
         /// <summary>Sidebar id this screen is reached by.</summary>
@@ -56,10 +65,56 @@ namespace ConfigurO
         /// <summary>Sets the empty state and repaints the body.</summary>
         protected void SetEmpty(string message, string icon = null)
         {
+            StopBusy();
             if (EmptyMessage == message && EmptyIcon == icon) return;
             EmptyMessage = message;
             EmptyIcon = icon;
             Invalidate();          // the message is painted by the screen itself
+        }
+
+        // ── Working, as distinct from empty ─────────────────────────────
+        readonly Timer _busy = new Timer { Interval = 16 };
+        float _busyPhase;
+        bool _loading;
+
+        /// <summary>
+        /// The same centred message as <see cref="SetEmpty"/>, plus a shuttle
+        /// that keeps moving.
+        ///
+        /// "Reading system information..." over a grey icon, both perfectly
+        /// still, is indistinguishable from a hang -- and the sweeps behind it
+        /// (WMI, the package list, the app feed) are the slowest things the app
+        /// does. There is no percentage to report, so this reports none; it
+        /// only says the app is still working, which is the part the reader
+        /// actually needs.
+        /// </summary>
+        protected void SetLoading(string message, string icon = null)
+        {
+            EmptyMessage = message;
+            EmptyIcon = icon;
+            if (!_loading)
+            {
+                _loading = true;
+                _busy.Start();
+            }
+            Invalidate();
+        }
+
+        void StopBusy()
+        {
+            if (!_loading) return;
+            _loading = false;
+            _busy.Stop();
+        }
+
+        Rectangle BusyBounds()
+        {
+            Rectangle area = _scroll.Bounds;
+            int cy = area.Y + area.Height / 3;
+            int tw = NocturneScale.S(120);
+            return new Rectangle((Width - tw) / 2 - NocturneScale.S(4),
+                                 cy + NocturneScale.S(28),
+                                 tw + NocturneScale.S(8), NocturneScale.S(12));
         }
 
         /// <summary>Add children here. Its Height drives scrolling.</summary>
@@ -216,6 +271,19 @@ namespace ConfigurO
                 NocturneDraw.Text(g, EmptyMessage, f, NocturneTheme.TextFaint,
                     new RectangleF(Pad, cy, Math.Max(0, Width - Pad * 2), NocturneScale.S(22)),
                     NocturneDraw.Center);
+
+            if (!_loading) return;
+
+            // A segment shuttling along a track, eased at both ends so it
+            // slows into the turn rather than bouncing off it.
+            int tw2 = NocturneScale.S(120), th = Math.Max(2, NocturneScale.S(3));
+            int tx = (Width - tw2) / 2, ty = cy + NocturneScale.S(32);
+            NocturneTheme.FillRounded(g, new Rectangle(tx, ty, tw2, th), th / 2, NocturneTheme.Border);
+
+            int segW = NocturneScale.S(44);
+            float eased = (float)((1.0 - Math.Cos(_busyPhase * 2.0 * Math.PI)) / 2.0);
+            int sx = tx + (int)Math.Round((tw2 - segW) * eased);
+            NocturneTheme.FillRounded(g, new Rectangle(sx, ty, segW, th), th / 2, NocturneTheme.Accent);
         }
 
         /// <summary>Repaints the header after Title/Subtitle change.</summary>

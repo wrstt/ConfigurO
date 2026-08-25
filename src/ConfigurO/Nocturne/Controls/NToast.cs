@@ -15,11 +15,36 @@ namespace ConfigurO
     {
         readonly Timer _timer = new Timer { Interval = 2600 };
 
+        /// <summary>How far the card travels as it arrives, in design pixels.</summary>
+        const int Rise = 8;
+
+        readonly NAnim _fade;
+        bool _dismissing;
+
         internal NToast()
         {
             Visible = false;
-            Height = NocturneScale.S(38);
-            _timer.Tick += (s, e) => { _timer.Stop(); Visible = false; };
+            Height = NocturneScale.S(38 + Rise);
+            _fade = new NAnim(OnFadeFrame, 180);
+            _timer.Tick += (s, e) => { _timer.Stop(); Dismiss(); };
+        }
+
+        void OnFadeFrame()
+        {
+            Invalidate();
+            // Hidden only once it has actually finished leaving, or the last
+            // few frames of the fade are thrown away and it blinks out.
+            if (_dismissing && !_fade.Running && _fade.Value <= 0.01f)
+            {
+                _dismissing = false;
+                Visible = false;
+            }
+        }
+
+        void Dismiss()
+        {
+            _dismissing = true;
+            _fade.To(0f);
         }
 
         internal void Show(string message)
@@ -28,9 +53,10 @@ namespace ConfigurO
             Text = message;
             Measure();
             Reposition();
+            _dismissing = false;
             Visible = true;
             BringToFront();
-            Invalidate();
+            _fade.To(1f);
             _timer.Stop();
             _timer.Start();
         }
@@ -42,7 +68,9 @@ namespace ConfigurO
             {
                 int w = (int)Math.Ceiling(NocturneDraw.Width(g, Text, f));
                 Width = w + NocturneScale.S(18) * 2 + NocturneScale.S(17) + NocturneScale.S(9);
-                Height = NocturneScale.S(38);
+                // Taller than the card by the travel distance, so the rise has
+                // somewhere to happen without clipping the bottom edge.
+                Height = NocturneScale.S(38 + Rise);
             }
         }
 
@@ -67,23 +95,38 @@ namespace ConfigurO
             Graphics g = e.Graphics;
             NocturneDraw.Prepare(g);
 
-            Rectangle r = new Rectangle(0, 0, Width, Height);
-            NocturneDraw.Card(g, r, NocturneTheme.SurfaceAlt, NocturneTheme.Accent700, NocturneTheme.RadiusMd);
+            // Everything is drawn at the fade's alpha rather than the control
+            // being hidden outright. A confirmation that appears and vanishes
+            // between two frames reads as a glitch; one that arrives and
+            // leaves reads as the app answering.
+            float a = _fade.Value;
+            if (a <= 0.004f) return;
+
+            int travel = NocturneScale.S(Rise);
+            int cardTop = (int)Math.Round((1f - a) * travel);
+            int cardH = Height - travel;
+            Rectangle r = new Rectangle(0, cardTop, Width, cardH);
+
+            NocturneDraw.Card(g, r,
+                NocturneTheme.Alpha(NocturneTheme.SurfaceAlt, a),
+                NocturneTheme.Alpha(NocturneTheme.Accent700, a),
+                NocturneTheme.RadiusMd);
 
             int pad = NocturneScale.S(18);
             int s = NocturneScale.S(17);
-            NocturneIcons.Draw(g, NocturneIcons.CheckCircle, pad, (Height - s) / 2, s, NocturneTheme.AccentText);
+            NocturneIcons.Draw(g, NocturneIcons.CheckCircle, pad, cardTop + (cardH - s) / 2, s,
+                NocturneTheme.Alpha(NocturneTheme.AccentText, a));
 
             using (Font f = NocturneFonts.Row())
-                NocturneDraw.Text(g, Text, f, NocturneTheme.Text,
-                    new RectangleF(pad + s + NocturneScale.S(9), 0,
-                                   Math.Max(0, Width - pad * 2 - s - NocturneScale.S(9)), Height),
+                NocturneDraw.Text(g, Text, f, NocturneTheme.Alpha(NocturneTheme.Text, a),
+                    new RectangleF(pad + s + NocturneScale.S(9), cardTop,
+                                   Math.Max(0, Width - pad * 2 - s - NocturneScale.S(9)), cardH),
                     NocturneDraw.Left);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing) _timer.Dispose();
+            if (disposing) { _timer.Dispose(); _fade.Dispose(); }
             base.Dispose(disposing);
         }
     }

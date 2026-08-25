@@ -75,7 +75,7 @@ namespace ConfigurO
             if (_busy) return;
             _busy = true;
             SubtitleText = I18n.Get("uwpLoading", "Reading installed packages…");
-            SetEmpty(I18n.Get("uwpLoading", "Reading installed packages…"), NocturneIcons.Uwp);
+            SetLoading(I18n.Get("uwpLoading", "Reading installed packages…"), NocturneIcons.Uwp);
             RefreshHeader();
 
             bool showAll = _showAll.Checked;

@@ -15,7 +15,25 @@ heading for the running version to decide what to show, so keep the
   The two orbits of the lockup turn while the app loads: there is no progress
   to report during startup, so it says "working" and nothing more.
 
+### Interface
+- **Confirmations appeared and vanished between two frames.** The toast had a
+  dismiss timer and no motion at all -- shown, then hidden. It now fades up and
+  rises a little as it arrives, and fades as it goes. It fires on nearly every
+  successful action, so it was the cheapest-feeling moment in the app and one
+  of the most frequent.
+- **"Reading system information..." sat perfectly still.** Hardware, UWP Apps
+  and Apps all showed a static line over a static grey icon while the slowest
+  sweeps in the app ran behind them, which is indistinguishable from a hang.
+  `NScreen` grows a `SetLoading` beside `SetEmpty` that adds a shuttle easing
+  back and forth under the message. There is no percentage to report during a
+  WMI sweep, so it reports none -- only that the app is still working.
+
 ### Housekeeping
+- **Removed the inherited development docs and the Linux build harness.** The
+  handoff document and the developer guide described a Mono/Wine workflow that
+  cannot run on Windows -- the harness pointed at a hardcoded Linux path -- and
+  the guide is rewritten around the MSBuild build that actually ships. The
+  handoff document is gone entirely.
 - **Removed every remaining image inherited from the forked project.** The
   splash banner, a marketing banner showing that application's own window and
   wordmark, its purple "DOWNLOAD" button and its flag strip. The last three

@@ -1,12 +1,36 @@
 # Developing ConfigurO
 
-ConfigurO is a Windows configuration, privacy and cleanup utility.
-C#, WinForms, .NET Framework 4.8. Ships as a single elevated executable.
+ConfigurO is a WinForms application on .NET Framework 4.8, built with MSBuild
+on Windows. The interface is hand-painted against a design system called
+Nocturne; almost nothing on screen is a stock WinForms control.
 
-The interface is **Nocturne**: two modes, one accent, one control language.
-`NocturneTheme` is the sole source of truth for colour, geometry and type — if
-a value is in question, it is what the code says, not what any external mockup
-said.
+## Building
+
+You need MSBuild with the .NET Framework 4.8 targeting pack. Visual Studio 2022
+has it, or Build Tools alone:
+
+```
+winget install --id Microsoft.VisualStudio.2022.BuildTools --override "--quiet --wait --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools --add Microsoft.Net.Component.4.8.SDK --add Microsoft.Net.Component.4.8.TargetingPack --add Microsoft.VisualStudio.Component.NuGet"
+```
+
+Then restore and build:
+
+```
+nuget restore ConfigurO.sln
+msbuild ConfigurO.sln /p:Configuration=Release
+```
+
+The executable lands in `bin/Release/ConfigurO.exe`. It requires administrator
+rights — the manifest asks for them outright rather than failing halfway
+through a registry write.
+
+**Warnings fail the build.** Both configurations set
+`TreatWarningsAsErrors`, and CI builds the same way, so an unused field stops
+the build rather than reaching a tag.
+
+**`ConfigurO.exe.config` is not shipped.** The release is a single executable,
+so anything that only works with a config file beside the binary does not work
+for users. See rule 2.
 
 ## Layout
 
@@ -21,7 +45,6 @@ src/ConfigurO/
   Forms/                  MainForm (the shell) and the remaining dialogs
   Resources/              i18n, scripts, flags, fonts — reached via Resources.resx
 feed/                     app catalogue (feed.json) + icon pack (icons.zip)
-build/                    Linux type-check and headless render harness
 tools/                    generators for the icon table and the app feed
 templates/                silent-configuration templates
 docs/                     guides and screenshots
@@ -33,290 +56,99 @@ assets/logo/              the ConfigurO mark
 1. **No hex literals in the UI.** Every colour comes from `NocturneTheme`.
    Two modes, one accent; `NocturneTheme.Current` drives both, and controls
    repaint from the `NocturneTheme.Changed` event.
-2. **Every size goes through `NocturneScale.S()`.** The app declares
-   Per-Monitor-V2 DPI awareness, so design-token pixels are 96-DPI values that
-   must be scaled at use.
-3. **Add a tweak in exactly one place** — `TweakRegistry.Build()`. The Tweaks
+
+2. **Scale comes from `NocturneScale`, and DPI comes from Win32.** Design
+   tokens are 96-DPI values that must go through `NocturneScale.S()` at use.
+   Never read `Control.DeviceDpi`: WinForms only reports a real DPI when the
+   Per-Monitor-V2 switches in `App.config` are present, and the release ships
+   no config file, so `DeviceDpi` answers 96 on every machine. Ask
+   `NocturneScale.DpiOf(handle)` instead. The whole interface rendered at 1.0
+   on scaled displays for eleven releases because nothing did.
+
+3. **Hairlines are drawn through `NocturneTheme.DrawRounded`.** Surfaces paint
+   under `PixelOffsetMode.HighQuality`, which puts sample points on pixel
+   corners — a 1px pen on an integer coordinate straddles two rows and each
+   gets about two thirds of the colour. `DrawRounded` insets the path by half
+   the pen width so the line lands on one row. Fills are the opposite and want
+   integer coordinates, which is why `FillRounded` does not inset.
+
+4. **Add a tweak in exactly one place** — `TweakRegistry.Build()`. The Tweaks
    screen, silent configurations and policy reinforcement all read that table.
    Windows-version gating is `MinBuild` / `RequiresWindows11` on the entry.
-4. **The helpers are load-bearing.** `OptimizeHelper`, `CleanHelper`,
-   `HostsHelper`, `PingerHelper`, `IndiciumHelper`, `IntegratorHelper`,
-   `UWPHelper`, `StartupHelper` and the i18n system predate the redesign and
-   are widely depended on. Extend alongside them (as `Win11Tweaks` does)
-   rather than restructuring them.
+
 5. **A hand-painted control must paint its own background, or say who does.**
-   `ButtonBase` -- and so `CheckBox`, `RadioButton` and everything derived from
-   them -- sets `ControlStyles.Opaque` in its constructor, which suppresses
-   `OnPaintBackground` altogether. Override `OnPaint` without filling, and the
+   `ButtonBase` — and so `CheckBox`, `RadioButton` and everything derived from
+   them — sets `ControlStyles.Opaque` in its constructor, which suppresses
+   `OnPaintBackground` altogether. Override `OnPaint` without filling and the
    client area keeps whatever WinForms' shared double buffer last held, which
-   is the sibling control that painted just before: the UWP header's checkbox
-   showed "Select all" and the Uninstall outline through its own label for
-   several releases. `SetStyle(ControlStyles.Opaque, false)` restores the
-   transparent pull-through from the parent. `NControl` derives from `Control`,
-   which never sets it, so only the `Moon*` button-family controls are exposed.
-6. **Text is drawn with GDI+, never `TextRenderer`.** The bundled Inter
-   faces live in a `PrivateFontCollection`; use `NocturneFonts` and dispose
-   what it returns. Inter covers Latin, Greek and Cyrillic only, and GDI+ does
-   not font-link a privately-registered face, so `NocturneFonts` swaps to a
-   system UI face for the nine languages in other scripts — never bypass it by
+   is the sibling that painted just before. `SetStyle(ControlStyles.Opaque,
+   false)` restores the pull-through from the parent. The same trap catches a
+   `Label` set to `Color.Transparent` on a `UserPaint` form: the parent never
+   runs `OnPaintBackground`, so give it a real colour.
+
+6. **Text is drawn with GDI+, never `TextRenderer`.** The bundled Inter faces
+   live in a `PrivateFontCollection`; use `NocturneFonts` and dispose what it
+   returns. Inter covers Latin, Greek and Cyrillic only, and GDI+ does not
+   font-link a privately-registered face, so `NocturneFonts` swaps to a system
+   UI face for the nine languages in other scripts — never bypass it by
    constructing a `Font` directly. Measure through `NocturneDraw`, whose
    scratch surface carries the DPI you will draw at; a plain `Bitmap` is 96 DPI
    and understates every width on a scaled display.
+
 7. **Strings go through `I18n.Get(key, englishFallback)`.** It never throws on
    a missing key, which matters because new strings land before translations.
-   All 658 keys currently resolve in all 28 languages; when you add one, add it
-   to `Resources/i18n/EN.json` and to the other 27, or the fallback silently
-   turns that language back into English for that string.
+   When you add one, add it to `Resources/i18n/EN.json` and to the other 27, or
+   the fallback silently turns that language back into English for that string.
 
-## Verifying without Windows
+8. **Interaction eases; state switches.** `NControl` and `NPanel` expose
+   `HoverAmount` and `PressAmount`, driven by `NAnim`. Paint from those floats
+   rather than a bool, so a surface arrives and leaves instead of blinking.
+   Selection and focus are state and should land at once. `NAnim` honours the
+   Windows animation setting, so never animate around it.
 
-There is no .NET Framework toolchain on Linux, so two harnesses stand in.
-Neither is part of the shipping build; both are guarded by `MONO_LINUX_CHECK`.
-
-```
-build/check.sh              type-check the whole project with Mono's mcs
-build/render-resources.sh   compile Resources.resx (needed once by the renderer)
-build/render.sh             paint the UI headlessly into build/render/out/*.png
-```
-
-`check.sh` must report **0 errors and 0 warnings**, and fails on either. That is
-not fussiness: MSBuild compiles with `/warnaserror+`, so anything csc warns
-about stops the Windows build. The harness used to suppress several warnings and
-exit zero on the rest, which meant a clean local run could still fail in CI --
-and only after a tag had been pushed, since the release workflow is what builds
-on Windows. A field left unassigned shipped exactly that way. `render.sh` produces dark and light sheets
-of the shell, the control language, every screen and the first-run picker — the
-fastest way to see whether a change looks right. It forces the system font
-fallback, because libgdiplus can register a private font it cannot then
-rasterise.
-
-**Render in the real typeface.** `render.sh` forces the system fallback chain,
-because libgdiplus can register a private font it cannot then rasterise. But the
-first entry in that chain is `"Inter"` — so installing the bundled faces on the
-build machine makes the harness render in the font the app actually ships:
-
-```
-cp src/ConfigurO/Resources/Fonts/*.ttf ~/.local/share/fonts/ && fc-cache -f
-```
-
-Without this every render is in DejaVu or whatever the system offers, and any
-judgement about type size, weight or spacing is being made against the wrong
-face. Several rounds of spacing work were done that way and had to be redone.
-
-**A prefix with no .NET at all** is what the setup bootstrapper needs, and it is
-one command — the override is what stops `wineboot` installing Wine-Mono, which
-would otherwise satisfy the framework check:
-
-```
-WINEPREFIX=~/.wine-clean WINEDLLOVERRIDES="mscoree,mshtml=d" wineboot -u
-```
-
-`installer/bootstrap.cpp` builds here too, with mingw rather than the MSVC that
-CI uses — enough to exercise it, not what ships:
-
-```
-x86_64-w64-mingw32-windres installer/bootstrap.rc -O coff -o bootstrap.res
-x86_64-w64-mingw32-g++ -O1 -municode -DUNICODE -D_UNICODE -static -mwindows \
-    installer/bootstrap.cpp bootstrap.res -o Setup-test.exe \
-    -lurlmon -lwintrust -lcrypt32 -lshell32 -lole32 -ladvapi32 -luser32 -luuid
-```
-
-Setup talks entirely in message boxes and there is no `xdotool`, so drive it with
-a small native Win32 clicker built the same way: poll `FindWindowA(NULL,
-"ConfigurO Setup")`, `EnumChildWindows` to read the text, then `PostMessage`
-`WM_COMMAND` with `IDYES`/`IDOK`. It has to be native — the clean prefix has no
-runtime to run a managed one — and it has to live in the same prefix, because
-`FindWindow` does not cross wineservers.
-
-**Run it under Wine.** The harness paints controls; Wine runs the actual
-program, including the screens no harness can reach — the shell, the dialogs and
-the first-run picker, which needs a real window.
-
-```
-sudo apt install wine wine64 winetricks xvfb
-export WINEPREFIX=~/.wine-configuro
-export PATH=/usr/lib/x86_64-linux-gnu/wine:$PATH   # Ubuntu hides wineserver
-xvfb-run -a winetricks -q -f dotnet48              # slow, once
-Xvfb :77 -screen 0 1500x950x24 & DISPLAY=:77 wine ConfigurO.exe
-DISPLAY=:77 import -window root shot.png
-```
-
-Delete `drive_c/ProgramData/ConfigurO/ConfigurO.json` in the prefix to get the
-first-run picker back.
-
-**Wine's Windows version is a registry value, so version gating is testable.**
-Wine defaults to Windows 7, which correctly hides the UWP screen and every
-Win11-only tweak -- and made the UWP screen look unreachable here. It is not:
-`Utilities.GetOS` reads `ProductName` and `CurrentBuild`, so setting them opens
-those screens up.
-
-```
-wine reg add 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion' \
-     /v ProductName /t REG_SZ /d 'Microsoft Windows 10 Pro' /f
-wine reg add 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion' \
-     /v CurrentBuild /t REG_SZ /d '19045' /f      # >= 22000 reads as Windows 11
-```
-
-**A Wine-runnable build can be made here, without CI.** `mcs` compiles against
-Mono's 4.8 reference assemblies, whose assembly identities are the Microsoft
-ones, so the output loads on the real .NET Framework 4.8 in the prefix. That
-turns the fix-and-look loop from two minutes into ten seconds:
-
-```
-resgen2 src/ConfigurO/Forms/<Form>.resx ConfigurO.<Form>.resources   # once, all 8
-mcs -target:winexe -define:MONO_LINUX_CHECK ...                      # as check.sh
-    -resource:<each>.resources,<each>.resources
-    -resource:src/ConfigurO/Newtonsoft.Json.dll,ConfigurO.Newtonsoft.Json.dll
-```
-
-Every `.resx` has to be compiled and embedded under its `ConfigurO.<Name>.
-resources` manifest name or the form throws `MissingManifestResourceException`
-on construction, and Json.NET has to be embedded, not merely referenced --
-`Program.Main` loads it out of the manifest. PowerShell is stubbed by
-`build/psstub.cs`, so anything going through `UWPHelper` returns nothing. It is
-not the shipping binary; it is the real UI code in real WinForms and real GDI+,
-which is what layout and paint questions actually need.
-
-What it is good for: does the app start, does a screen paint, does a control
-respond, does a change land. It found the Korean fallback drawing .notdef boxes
-on a screen nothing else can render.
-
-What it is not good for: **which fonts a Windows machine has.** Wine answers
-`new Font("Noto Sans Devanagari")` with Tahoma, so a chain that works on Windows
-can look broken here. It has no DWM either, so the title bar, Mica and rounded
-corners are all absent. Treat it as an oracle for behaviour, never for
-appearance.
-
-**Know what these cannot tell you.** Both have hard blind spots, and each one
-has already let a real bug reach a release:
-
-- **libgdiplus is not GDI+.** It reports `Graphics.DpiX` correctly but measures
-  and draws point-sized fonts at a fixed pixel size regardless. Any bug in the
-  relationship between text size and DPI is invisible here *by construction*.
-  The render's 125% pass covers layout that only adds up at 100% — boxes,
-  padding, column math — and nothing about font metrics.
-- **A `Form` cannot be realised headlessly** (Mono needs X11 for it). Anything
-  that must be reviewable belongs in an `NControl`, with the surrounding chrome
-  in a static method the harness can call — see `FirstRunForm.PaintChrome`.
-
-A clean render is not a verified fix. Say which changes were observed and which
-were only reasoned, and get the rest onto Windows before calling them done.
+9. **The window draws its own chrome.** `NocturneShell` is borderless with
+   `WM_NCCALCSIZE` collapsed, and `CreateParams` puts back the frame style bits
+   `FormBorderStyle.None` strips — without them there is no Aero Snap, no Snap
+   Layouts, no system menu and no minimise animation. Because the client fills
+   the whole window, a maximised window with a thick frame would push about
+   eleven pixels of interface off every edge, so `PinMaximisedClient` holds the
+   client rectangle to the monitor work area. Rounded corners, shadow and the
+   DWM border come from Windows 11 itself via `DwmChrome`.
 
 ## Regenerating data
 
 ```
-tools/svg_to_cs_icons.py <svg-dir> src/ConfigurO/Nocturne/NocturneIconData.cs
-tools/build_feed.py [upstream-feed.json]      → feed/feed.json
-tools/build_feed.py --check                   → regenerate, then probe every link
+python tools/build_feed.py        # rebuilds feed/feed.json and feed/icons.zip
+python tools/svg_to_cs_icons.py <svg-dir> src/ConfigurO/Nocturne/NocturneIconData.cs
 ```
 
-`build_feed.py` owns the download links. Publishers with a machine-readable
-index are re-resolved on every run (`RESOLVERS`); the rest are pinned endpoints
-(`VENDOR`); entries with nothing trustworthy are listed in `NO_LINK` with the
-reason, so a blank tile is visibly deliberate rather than a regression. The
-upstream feed it reads contributes only `Tag`, its links are years stale, the
-repository behind it was archived on 2026-01-20 so it will never change again,
-and nothing in the app reads `Tag` anyway. Treat it as inert: kept for
-provenance, not for data, and never the basis of a new resolver. `--check`
-fetches the first kilobyte of every emitted link and fails on anything that is
-not a Windows installer; run it after regenerating, because the Apps screen
-names the downloaded file from the URL and then runs it, so a wrong file is
-executed rather than rejected.
-
-It also rebuilds `feed/icons.zip` from `feed/icons/` on every run, so dropping
-a PNG in that folder and naming it in `CATALOG` is the whole job; `--check`
-fails if an entry names a file the pack does not contain. Tiles are square and
-drawn at 38pt, so a wide wordmark is useless however high its resolution —
-prefer the product mark, and check what you picked actually is that product's
-(a vendor favicon is often the parent brand's: krita.org serves the KDE mark,
-google.com the Google G).
-
-## Building for real
-
-Visual Studio 2022 or MSBuild with the .NET Framework 4.8 targeting pack:
-
-```
-nuget restore ConfigurO.sln
-msbuild ConfigurO.sln /p:Configuration=Release
-```
-
-New files must be added to `src/ConfigurO/ConfigurO.csproj` — it is an
-old-style project and does not glob.
+App icons must be transparent PNGs. Artwork flattened onto an opaque
+background shows as a hard box against the `#232532` cards.
 
 ## Cutting a release
 
-The in-app updater reads `version.txt` and then downloads
-`releases/download/<version>/ConfigurO-<version>.exe`. So:
+Six things carry the version and the release workflow refuses to build if they
+disagree:
 
-1. bump `version.txt` **and `Program.Major`/`Program.Minor` together**, and
-   add a matching `## [x.y]` section to `CHANGELOG.md`;
-2. bump `AssemblyVersion`/`AssemblyFileVersion` in `Properties/AssemblyInfo.cs`
-   to `x.y.0.0`, so the file properties agree with the release;
-3. push a tag equal to that version — `1.1`, not `v1.1`.
+| | |
+|---|---|
+| `version.txt` | what the updater reads |
+| `Program.Major` / `Program.Minor` | title-bar badge, update comparison |
+| `AssemblyVersion` / `AssemblyFileVersion` | assembly metadata |
+| `CHANGELOG.md` | needs a `## [x.y]` heading |
+| the git tag | must equal `version.txt` exactly |
 
-There are two ways to get this wrong and both fail silently, in the field,
-after the release has gone out.
+Bump all of them, commit, then tag and push:
 
-**The version has to parse as a `float`.** `UpdateHelper.Present` runs
-`float.TryParse` over the fetched `version.txt` and `return`s with no message
-when it fails. `1.0.1` does not parse — two decimal points is not a float — so
-publishing it stops every installed client from ever seeing an update again,
-and there is no correcting it afterwards, because the parser is already inside
-the binary they are running. Go `1.0` → `1.1` → `1.2`. If a patch component is
-ever genuinely needed, `Program.GetCurrentVersionToFloat`, `Present` and
-`Changelog` have to move to `System.Version` first, and every client older than
-that change is still unreachable.
+```
+git tag -a 3.4 -m "ConfigurO 3.4"
+git push origin main 3.4
+```
 
-**The minor number only runs 0 to 9.** The same float parse makes `1.10` read as
-`1.1`, which is *older* than `1.9`, so an update numbered that way is invisible
-to every client that already has 1.9 and there is no correcting it afterwards.
-After `1.9` the next release is `2.0`. Nothing enforces this, and it is
-completely silent when it goes wrong.
+The tag triggers `.github/workflows/release.yml`, which builds, names the
+assets `ConfigurO-<v>.exe` and `ConfigurO-Setup-<v>.exe`, extracts that
+version's changelog section as the release notes, and publishes.
 
-**`Program.Minor` is what the comparison actually reads.** `Present` compares
-the server's `version.txt` against `Program.Major`/`Program.Minor` — not
-against the `version.txt` sitting in the tree. Ship a build whose constants
-still say the old version and it fetches the new one, installs it, restarts,
-reports the old version and offers the same update again: a loop with no exit.
-`release.yml` checks the tag against `version.txt`; nothing checks `Program`.
-
-`.github/workflows/release.yml` builds on `windows-latest`, refuses to continue
-if the tag and `version.txt` disagree, renames the exe to what the updater
-expects, and publishes the release with that version's changelog section as the
-notes. Nothing about this works while the repository is private: the updater,
-the app catalogue and the icon pack are all fetched over anonymous HTTPS.
-
-## Outstanding: not yet confirmed on Windows
-
-Three changes shipped in 1.1 without a Windows run. They compile and they
-render, but for the reasons in *Verifying without Windows* above, none of them
-is observed. Check these against a real display before building on them:
-
-1. **The DPI measurement fix.** Measurement now happens at the DPI the caller
-   draws at. The arithmetic predicts the exact truncation that was reported
-   (`Reinforce polic…`, ~20% short at 125%), but libgdiplus cannot reproduce
-   it. Check that button labels fit and that text no longer collides with what
-   sits beside it.
-2. **The title-bar repaint.** The bar was reported blank until the pointer
-   crossed it; it now forces a paint on show and on activate. That is a
-   targeted guess at "never got a first paint", not a confirmed diagnosis. If
-   it is still blank on first launch, the fix is wrong and needs a different
-   approach.
-3. **Inter, and the script fallback** for the nine non-Latin languages. Both
-   compile; neither has been seen on a real display.
-
-If any of the three is wrong, fix it and cut the next version — the updater
-cannot express a patch release (see above).
-
-## Known gaps, deliberately left
-
-- 10 of the 147 catalogue entries have no download link and 7 have no icon.
-  Each is listed in `NO_LINK` in `tools/build_feed.py` with the reason: the
-  publisher ships only a `.zip`, gates downloads behind a form,
-  hotlink-protects the file, or has shut down. A 16px favicon blown up to a
-  tile reads as broken rather than as absent, which is why those stay blank.
-- `docs/screenshots/` is current as of 3.0. Regenerating means capturing under
-  Wine, which has no DWM: no rounded corners, no shadow, no Mica.
-- The `## [1.0]` changelog section describes work that `ConfigurO-1.0.exe` does
-  not contain, because it was written after that tag was cut. `## [1.1]` says
-  which parts shipped for the first time in 1.1.
+The updater builds its download URL from `version.txt` on `main`, so pushing a
+version bump before the release exists leaves every running copy offering a
+download that 404s. Tag promptly.

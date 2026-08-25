@@ -72,7 +72,7 @@ namespace ConfigurO
         {
             if (_loading) return;
             _loading = true;
-            SetEmpty(I18n.Get("hardwareLoading", "Reading system information…"), NocturneIcons.Hardware);
+            SetLoading(I18n.Get("hardwareLoading", "Reading system information…"), NocturneIcons.Hardware);
 
             Task.Run(() => Collect()).ContinueWith(t =>
             {

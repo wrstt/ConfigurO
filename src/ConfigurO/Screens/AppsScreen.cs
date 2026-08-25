@@ -115,7 +115,7 @@ namespace ConfigurO
             if (_loading) return;
             _loading = true;
             SubtitleText = I18n.Get("appsLoading", "Loading catalogue…");
-            SetEmpty(I18n.Get("appsLoading", "Loading catalogue…"), NocturneIcons.Apps);
+            SetLoading(I18n.Get("appsLoading", "Loading catalogue…"), NocturneIcons.Apps);
             RefreshHeader();
 
             Task.Run(() => AppFeed.Load(force)).ContinueWith(t =>

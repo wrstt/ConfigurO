@@ -1,2 +1,0 @@
-# Files skipped by the Linux type-check only (build/check.sh).
-# Nothing is currently excluded; the whole project type-checks under Mono.

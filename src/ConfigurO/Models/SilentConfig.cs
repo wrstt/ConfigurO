@@ -304,5 +304,12 @@ namespace ConfigurO
         public bool? ShowFileExtensions { get; set; }
         public bool? EnableSudo { get; set; }
         public bool? DisableMemoryIntegrity { get; set; }
+
+        // ── Desktop watermarks and browser policy ───────────────────
+        public bool? HideBuildWatermark { get; set; }
+        public bool? HideUnsupportedHardwareNotice { get; set; }
+        public bool? HideActivationNotices { get; set; }
+        public bool? DisableTestSigning { get; set; }
+        public bool? AllowManifestV2Extensions { get; set; }
     }
 }

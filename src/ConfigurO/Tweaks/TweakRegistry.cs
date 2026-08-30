@@ -231,6 +231,12 @@ namespace ConfigurO
                 o => o.DisableChromeTelemetry, (o, v) => o.DisableChromeTelemetry = v,
                 OptimizeHelper.DisableChromeTelemetry, OptimizeHelper.EnableChromeTelemetry));
 
+            t.Add(T("mv2", TweakGroup.Privacy, null, null,
+                "Allow Manifest V2 extensions", "Keeps older content blockers loadable in Edge and Chrome.",
+                o => o.AllowManifestV2Extensions, (o, v) => o.AllowManifestV2Extensions = v,
+                OptimizeHelper.AllowManifestV2Extensions, OptimizeHelper.RestoreManifestV2Default,
+                silent: s => s.AllowManifestV2Extensions));
+
             t.Add(T("fftel", TweakGroup.Privacy, "ffTelemetrySw", "ffTelemetryTip",
                 "Disable Firefox telemetry", "Turns off data reporting in Firefox.",
                 o => o.DisableFirefoxTemeletry, (o, v) => o.DisableFirefoxTemeletry = v,
@@ -428,6 +434,26 @@ namespace ConfigurO
                 o => o.RemoveMenusDelay, (o, v) => o.RemoveMenusDelay = v,
                 OptimizeHelper.RemoveMenusDelay, OptimizeHelper.RestoreMenusDelay, restart: true));
 
+            // Desktop corner notices. See WatermarkHelper for why these are
+            // the three that are covered and what is deliberately left out.
+            t.Add(T("watermark", TweakGroup.Interface, null, null,
+                "Hide desktop build watermark", "Removes the Windows version stamp above the clock.",
+                o => o.HideBuildWatermark, (o, v) => o.HideBuildWatermark = v,
+                WatermarkHelper.HideBuildWatermark, WatermarkHelper.ShowBuildWatermark,
+                silent: s => s.HideBuildWatermark));
+
+            t.Add(T("hwnotice", TweakGroup.Interface, null, null,
+                "Hide \"System requirements not met\"", "Clears the unsupported-hardware notice on the desktop.",
+                o => o.HideUnsupportedHardwareNotice, (o, v) => o.HideUnsupportedHardwareNotice = v,
+                WatermarkHelper.HideUnsupportedHardwareNotice, WatermarkHelper.ShowUnsupportedHardwareNotice,
+                win11: true, silent: s => s.HideUnsupportedHardwareNotice));
+
+            t.Add(T("actnotice", TweakGroup.Interface, null, null,
+                "Hide activation reminders", "Silences the activation notices. Does not activate Windows.",
+                o => o.HideActivationNotices, (o, v) => o.HideActivationNotices = v,
+                WatermarkHelper.HideActivationNotices, WatermarkHelper.ShowActivationNotices,
+                silent: s => s.HideActivationNotices));
+
             // ══ System ═════════════════════════════════════════════════
             t.Add(T("onedrive", TweakGroup.System, "uODSw", "uODTip",
                 "Uninstall OneDrive", "Removes the client and Explorer integration.",
@@ -511,6 +537,16 @@ namespace ConfigurO
                 "Disable Media Player sharing", "Stops the network media streaming service.",
                 o => o.DisableMediaPlayerSharing, (o, v) => o.DisableMediaPlayerSharing = v,
                 OptimizeHelper.DisableMediaPlayerSharing, OptimizeHelper.EnableMediaPlayerSharing));
+
+            // The root cause behind the "Test Mode" watermark. Turning test
+            // signing off removes the watermark by removing the reason for it;
+            // bcdedit refuses the change outright under Secure Boot, which is
+            // the right answer rather than something to work around.
+            t.Add(T("testsigning", TweakGroup.System, null, null,
+                "Turn off test signing", "Leaves Test Mode and removes its desktop watermark.",
+                o => o.DisableTestSigning, (o, v) => o.DisableTestSigning = v,
+                WatermarkHelper.DisableTestSigning, WatermarkHelper.EnableTestSigning,
+                restart: true, silent: s => s.DisableTestSigning));
 
             t.Add(T("utc", TweakGroup.System, "enableUtcSw", "enableUtcSw",
                 "Store the hardware clock as UTC", "Keeps time correct when dual-booting Linux.",

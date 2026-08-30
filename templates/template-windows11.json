@@ -142,6 +142,11 @@
         "DisableModernStandby": null,
         "HideTaskbarWeather": null,
         "HideTaskbarSearch": null,
-        "DisableNewsInterests": null
+        "DisableNewsInterests": null,
+        "AllowManifestV2Extensions": null,
+        "HideBuildWatermark": null,
+        "HideUnsupportedHardwareNotice": null,
+        "HideActivationNotices": null,
+        "DisableTestSigning": null
     }
 }

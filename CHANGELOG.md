@@ -4,6 +4,57 @@ All notable changes to ConfigurO are recorded here. The updater reads the
 heading for the running version to decide what to show, so keep the
 `## [x.y]` format.
 
+## [3.5]
+
+### Interface
+- **The desktop corner notices now have switches.** Three of them: the build
+  stamp above the clock, the Windows 11 "System requirements not met" nag, and
+  the activation reminders. This is the ground Universal Watermark Disabler
+  covers, reached the way a configuration tool should reach it — every one is a
+  documented value that reverts cleanly. UWD's own methods do not survive
+  contact with servicing: the original swaps modified copies of `basebrd.dll.mui`
+  and `shell32.dll.mui` over the shipped files, uwd2 walks Microsoft's symbols to
+  find `CDesktopWatermark::s_DesktopBuildPaint` and writes a `ret` over it in the
+  running `explorer.exe`, and pr701's build COM-hijacks ExplorerFrame. An
+  `sfc /scannow`, a feature update or a reboot undoes each of those.
+- **What that deliberately does not cover, and why.** The Test Mode and Secure
+  Boot watermarks are painted with no registry value behind them, so hiding them
+  needs one of the methods above. Test Mode gets the honest alternative instead —
+  a "Turn off test signing" switch under System that removes the watermark by
+  removing the reason for it. Under Secure Boot `bcdedit` refuses the change,
+  which is the correct answer rather than something to work around.
+- **The activation switch silences notices and nothing else.** The licensing
+  state is untouched; an unlicensed machine stays unlicensed and keeps every
+  restriction that comes with that. Both values it writes are Microsoft's own
+  volume-activation switches for sites that do not want the reminders on screen.
+
+### Privacy
+- **Manifest V2 extensions can be kept loadable in Edge and Chrome.** Both
+  browsers are retiring MV2, which is what most full-strength content blockers
+  are still built on. This is a browser policy rather than a telemetry switch, so
+  it is its own row rather than something riding along inside one.
+- **Edge third-party search-result telemetry is now covered** by the existing
+  Edge telemetry switch, along with one more Start-menu content-delivery slot.
+
+### Fixed
+- **Two Edge SmartScreen values were being written as subkeys.** "Disable Edge
+  telemetry" set `Software\Microsoft\Edge\SmartScreenEnabled` and
+  `…\SmartScreenPuaEnabled` as *keys* carrying a default value, where Edge reads
+  them as *values* under `Software\Microsoft\Edge`. The tweak silently did
+  nothing on both counts and left two stray keys behind; it now writes the values
+  and clears the keys an earlier version created.
+- **Turning off "Disable Start menu ads" left two settings stuck.** The revert
+  passed full `HKEY_CURRENT_USER\…` paths to a helper that takes a hive-relative
+  one, so the open failed and the swallowed exception hid it. The suggested-app
+  notifications and the Phone Link opt-in stayed off with no switch left in the
+  UI to explain why.
+- **Image File Execution Options blocks were never lifted.** Switching off the
+  telemetry-tasks or Chrome telemetry tweaks re-enabled their scheduled tasks but
+  left the IFEO debugger entries in place, so `CompatTelRunner.exe`,
+  `DeviceCensus.exe` and `software_reporter_tool.exe` went on being killed on
+  launch with nothing in the UI still claiming responsibility. Both reverts now
+  clear their own blocks.
+
 ## [3.4]
 
 ### Interface

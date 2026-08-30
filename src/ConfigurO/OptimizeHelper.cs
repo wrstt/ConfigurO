@@ -15,6 +15,21 @@ namespace ConfigurO
             Utilities.PreventProcessFromRunning("DeviceCensus.exe");
         }
 
+        /// <summary>
+        /// Lifts the Image File Execution Options blocks that
+        /// <see cref="DisableTelemetryRunner"/> installs.
+        ///
+        /// Nothing used to do this. Switching the tweak back off ran the
+        /// re-enable batch file, which only touches scheduled tasks, so the
+        /// IFEO debugger entries stayed and both binaries went on being killed
+        /// on launch with no remaining switch in the UI to explain it.
+        /// </summary>
+        internal static void EnableTelemetryRunner()
+        {
+            Utilities.AllowProcessToRun("CompatTelRunner.exe");
+            Utilities.AllowProcessToRun("DeviceCensus.exe");
+        }
+
         internal static void EnablePerformanceTweaks()
         {
             // enable auto-complete in Run Dialog 
@@ -867,6 +882,7 @@ namespace ConfigurO
                 Logger.LogError("Optimize.EnableTelemetryTasks", ex.Message, ex.StackTrace);
             }
 
+            EnableTelemetryRunner();
             Utilities.RunBatchFile(CoreHelper.ScriptsFolder + "EnableTelemetryTasks.bat");
         }
 
@@ -1292,6 +1308,7 @@ namespace ConfigurO
             Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-338393Enabled", "0", RegistryValueKind.DWord);
             Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-353694Enabled", "0", RegistryValueKind.DWord);
             Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-353696Enabled", "0", RegistryValueKind.DWord);
+            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-353698Enabled", "0", RegistryValueKind.DWord);
             Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-310093Enabled", "0", RegistryValueKind.DWord);
             Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-338388Enabled", "0", RegistryValueKind.DWord);
             Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContentEnabled", "0", RegistryValueKind.DWord);
@@ -1304,8 +1321,11 @@ namespace ConfigurO
 
         internal static void EnableStartMenuAds()
         {
-            Utilities.TryDeleteRegistryValue(false, @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.Suggested", "Enabled");
-            Utilities.TryDeleteRegistryValue(false, @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Mobility", "OptedIn");
+            // TryDeleteRegistryValue takes a path relative to the hive. These
+            // two carried a HKEY_CURRENT_USER prefix, so the open failed and
+            // the swallowed exception left both values stuck off.
+            Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.Suggested", "Enabled");
+            Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Windows\CurrentVersion\Mobility", "OptedIn");
 
             Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-88000326Enabled");
             Utilities.TryDeleteRegistryValue(false, @"SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement", "ScoobeSystemSettingEnabled");
@@ -1319,6 +1339,7 @@ namespace ConfigurO
             Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-338393Enabled");
             Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-353694Enabled");
             Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-353696Enabled");
+            Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-353698Enabled");
             Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-310093Enabled");
             Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContentEnabled");
             Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-338388Enabled");
@@ -1761,17 +1782,30 @@ namespace ConfigurO
             Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\BooksLibrary", "EnableExtendedBooksTelemetry", 0, RegistryValueKind.DWord);
             Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\MicrosoftEdge\BooksLibrary", "EnableExtendedBooksTelemetry", 0, RegistryValueKind.DWord);
 
-            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Edge\SmartScreenEnabled", "", 0);
-            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Edge\SmartScreenPuaEnabled", "", 0);
+            // These are values under Software\Microsoft\Edge, not subkeys of
+            // it. Writing them as subkeys with a default value -- which is
+            // what this did until 3.5 -- leaves Edge reading nothing and two
+            // stray keys behind, so the stale keys are cleared as well.
+            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Edge", "SmartScreenEnabled", 0, RegistryValueKind.DWord);
+            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Edge", "SmartScreenPuaEnabled", 0, RegistryValueKind.DWord);
+            Utilities.TryDeleteRegistryKey(false, @"Software\Microsoft\Edge\SmartScreenEnabled");
+            Utilities.TryDeleteRegistryKey(false, @"Software\Microsoft\Edge\SmartScreenPuaEnabled");
 
             Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge", "SpotlightExperiencesAndRecommendationsEnabled", 0);
             Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge", "SpotlightExperiencesAndRecommendationsEnabled", 0);
+
+            // Third-party search-result telemetry.
+            Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge", "Edge3PSerpTelemetryEnabled", 0, RegistryValueKind.DWord);
         }
 
         internal static void EnableEdgeTelemetry()
         {
-            Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Edge\SmartScreenEnabled", "");
-            Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Edge\SmartScreenPuaEnabled", "");
+            Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Edge", "SmartScreenEnabled");
+            Utilities.TryDeleteRegistryValue(false, @"Software\Microsoft\Edge", "SmartScreenPuaEnabled");
+            Utilities.TryDeleteRegistryKey(false, @"Software\Microsoft\Edge\SmartScreenEnabled");
+            Utilities.TryDeleteRegistryKey(false, @"Software\Microsoft\Edge\SmartScreenPuaEnabled");
+
+            Utilities.TryDeleteRegistryValue(true, @"SOFTWARE\Policies\Microsoft\Edge", "Edge3PSerpTelemetryEnabled");
 
             Utilities.TryDeleteRegistryValue(true, @"SOFTWARE\Policies\Microsoft\Edge", "MetricsReportingEnabled");
             Utilities.TryDeleteRegistryValue(false, @"SOFTWARE\Policies\Microsoft\Edge", "MetricsReportingEnabled");
@@ -1917,11 +1951,36 @@ namespace ConfigurO
 
         internal static void EnableChromeTelemetry()
         {
+            // Matches the IFEO block installed by DisableChromeTelemetry --
+            // without this the reporter stays blocked after the tweak is off.
+            Utilities.AllowProcessToRun("software_reporter_tool.exe");
+
             Utilities.TryDeleteRegistryValue(true, @"SOFTWARE\Policies\Google\Chrome", "MetricsReportingEnabled");
             Utilities.TryDeleteRegistryValue(true, @"SOFTWARE\Policies\Google\Chrome", "ChromeCleanupReportingEnabled");
             Utilities.TryDeleteRegistryValue(true, @"SOFTWARE\Policies\Google\Chrome", "ChromeCleanupEnabled");
             Utilities.TryDeleteRegistryValue(true, @"SOFTWARE\Policies\Google\Chrome", "UserFeedbackAllowed");
             Utilities.TryDeleteRegistryValue(true, @"SOFTWARE\Policies\Google\Chrome", "DeviceMetricsReportingEnabled");
+        }
+
+        /// <summary>
+        /// Keeps Manifest V2 extensions loadable in Edge and Chrome.
+        ///
+        /// Both browsers are retiring MV2, which is what most full-strength
+        /// content blockers are still built on. Availability = 2 is the
+        /// documented enterprise value for "allow regardless of the rollout",
+        /// and it is a browser policy rather than a telemetry switch, so it
+        /// gets its own tweak instead of riding along with one.
+        /// </summary>
+        internal static void AllowManifestV2Extensions()
+        {
+            Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge", "ExtensionManifestV2Availability", 2, RegistryValueKind.DWord);
+            Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome", "ExtensionManifestV2Availability", 2, RegistryValueKind.DWord);
+        }
+
+        internal static void RestoreManifestV2Default()
+        {
+            Utilities.TryDeleteRegistryValue(true, @"SOFTWARE\Policies\Microsoft\Edge", "ExtensionManifestV2Availability");
+            Utilities.TryDeleteRegistryValue(true, @"SOFTWARE\Policies\Google\Chrome", "ExtensionManifestV2Availability");
         }
 
         // FIREFOX TELEMETRY

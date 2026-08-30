@@ -198,5 +198,15 @@ namespace ConfigurO
         /// </summary>
         public bool DisableHPET { get; set; }
         public bool EnableLoginVerbose { get; set; }
+
+        /// <summary>
+        /// The state of the desktop watermark and browser-policy tweaks
+        /// Changing them will not disable/enable the respective tweak
+        /// </summary>
+        public bool HideBuildWatermark { get; set; }
+        public bool HideUnsupportedHardwareNotice { get; set; }
+        public bool HideActivationNotices { get; set; }
+        public bool DisableTestSigning { get; set; }
+        public bool AllowManifestV2Extensions { get; set; }
     }
 }

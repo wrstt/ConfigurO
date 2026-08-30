@@ -374,6 +374,43 @@ namespace ConfigurO
             }
         }
 
+        /// <summary>
+        /// Runs a command and hands back what it printed.
+        ///
+        /// <see cref="RunCommand"/> is fire-and-forget, which is right for the
+        /// writes it is used for. This is for the handful of places that need
+        /// to read machine state back out of a console tool -- bcdedit and
+        /// friends -- rather than just poke it.
+        /// </summary>
+        internal static string RunCommandCapture(string command)
+        {
+            if (string.IsNullOrEmpty(command)) return string.Empty;
+
+            using (Process p = new Process())
+            {
+                p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                p.StartInfo.FileName = "cmd.exe";
+                p.StartInfo.Arguments = "/C " + command;
+                p.StartInfo.CreateNoWindow = true;
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+
+                try
+                {
+                    p.Start();
+                    string output = p.StandardOutput.ReadToEnd();
+                    p.WaitForExit();
+                    return output;
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError("Utilities.RunCommandCapture", ex.Message, ex.StackTrace);
+                    return string.Empty;
+                }
+            }
+        }
+
         internal static void FindFile(string fileName)
         {
             if (!File.Exists(fileName)) return;
@@ -386,22 +423,78 @@ namespace ConfigurO
             if (Directory.Exists(folder)) RunCommand($"explorer.exe \"{folder}\"");
         }
 
+        /// <summary>
+        /// Reads the target a .lnk points at, via the shell's own Shell.Application.
+        ///
+        /// This used to go through a &lt;COMReference&gt; to the Shell32 type
+        /// library, which made the whole project unbuildable without the
+        /// Windows SDK: MSBuild has to run AxImp/TlbImp to generate the
+        /// interop assembly, and with no SDK installed it fails in
+        /// ResolveComReferences long before the compiler is reached. That cost
+        /// an SDK dependency across every build of the app for one method.
+        ///
+        /// Binding to the same COM object late needs no interop assembly and
+        /// no SDK, and asks nothing of the machine that the early-bound
+        /// version did not already ask: Shell.Application is a shell component
+        /// present on every Windows this app supports.
+        /// </summary>
         internal static string GetShortcutTargetFile(string shortcutFilename)
         {
             string pathOnly = Path.GetDirectoryName(shortcutFilename);
             string filenameOnly = Path.GetFileName(shortcutFilename);
 
-            Shell32.Shell shell = new Shell32.Shell();
-            Shell32.Folder folder = shell.NameSpace(pathOnly);
-            Shell32.FolderItem folderItem = folder.ParseName(filenameOnly);
+            if (string.IsNullOrEmpty(pathOnly) || string.IsNullOrEmpty(filenameOnly)) return string.Empty;
 
-            if (folderItem != null)
+            object shell = null, folder = null, folderItem = null, link = null;
+            try
             {
-                Shell32.ShellLinkObject link = (Shell32.ShellLinkObject)folderItem.GetLink;
-                return link.Path;
-            }
+                Type shellType = Type.GetTypeFromProgID("Shell.Application");
+                if (shellType == null) return string.Empty;
 
-            return string.Empty;
+                shell = Activator.CreateInstance(shellType);
+                folder = Invoke(shell, "NameSpace", pathOnly);
+                if (folder == null) return string.Empty;
+
+                folderItem = Invoke(folder, "ParseName", filenameOnly);
+                if (folderItem == null) return string.Empty;
+
+                link = GetProperty(folderItem, "GetLink");
+                if (link == null) return string.Empty;
+
+                return GetProperty(link, "Path") as string ?? string.Empty;
+            }
+            catch (Exception ex)
+            {
+                // A .lnk the shell will not parse is not worth failing a
+                // startup-list scan over; the caller shows the shortcut with
+                // no resolved target, which is what it did before.
+                Logger.LogError("Utilities.GetShortcutTargetFile", ex.Message, ex.StackTrace);
+                return string.Empty;
+            }
+            finally
+            {
+                Release(link);
+                Release(folderItem);
+                Release(folder);
+                Release(shell);
+            }
+        }
+
+        static object Invoke(object target, string method, params object[] args)
+        {
+            return target.GetType().InvokeMember(method, BindingFlags.InvokeMethod, null, target, args);
+        }
+
+        static object GetProperty(object target, string property)
+        {
+            return target.GetType().InvokeMember(property, BindingFlags.GetProperty, null, target, null);
+        }
+
+        static void Release(object comObject)
+        {
+            if (comObject == null || !System.Runtime.InteropServices.Marshal.IsComObject(comObject)) return;
+            try { System.Runtime.InteropServices.Marshal.ReleaseComObject(comObject); }
+            catch { }
         }
 
         internal static void RestartExplorer()
@@ -527,6 +620,21 @@ namespace ConfigurO
             {
                 if (localMachine) Registry.LocalMachine.OpenSubKey(path, true).DeleteValue(valueName, false);
                 if (!localMachine) Registry.CurrentUser.OpenSubKey(path, true).DeleteValue(valueName, false);
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// Removes a key and anything under it, ignoring the case where it was
+        /// never there. Used to clear keys an earlier version created by
+        /// mistake, where leaving them behind would be visible clutter.
+        /// </summary>
+        internal static void TryDeleteRegistryKey(bool localMachine, string path)
+        {
+            try
+            {
+                if (localMachine) Registry.LocalMachine.DeleteSubKeyTree(path, false);
+                else Registry.CurrentUser.DeleteSubKeyTree(path, false);
             }
             catch { }
         }
@@ -850,8 +958,18 @@ namespace ConfigurO
                     {
                         if (k == null) return;
 
+                        // Reverting a tweak calls this whether or not the
+                        // block was ever installed, so an absent entry is the
+                        // normal case and not worth an error in the log. The
+                        // single-argument DeleteSubKey throws on a missing
+                        // key; taking ownership of one throws too.
+                        using (RegistryKey existing = k.OpenSubKey(pName))
+                        {
+                            if (existing == null) return;
+                        }
+
                         k.GrantFullControlOnSubKey(pName);
-                        k.DeleteSubKey(pName);
+                        k.DeleteSubKey(pName, false);
                     }
                 }
             }

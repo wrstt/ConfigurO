@@ -251,6 +251,7 @@
     <Compile Include="TokenPrivilegeHelper.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="UWPHelper.cs" />
+    <Compile Include="WatermarkHelper.cs" />
     <EmbeddedResource Include="Forms\FileUnlockForm.resx">
       <DependentUpon>FileUnlockForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -363,17 +364,14 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="Shell32">
-      <Guid>{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
+  <!--
+    The Shell32 COMReference that used to live here is gone. It forced every
+    build to run AxImp/TlbImp from the Windows SDK to generate an interop
+    assembly, so the project could not be built without the SDK installed:
+    MSBuild failed in ResolveComReferences (MSB3091) before reaching the
+    compiler. Its single consumer, Utilities.GetShortcutTargetFile, now binds
+    to Shell.Application late and needs no interop assembly.
+  -->
   <ItemGroup>
     <None Include="Resources\Flags\croatia.png" />
     <None Include="Resources\Flags\indonesia.png" />
